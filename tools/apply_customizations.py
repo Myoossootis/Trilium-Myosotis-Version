@@ -85,7 +85,8 @@ class Etapi:
     def create_note(self, definition: dict[str, Any]) -> dict[str, Any]:
         if self.dry_run:
             print(f"[dry-run] create {definition['type']} {definition['title']}")
-            return {"note": {"noteId": f"dry-{definition['key']}"}}
+            key = definition.get("key") or definition["title"].lower().replace(" ", "-")
+            return {"note": {"noteId": f"dry-{key}"}}
         return self.request("POST", "/create-note", body=definition)
 
     def put_content(self, note_id: str, content: str) -> None:
