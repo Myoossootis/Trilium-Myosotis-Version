@@ -1,0 +1,106 @@
+[
+  {
+    "id": "electronic-bjt-npn",
+    "label": "BJT NPN",
+    "source": "Transistor-COM-BJT-NPN.svg",
+    "codepoint": "U+F700",
+    "viewBox": [
+      0.0,
+      0.0,
+      150.0,
+      150.0
+    ],
+    "upstream": "https://github.com/chris-pikul/electronic-symbols"
+  },
+  {
+    "id": "electronic-bjt-pnp",
+    "label": "BJT PNP",
+    "source": "Transistor-COM-BJT-PNP.svg",
+    "codepoint": "U+F701",
+    "viewBox": [
+      0.0,
+      0.0,
+      150.0,
+      150.0
+    ],
+    "upstream": "https://github.com/chris-pikul/electronic-symbols"
+  },
+  {
+    "id": "electronic-mosfet-n",
+    "label": "MOSFET N",
+    "source": "Transistor-COM-MOSFET-N.svg",
+    "codepoint": "U+F702",
+    "viewBox": [
+      0.0,
+      0.0,
+      150.0,
+      150.0
+    ],
+    "upstream": "https://github.com/chris-pikul/electronic-symbols"
+  },
+  {
+    "id": "electronic-mosfet-p",
+    "label": "MOSFET P",
+    "source": "Transistor-COM-MOSFET-P.svg",
+    "codepoint": "U+F703",
+    "viewBox": [
+      0.0,
+      0.0,
+      150.0,
+      150.0
+    ],
+    "upstream": "https://github.com/chris-pikul/electronic-symbols"
+  },
+  {
+    "id": "electronic-ferrite-bead",
+    "label": "Ferrite bead",
+    "source": "Inductor-COM-Ferrite-Bead.svg",
+    "codepoint": "U+F704",
+    "viewBox": [
+      0.0,
+      0.0,
+      150.0,
+      150.0
+    ],
+    "upstream": "https://github.com/chris-pikul/electronic-symbols"
+  },
+  {
+    "id": "electronic-opamp",
+    "label": "Operational amplifier",
+    "source": "IC-COM-OpAmp.svg",
+    "codepoint": "U+F705",
+    "viewBox": [
+      0.0,
+      0.0,
+      150.0,
+      150.0
+    ],
+    "upstream": "https://github.com/chris-pikul/electronic-symbols"
+  },
+  {
+    "id": "electronic-crystal",
+    "label": "Crystal oscillator",
+    "source": "Miscellaneous-COM-Crystal_Oscillator.svg",
+    "codepoint": "U+F706",
+    "viewBox": [
+      0.0,
+      0.0,
+      150.0,
+      150.0
+    ],
+    "upstream": "https://github.com/chris-pikul/electronic-symbols"
+  },
+  {
+    "id": "electronic-relay-spst-no",
+    "label": "Relay SPST NO",
+    "source": "Relay-COM-COM-SPST-NO.svg",
+    "codepoint": "U+F707",
+    "viewBox": [
+      0.0,
+      0.0,
+      150.0,
+      150.0
+    ],
+    "upstream": "https://github.com/chris-pikul/electronic-symbols"
+  }
+]

@@ -1,0 +1,137 @@
+{
+  "version": 1,
+  "description": "Myosotis Trilium customization code. Note content and attachments are intentionally excluded.",
+  "notes": [
+    {
+      "key": "home_dashboard",
+      "title": "Home 仪表盘脚本",
+      "type": "code",
+      "mime": "text/jsx",
+      "path": "trilium-home-dashboard.js",
+      "labels": [
+        ["homeInternal", ""],
+        ["iconClass", "bx bx-home-heart"]
+      ]
+    },
+    {
+      "key": "home_dashboard_css",
+      "title": "Home 仪表盘样式",
+      "type": "code",
+      "mime": "text/css",
+      "path": "trilium-home-dashboard.css",
+      "labels": [["appCss", ""], ["homeInternal", ""]]
+    },
+    {
+      "key": "dictionary_layout",
+      "title": "字典排版 · 学术与硬件",
+      "type": "code",
+      "mime": "text/css",
+      "path": "trilium-dictionary-layout.css",
+      "labels": [["appCss", ""]]
+    },
+    {
+      "key": "todo_board",
+      "title": "ToDo 四列看板脚本",
+      "type": "code",
+      "mime": "text/jsx",
+      "path": "trilium-todo-board.js",
+      "labels": [["homeInternal", ""]]
+    },
+    {
+      "key": "todo_board_css",
+      "title": "ToDo 四列看板样式",
+      "type": "code",
+      "mime": "text/css",
+      "path": "trilium-todo-board.css",
+      "labels": [["appCss", ""], ["homeInternal", ""]]
+    },
+    {
+      "key": "auto_formula",
+      "title": "自动公式粘贴",
+      "type": "code",
+      "mime": "application/javascript;env=frontend",
+      "path": "trilium-auto-formula-paste.js",
+      "labels": [["run", "frontendStartup"], ["autoFormulaPaste", ""], ["homeInternal", ""]]
+    },
+    {
+      "key": "home_startup",
+      "title": "Home 启动页",
+      "type": "code",
+      "mime": "application/javascript;env=frontend",
+      "path": "trilium-home-startup.js",
+      "labels": [["run", "frontendStartup"], ["homeInternal", ""]]
+    },
+    {
+      "key": "home_open_tab",
+      "title": "打开 Home（新标签页）",
+      "type": "code",
+      "mime": "application/javascript;env=frontend",
+      "path": "trilium-open-home-tab.js",
+      "labels": [["homeInternal", ""]]
+    },
+    {
+      "key": "list_styles",
+      "title": "列表编号样式按钮",
+      "type": "code",
+      "mime": "application/javascript;env=frontend",
+      "path": "customizations/frontend/list-style-buttons.js",
+      "labels": [["run", "frontendStartup"], ["homeInternal", ""]]
+    },
+    {
+      "key": "left_panel_auto_zoom",
+      "title": "trilium-left-panel-auto-zoom.js",
+      "type": "code",
+      "mime": "application/javascript;env=frontend",
+      "path": "customizations/frontend/left-panel-auto-zoom.js",
+      "labels": [["run", "frontendStartup"], ["homeInternal", ""]]
+    },
+    {
+      "key": "word_delta_tracker",
+      "title": "实际修改字数统计",
+      "type": "code",
+      "mime": "application/javascript;env=backend",
+      "path": "trilium-word-change-tracker.js",
+      "labels": [["homeWordChangeTracker", ""], ["homeInternal", ""]]
+    },
+    {
+      "key": "todo_attribute_hook",
+      "title": "attributeChanged",
+      "type": "code",
+      "mime": "application/javascript;env=backend",
+      "path": "customizations/backend/todo-attribute-changed.js",
+      "labels": [["todoTaskAttributeChanged", ""]]
+    },
+    {
+      "key": "todo_branch_hook",
+      "title": "branchCreated",
+      "type": "code",
+      "mime": "application/javascript;env=backend",
+      "path": "customizations/backend/todo-branch-created.js",
+      "labels": [["todoBranchCreated", ""]]
+    },
+    {
+      "key": "todo_note_hook",
+      "title": "noteCreated",
+      "type": "code",
+      "mime": "application/javascript;env=backend",
+      "path": "customizations/backend/todo-note-created.js",
+      "labels": [["todoTaskCreate", ""]]
+    },
+    {
+      "key": "home_render",
+      "title": "Home",
+      "type": "render",
+      "path": "",
+      "labels": [["homeInternal", ""], ["iconClass", "fa-solid fa-home-lg"]],
+      "relations": [["renderNote", "home_dashboard"]]
+    },
+    {
+      "key": "todo_render",
+      "title": "ToDo清单",
+      "type": "render",
+      "path": "",
+      "labels": [["todo", ""], ["workspace", ""], ["iconClass", "bx bx-list-ol"]],
+      "relations": [["renderNote", "todo_board"]]
+    }
+  ]
+}

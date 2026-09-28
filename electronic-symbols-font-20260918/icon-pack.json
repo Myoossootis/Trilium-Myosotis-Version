@@ -1,0 +1,1389 @@
+{
+  "icons": {
+    "antenna-com-loop": {
+      "glyph": "",
+      "terms": [
+        "looped antenna",
+        "antenna-com-loop",
+        "antenna",
+        "common",
+        "antenna com loop",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "antenna-com-dipole": {
+      "glyph": "",
+      "terms": [
+        "dipole antenna",
+        "antenna-com-dipole",
+        "antenna",
+        "common",
+        "antenna com dipole",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "antenna-com-aerial": {
+      "glyph": "",
+      "terms": [
+        "aerial antenna",
+        "antenna-com-aerial",
+        "antenna",
+        "common",
+        "antenna com aerial",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "audio-ieee-microphone": {
+      "glyph": "",
+      "terms": [
+        "microphone",
+        "audio-ieee-microphone",
+        "audio",
+        "ieee",
+        "audio ieee microphone",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "audio-iec-microphone": {
+      "glyph": "",
+      "terms": [
+        "microphone",
+        "audio-iec-microphone",
+        "audio",
+        "iec",
+        "audio iec microphone",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "audio-com-loudspeaker": {
+      "glyph": "",
+      "terms": [
+        "loudspeaker / speaker",
+        "audio-com-loudspeaker",
+        "audio",
+        "common",
+        "audio com loudspeaker",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "audio-com-buzzer": {
+      "glyph": "",
+      "terms": [
+        "buzzer",
+        "audio-com-buzzer",
+        "audio",
+        "common",
+        "audio com buzzer",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "capacitor-ieee-nonpolarized": {
+      "glyph": "",
+      "terms": [
+        "capacitor",
+        "capacitor-ieee-nonpolarized",
+        "ieee",
+        "capacitor ieee nonpolarized",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "capacitor-ieee-polarized": {
+      "glyph": "",
+      "terms": [
+        "electrolytic capacitor",
+        "capacitor-ieee-polarized",
+        "capacitor",
+        "ieee",
+        "capacitor ieee polarized",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "capacitor-iec-nonpolarized": {
+      "glyph": "",
+      "terms": [
+        "capacitor",
+        "capacitor-iec-nonpolarized",
+        "iec",
+        "capacitor iec nonpolarized",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "capacitor-iec-variable": {
+      "glyph": "",
+      "terms": [
+        "variable capacitor",
+        "capacitor-iec-variable",
+        "capacitor",
+        "iec",
+        "capacitor iec variable",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "capacitor-iec-trimmer": {
+      "glyph": "",
+      "terms": [
+        "trimmer capacitor",
+        "capacitor-iec-trimmer",
+        "capacitor",
+        "iec",
+        "capacitor iec trimmer",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "capacitor-iec-polarized": {
+      "glyph": "",
+      "terms": [
+        "polarized capacitor",
+        "capacitor-iec-polarized",
+        "capacitor",
+        "iec",
+        "capacitor iec polarized",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "capacitor-com-feedthrough": {
+      "glyph": "",
+      "terms": [
+        "feedthrough capacitor",
+        "capacitor-com-feedthrough",
+        "capacitor",
+        "common",
+        "capacitor com feedthrough",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "diode-com-zener": {
+      "glyph": "",
+      "terms": [
+        "zener diode",
+        "diode-com-zener",
+        "diode",
+        "common",
+        "diode com zener",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "diode-com-varicap": {
+      "glyph": "",
+      "terms": [
+        "varicap diode",
+        "diode-com-varicap",
+        "diode",
+        "common",
+        "diode com varicap",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "diode-com-tunnel": {
+      "glyph": "",
+      "terms": [
+        "tunnel diode",
+        "diode-com-tunnel",
+        "diode",
+        "common",
+        "diode com tunnel",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "diode-com-shottky": {
+      "glyph": "",
+      "terms": [
+        "shottky diode",
+        "diode-com-shottky",
+        "diode",
+        "common",
+        "diode com shottky",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "diode-com-shockley": {
+      "glyph": "",
+      "terms": [
+        "shockley diode",
+        "diode-com-shockley",
+        "diode",
+        "common",
+        "diode com shockley",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "diode-com-photodiode": {
+      "glyph": "",
+      "terms": [
+        "photodiode",
+        "diode-com-photodiode",
+        "diode",
+        "common",
+        "diode com photodiode",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "diode-com-led": {
+      "glyph": "",
+      "terms": [
+        "led",
+        "diode-com-led",
+        "diode",
+        "common",
+        "diode com led",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "diode-com-laser": {
+      "glyph": "",
+      "terms": [
+        "laser diode",
+        "diode-com-laser",
+        "diode",
+        "common",
+        "diode com laser",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "diode-com-standard": {
+      "glyph": "",
+      "terms": [
+        "standard diode",
+        "diode-com-standard",
+        "diode",
+        "common",
+        "diode com standard",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "fuse-ieee-alt": {
+      "glyph": "",
+      "terms": [
+        "fuse",
+        "fuse-ieee-alt",
+        "ieee",
+        "fuse ieee alt",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "fuse-iec": {
+      "glyph": "",
+      "terms": [
+        "fuse",
+        "fuse-iec",
+        "iec",
+        "fuse iec",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "fuse-ieee": {
+      "glyph": "",
+      "terms": [
+        "fuse",
+        "fuse-ieee",
+        "ieee",
+        "fuse ieee",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ground-com-signal": {
+      "glyph": "",
+      "terms": [
+        "digital/signal ground",
+        "ground-com-signal",
+        "ground",
+        "common",
+        "ground com signal",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ground-com-general": {
+      "glyph": "",
+      "terms": [
+        "common/earth ground",
+        "ground-com-general",
+        "ground",
+        "common",
+        "ground com general",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ground-com-chassis": {
+      "glyph": "",
+      "terms": [
+        "chassis ground",
+        "ground-com-chassis",
+        "ground",
+        "common",
+        "ground com chassis",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ic-com-schmitt": {
+      "glyph": "",
+      "terms": [
+        "schmitt trigger",
+        "ic-com-schmitt",
+        "ic",
+        "common",
+        "ic com schmitt",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ic-com-schmitt-inverted": {
+      "glyph": "",
+      "terms": [
+        "inverted schmitt trigger",
+        "ic-com-schmitt-inverted",
+        "ic",
+        "common",
+        "ic com schmitt inverted",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ic-com-opamp": {
+      "glyph": "",
+      "terms": [
+        "operational amplifier (opamp)",
+        "ic-com-opamp",
+        "ic",
+        "common",
+        "ic com opamp",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ic-com-comparator": {
+      "glyph": "",
+      "terms": [
+        "comparator",
+        "ic-com-comparator",
+        "ic",
+        "common",
+        "ic com comparator",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ic-com-flipflop-clockedd": {
+      "glyph": "",
+      "terms": [
+        "clocked-d flip-flop",
+        "ic-com-flipflop-clockedd",
+        "ic",
+        "common",
+        "ic com flipflop clockedd",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ic-com-flipflop-clockedjk": {
+      "glyph": "",
+      "terms": [
+        "clocked-jk flip-flop",
+        "ic-com-flipflop-clockedjk",
+        "ic",
+        "common",
+        "ic com flipflop clockedjk",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ic-com-flipflop-clockedt": {
+      "glyph": "",
+      "terms": [
+        "clocked-t flip-flop",
+        "ic-com-flipflop-clockedt",
+        "ic",
+        "common",
+        "ic com flipflop clockedt",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ic-com-flipflop-gatedd": {
+      "glyph": "",
+      "terms": [
+        "gated-d flip-flop",
+        "ic-com-flipflop-gatedd",
+        "ic",
+        "common",
+        "ic com flipflop gatedd",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ic-com-flipflop-gatedsr": {
+      "glyph": "",
+      "terms": [
+        "gated-sr flip-flop",
+        "ic-com-flipflop-gatedsr",
+        "ic",
+        "common",
+        "ic com flipflop gatedsr",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ic-com-flipflop-simplesr": {
+      "glyph": "",
+      "terms": [
+        "simple-sr flip-flop",
+        "ic-com-flipflop-simplesr",
+        "ic",
+        "common",
+        "ic com flipflop simplesr",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ic-com-logic-buffer": {
+      "glyph": "",
+      "terms": [
+        "buffer",
+        "ic-com-logic-buffer",
+        "ic",
+        "common",
+        "ic com logic buffer",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ic-com-logic-inverter": {
+      "glyph": "",
+      "terms": [
+        "inverter (inverted buffer)",
+        "ic-com-logic-inverter",
+        "ic",
+        "common",
+        "ic com logic inverter",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ic-com-logic-and": {
+      "glyph": "",
+      "terms": [
+        "logic and",
+        "ic-com-logic-and",
+        "ic",
+        "common",
+        "ic com logic and",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ic-com-logic-nand": {
+      "glyph": "",
+      "terms": [
+        "logic nand",
+        "ic-com-logic-nand",
+        "ic",
+        "common",
+        "ic com logic nand",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ic-com-logic-nor": {
+      "glyph": "",
+      "terms": [
+        "logic nor",
+        "ic-com-logic-nor",
+        "ic",
+        "common",
+        "ic com logic nor",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ic-com-logic-or": {
+      "glyph": "",
+      "terms": [
+        "logic or",
+        "ic-com-logic-or",
+        "ic",
+        "common",
+        "ic com logic or",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ic-com-logic-xnor": {
+      "glyph": "",
+      "terms": [
+        "logic xnor",
+        "ic-com-logic-xnor",
+        "ic",
+        "common",
+        "ic com logic xnor",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "ic-com-logic-xor": {
+      "glyph": "",
+      "terms": [
+        "logic xor",
+        "ic-com-logic-xor",
+        "ic",
+        "common",
+        "ic com logic xor",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "inductor-com-variable": {
+      "glyph": "",
+      "terms": [
+        "variable inductor",
+        "inductor-com-variable",
+        "inductor",
+        "common",
+        "inductor com variable",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "inductor-com-tapped": {
+      "glyph": "",
+      "terms": [
+        "tapped inductor",
+        "inductor-com-tapped",
+        "inductor",
+        "common",
+        "inductor com tapped",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "inductor-com-magnetic": {
+      "glyph": "",
+      "terms": [
+        "inductor (magnetic/ferrite core)",
+        "inductor-com-magnetic",
+        "inductor",
+        "common",
+        "inductor com magnetic",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "inductor-com-ferrite-bead": {
+      "glyph": "",
+      "terms": [
+        "ferrite bead",
+        "inductor-com-ferrite-bead",
+        "inductor",
+        "common",
+        "inductor com ferrite bead",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "inductor-com-air": {
+      "glyph": "",
+      "terms": [
+        "inductor (air-core)",
+        "inductor-com-air",
+        "inductor",
+        "common",
+        "inductor com air",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "miscellaneous-com-probe_point": {
+      "glyph": "",
+      "terms": [
+        "probe point",
+        "miscellaneous-com-probe_point",
+        "miscellaneous",
+        "common",
+        "miscellaneous com probe_point",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "miscellaneous-com-optocoupler": {
+      "glyph": "",
+      "terms": [
+        "optocoupler",
+        "miscellaneous-com-optocoupler",
+        "miscellaneous",
+        "common",
+        "miscellaneous com optocoupler",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "miscellaneous-com-lamp-indicator": {
+      "glyph": "",
+      "terms": [
+        "indicator lamp",
+        "miscellaneous-com-lamp-indicator",
+        "miscellaneous",
+        "common",
+        "miscellaneous com lamp indicator",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "miscellaneous-com-lamp-incandescent": {
+      "glyph": "",
+      "terms": [
+        "incadecent lamp",
+        "miscellaneous-com-lamp-incandescent",
+        "miscellaneous",
+        "common",
+        "miscellaneous com lamp incandescent",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "miscellaneous-com-dac": {
+      "glyph": "",
+      "terms": [
+        "digital-to-analog (dta) converter",
+        "miscellaneous-com-dac",
+        "miscellaneous",
+        "common",
+        "miscellaneous com dac",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "miscellaneous-com-crystal_oscillator": {
+      "glyph": "",
+      "terms": [
+        "crystal oscillator",
+        "miscellaneous-com-crystal_oscillator",
+        "miscellaneous",
+        "common",
+        "miscellaneous com crystal_oscillator",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "miscellaneous-com-adc": {
+      "glyph": "",
+      "terms": [
+        "analog-to-digital (atd) converter",
+        "miscellaneous-com-adc",
+        "miscellaneous",
+        "common",
+        "miscellaneous com adc",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "relay-ieee-spst-no": {
+      "glyph": "",
+      "terms": [
+        "spst relay normally-open",
+        "relay-ieee-spst-no",
+        "relay",
+        "ieee",
+        "relay ieee spst no",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "relay-ieee-spst-nc": {
+      "glyph": "",
+      "terms": [
+        "spst relay normally-closed",
+        "relay-ieee-spst-nc",
+        "relay",
+        "ieee",
+        "relay ieee spst nc",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "relay-ieee-spdt": {
+      "glyph": "",
+      "terms": [
+        "spdt relay",
+        "relay-ieee-spdt",
+        "relay",
+        "ieee",
+        "relay ieee spdt",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "relay-iec-spst-no": {
+      "glyph": "",
+      "terms": [
+        "spst relay normally-open",
+        "relay-iec-spst-no",
+        "relay",
+        "iec",
+        "relay iec spst no",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "relay-iec-spst-nc": {
+      "glyph": "",
+      "terms": [
+        "spst relay normally-closed",
+        "relay-iec-spst-nc",
+        "relay",
+        "iec",
+        "relay iec spst nc",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "relay-iec-spdt": {
+      "glyph": "",
+      "terms": [
+        "spdt relay",
+        "relay-iec-spdt",
+        "relay",
+        "iec",
+        "relay iec spdt",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "relay-com-com-spst-no": {
+      "glyph": "",
+      "terms": [
+        "spst relay normally-open (common style)",
+        "relay-com-com-spst-no",
+        "relay",
+        "common",
+        "relay com com spst no",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "relay-com-com-spst-nc": {
+      "glyph": "",
+      "terms": [
+        "spst relay normally-closed (common style)",
+        "relay-com-com-spst-nc",
+        "relay",
+        "common",
+        "relay com com spst nc",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "relay-com-com-spdt": {
+      "glyph": "",
+      "terms": [
+        "spdt relay (common style)",
+        "relay-com-com-spdt",
+        "relay",
+        "common",
+        "relay com com spdt",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "resistor-com-memristor": {
+      "glyph": "",
+      "terms": [
+        "memristor",
+        "resistor-com-memristor",
+        "resistor",
+        "common",
+        "resistor com memristor",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "resistor-ieee-standard": {
+      "glyph": "",
+      "terms": [
+        "resistor (ieee/ansi)",
+        "resistor-ieee-standard",
+        "resistor",
+        "ieee",
+        "resistor ieee standard",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "resistor-ieee-varistor": {
+      "glyph": "",
+      "terms": [
+        "varistor (ieee/ansi)",
+        "resistor-ieee-varistor",
+        "resistor",
+        "ieee",
+        "resistor ieee varistor",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "resistor-ieee-trimmer": {
+      "glyph": "",
+      "terms": [
+        "trimmer / trim-pot (ieee/ansi)",
+        "resistor-ieee-trimmer",
+        "resistor",
+        "ieee",
+        "resistor ieee trimmer",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "resistor-ieee-thermistor": {
+      "glyph": "",
+      "terms": [
+        "thermistor (ieee/ansi)",
+        "resistor-ieee-thermistor",
+        "resistor",
+        "ieee",
+        "resistor ieee thermistor",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "resistor-ieee-rheostat": {
+      "glyph": "",
+      "terms": [
+        "rheostat / variable resistor (ieee/ansi)",
+        "resistor-ieee-rheostat",
+        "resistor",
+        "ieee",
+        "resistor ieee rheostat",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "resistor-ieee-potentiometer": {
+      "glyph": "",
+      "terms": [
+        "potentiometer (ieee/ansi)",
+        "resistor-ieee-potentiometer",
+        "resistor",
+        "ieee",
+        "resistor ieee potentiometer",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "resistor-ieee-photoresistor": {
+      "glyph": "",
+      "terms": [
+        "photoresistor (ieee/ansi)",
+        "resistor-ieee-photoresistor",
+        "resistor",
+        "ieee",
+        "resistor ieee photoresistor",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "resistor-iec-standard": {
+      "glyph": "",
+      "terms": [
+        "resistor",
+        "resistor-iec-standard",
+        "iec",
+        "resistor iec standard",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "resistor-iec-varistor": {
+      "glyph": "",
+      "terms": [
+        "varistor",
+        "resistor-iec-varistor",
+        "resistor",
+        "iec",
+        "resistor iec varistor",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "resistor-iec-trimmer": {
+      "glyph": "",
+      "terms": [
+        "trimmer / trim-pot",
+        "resistor-iec-trimmer",
+        "resistor",
+        "iec",
+        "resistor iec trimmer",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "resistor-iec-thermistor": {
+      "glyph": "",
+      "terms": [
+        "thermistor",
+        "resistor-iec-thermistor",
+        "resistor",
+        "iec",
+        "resistor iec thermistor",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "resistor-iec-rheostat": {
+      "glyph": "",
+      "terms": [
+        "rheostat / variable resistor",
+        "resistor-iec-rheostat",
+        "resistor",
+        "iec",
+        "resistor iec rheostat",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "resistor-iec-potentiometer": {
+      "glyph": "",
+      "terms": [
+        "potentiometer",
+        "resistor-iec-potentiometer",
+        "resistor",
+        "iec",
+        "resistor iec potentiometer",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "resistor-iec-photoresistor": {
+      "glyph": "",
+      "terms": [
+        "photoresistor",
+        "resistor-iec-photoresistor",
+        "resistor",
+        "iec",
+        "resistor iec photoresistor",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "source-com-photovoltaic": {
+      "glyph": "",
+      "terms": [
+        "photovoltaic solar cell",
+        "source-com-photovoltaic",
+        "source",
+        "common",
+        "source com photovoltaic",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "source-com-dc": {
+      "glyph": "",
+      "terms": [
+        "dc voltage source",
+        "source-com-dc",
+        "source",
+        "common",
+        "source com dc",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "source-com-dc-controlled": {
+      "glyph": "",
+      "terms": [
+        "controlled dc source",
+        "source-com-dc-controlled",
+        "source",
+        "common",
+        "source com dc controlled",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "source-com-current": {
+      "glyph": "",
+      "terms": [
+        "current source",
+        "source-com-current",
+        "source",
+        "common",
+        "source com current",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "source-com-current-controlled": {
+      "glyph": "",
+      "terms": [
+        "controlled current source",
+        "source-com-current-controlled",
+        "source",
+        "common",
+        "source com current controlled",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "source-com-battery-single": {
+      "glyph": "",
+      "terms": [
+        "battery (single cell)",
+        "source-com-battery-single",
+        "source",
+        "common",
+        "source com battery single",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "source-com-battery-multiple": {
+      "glyph": "",
+      "terms": [
+        "battery (multiple cells)",
+        "source-com-battery-multiple",
+        "source",
+        "common",
+        "source com battery multiple",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "source-com-ac": {
+      "glyph": "",
+      "terms": [
+        "ac voltage source",
+        "source-com-ac",
+        "source",
+        "common",
+        "source com ac",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "source-com-square": {
+      "glyph": "",
+      "terms": [
+        "square wave generator",
+        "source-com-square",
+        "source",
+        "common",
+        "source com square",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "source-com-triangle": {
+      "glyph": "",
+      "terms": [
+        "triangle wave generator",
+        "source-com-triangle",
+        "source",
+        "common",
+        "source com triangle",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "switch-com-spst": {
+      "glyph": "",
+      "terms": [
+        "spst switch",
+        "switch-com-spst",
+        "switch",
+        "common",
+        "switch com spst",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "switch-com-spdt": {
+      "glyph": "",
+      "terms": [
+        "spdt switch",
+        "switch-com-spdt",
+        "switch",
+        "common",
+        "switch com spdt",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "switch-com-dpst": {
+      "glyph": "",
+      "terms": [
+        "dpst switch",
+        "switch-com-dpst",
+        "switch",
+        "common",
+        "switch com dpst",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "switch-com-dpdt": {
+      "glyph": "",
+      "terms": [
+        "dpdt switch",
+        "switch-com-dpdt",
+        "switch",
+        "common",
+        "switch com dpdt",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "switch-com-pushbutton-nc": {
+      "glyph": "",
+      "terms": [
+        "pushbutton normally-closed",
+        "switch-com-pushbutton-nc",
+        "switch",
+        "common",
+        "switch com pushbutton nc",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "switch-com-pushbutton-no": {
+      "glyph": "",
+      "terms": [
+        "pushbutton normally-open",
+        "switch-com-pushbutton-no",
+        "switch",
+        "common",
+        "switch com pushbutton no",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "switch-com-pushbutton-two_circuit": {
+      "glyph": "",
+      "terms": [
+        "pushbutton two-circuit",
+        "switch-com-pushbutton-two_circuit",
+        "switch",
+        "common",
+        "switch com pushbutton two_circuit",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "transformer-com-center": {
+      "glyph": "",
+      "terms": [
+        "center-tapped transformer",
+        "transformer-com-center",
+        "transformer",
+        "common",
+        "transformer com center",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "transformer-com-center-double": {
+      "glyph": "",
+      "terms": [
+        "double-center-tapped transformer",
+        "transformer-com-center-double",
+        "transformer",
+        "common",
+        "transformer com center double",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "transformer-com-standard": {
+      "glyph": "",
+      "terms": [
+        "transformer",
+        "transformer-com-standard",
+        "common",
+        "transformer com standard",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "transistor-com-phototransitor": {
+      "glyph": "",
+      "terms": [
+        "phototransistor",
+        "transistor-com-phototransitor",
+        "transistor",
+        "common",
+        "transistor com phototransitor",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "transistor-com-jfet-p": {
+      "glyph": "",
+      "terms": [
+        "jfet-p",
+        "transistor-com-jfet-p",
+        "transistor",
+        "common",
+        "transistor com jfet p",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "transistor-com-jfet-n": {
+      "glyph": "",
+      "terms": [
+        "jfet-n",
+        "transistor-com-jfet-n",
+        "transistor",
+        "common",
+        "transistor com jfet n",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "transistor-com-darlington-pnp": {
+      "glyph": "",
+      "terms": [
+        "pnp darlington pair",
+        "transistor-com-darlington-pnp",
+        "transistor",
+        "common",
+        "transistor com darlington pnp",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "transistor-com-darlington-npn": {
+      "glyph": "",
+      "terms": [
+        "npn darlington pair",
+        "transistor-com-darlington-npn",
+        "transistor",
+        "common",
+        "transistor com darlington npn",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "transistor-com-bjt-pnp": {
+      "glyph": "",
+      "terms": [
+        "pnp transistor",
+        "transistor-com-bjt-pnp",
+        "transistor",
+        "common",
+        "transistor com bjt pnp",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "transistor-com-bjt-npn": {
+      "glyph": "",
+      "terms": [
+        "npn transistor",
+        "transistor-com-bjt-npn",
+        "transistor",
+        "common",
+        "transistor com bjt npn",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "transistor-com-mosfet-n": {
+      "glyph": "",
+      "terms": [
+        "n-channel mosfet",
+        "transistor-com-mosfet-n",
+        "transistor",
+        "common",
+        "transistor com mosfet n",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "transistor-com-mosfet-n-depletion": {
+      "glyph": "",
+      "terms": [
+        "n-channel mosfet in depletion mode",
+        "transistor-com-mosfet-n-depletion",
+        "transistor",
+        "common",
+        "transistor com mosfet n depletion",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "transistor-com-mosfet-n-enhancement": {
+      "glyph": "",
+      "terms": [
+        "n-channel mosfet in enhancement mode",
+        "transistor-com-mosfet-n-enhancement",
+        "transistor",
+        "common",
+        "transistor com mosfet n enhancement",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "transistor-com-mosfet-p": {
+      "glyph": "",
+      "terms": [
+        "p-channel mosfet",
+        "transistor-com-mosfet-p",
+        "transistor",
+        "common",
+        "transistor com mosfet p",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "transistor-com-mosfet-p-depletion": {
+      "glyph": "",
+      "terms": [
+        "p-channel mosfet in depletion mode",
+        "transistor-com-mosfet-p-depletion",
+        "transistor",
+        "common",
+        "transistor com mosfet p depletion",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    },
+    "transistor-com-mosfet-p-enhancement": {
+      "glyph": "",
+      "terms": [
+        "p-channel mosfet in enhancement mode",
+        "transistor-com-mosfet-p-enhancement",
+        "transistor",
+        "common",
+        "transistor com mosfet p enhancement",
+        "electronic symbol",
+        "electronicsymbols"
+      ]
+    }
+  }
+}

@@ -1,0 +1,75 @@
+# Local Trilium data, backups and runtime state.  Notes will be published in a
+# separate repository later; never commit these files to the program repository.
+document.db
+document.db-*
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+trilium-data/
+trilium-data-backup-*/
+backup-*.db
+
+# Credentials and local machine configuration.
+.trilium-api.env
+*.env
+*.token
+*.key
+*.pem
+
+# The unpacked official Trilium application is not our source tree and is too
+# large to keep in Git.  Install the matching release separately.
+trilium.exe
+*.asar
+.asar-inspect/
+trilium-asar-*/
+
+# Browser profiles, generated previews and experiment scratch space.
+tmp-*/
+tmp*/
+reference-previews-*/
+svg-preview-*/
+startup-metrics.log
+*.log
+
+# Generated OS/editor files.
+node_modules/
+.npm-cache/
+.font-build-tools/
+.vendor-electronic-symbols-git-backup/
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+
+# Large note/media artifacts belong to the separate notes repository.
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.pdf
+
+# Keep the checked-in source icon/font package despite the general scratch
+# exclusions above.
+!electronic-symbols-font-20260918/
+!electronic-symbols-font-20260918/**
+!vendor-electronic-symbols-20260918/
+!vendor-electronic-symbols-20260918/**
+!tabler-circuit-svg/
+!tabler-circuit-svg/**
+
+# The repository also carries the Windows x64 portable Trilium runtime.  The
+# broad binary/media rules above must not hide files that are part of this
+# distributable; its local data directory is still excluded explicitly.
+!trilium-portable/
+!trilium-portable/**
+trilium-portable/trilium-data/
+trilium-portable/trilium-electron-data/
+trilium-portable/*.log
+
+# A sanitized program-only seed is shipped for first launch.  It contains no
+# user notes and is intentionally separate from the runtime's writable data.
+!trilium-seed-data/
+!trilium-seed-data/document.db

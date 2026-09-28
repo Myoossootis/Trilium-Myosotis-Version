@@ -1,0 +1,75 @@
+{
+  "icons": {
+    "electronic-bjt-npn": {
+      "glyph": "",
+      "terms": [
+        "BJT NPN",
+        "bjt",
+        "npn",
+        "transistor"
+      ]
+    },
+    "electronic-bjt-pnp": {
+      "glyph": "",
+      "terms": [
+        "BJT PNP",
+        "bjt",
+        "pnp",
+        "transistor"
+      ]
+    },
+    "electronic-mosfet-n": {
+      "glyph": "",
+      "terms": [
+        "MOSFET N",
+        "mosfet",
+        "nmos",
+        "transistor"
+      ]
+    },
+    "electronic-mosfet-p": {
+      "glyph": "",
+      "terms": [
+        "MOSFET P",
+        "mosfet",
+        "pmos",
+        "transistor"
+      ]
+    },
+    "electronic-ferrite-bead": {
+      "glyph": "",
+      "terms": [
+        "Ferrite bead",
+        "ferrite",
+        "bead",
+        "inductor"
+      ]
+    },
+    "electronic-opamp": {
+      "glyph": "",
+      "terms": [
+        "Operational amplifier",
+        "opamp",
+        "amplifier",
+        "ic"
+      ]
+    },
+    "electronic-crystal": {
+      "glyph": "",
+      "terms": [
+        "Crystal oscillator",
+        "crystal",
+        "oscillator"
+      ]
+    },
+    "electronic-relay-spst-no": {
+      "glyph": "",
+      "terms": [
+        "Relay SPST NO",
+        "relay",
+        "spst",
+        "no"
+      ]
+    }
+  }
+}

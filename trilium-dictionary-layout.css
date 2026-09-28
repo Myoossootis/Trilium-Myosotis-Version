@@ -1,0 +1,193 @@
+/*
+ * Eric Dictionary - academic / hardware knowledge-base typography
+ * Apply this CSS note with #appCss and scope notes with
+ * #cssClass=eric-knowledge-base (inheritable on each knowledge-base root).
+ */
+
+/* Keep long-form text readable while using the available note width. */
+.note-split.eric-knowledge-base .ck-content,
+.note-split.eric-knowledge-base .text-detail-content {
+    color: #37323e;
+    font-size: 16px;
+    line-height: 1.78;
+    letter-spacing: 0.01em;
+}
+
+/* Note title: quiet, compact and visually separate from the article. */
+.note-split.eric-knowledge-base .note-title-widget input.note-title {
+    color: #7852a9 !important;
+    font-size: 1.65rem !important;
+    font-weight: 650 !important;
+    letter-spacing: -0.015em;
+}
+
+/* H2: chapter heading. */
+.note-split.eric-knowledge-base .ck-content h2 {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    margin: 2.15em 0 0.85em 0;
+    /* Headings must not inherit CKEditor's block-indent command.  A copied
+       or previously indented H2 can otherwise retain an inline
+       margin-left (for example 40px) and drift away from the chapter rail. */
+    margin-left: 0 !important;
+    padding: 0.18em 0 0.18em 0.72em;
+    border-left: 4px solid #56949f;
+    border-radius: 0;
+    background: var(--main-background-color, #fbf7ef) !important;
+    box-shadow: none !important;
+    color: #56949f !important;
+    font-size: 1.42em;
+    font-weight: 680;
+    line-height: 1.35;
+    scroll-margin-top: 2.5em;
+    text-shadow: none !important;
+}
+
+/* H3: subsection heading. It freezes beneath the current H2, like an Excel
+   second frozen row. Its lower stacking level lets the incoming H2 replace it
+   cleanly when the reader crosses into the next chapter. */
+.note-split.eric-knowledge-base .ck-content h3 {
+    position: sticky;
+    /* H2 is ~39px high. rem avoids this offset scaling with H3's own font. */
+    top: 2.45rem;
+    z-index: 19;
+    margin: 1.75em 0 0.7em 0;
+    box-sizing: border-box;
+    padding: 0.18em 0 0.32em 1.7em;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(97, 134, 176, 0.28);
+    background: var(--main-background-color, #fbf7ef) !important;
+    box-shadow: none !important;
+    color: #6186b0 !important;
+    font-size: 1.20em;
+    font-weight: 650;
+    line-height: 1.4;
+    text-shadow: none !important;
+}
+
+/* H4-H6: compact detail headings with increasing indentation. */
+.note-split.eric-knowledge-base .ck-content h4 {
+    margin: 1.45em 0 0.55em 2em;
+    padding: 0;
+    border-radius: 0;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #ea9d35 !important;
+    font-size: 1.08em;
+    font-weight: 650;
+    text-shadow: none !important;
+}
+
+.note-split.eric-knowledge-base .ck-content h5 {
+    margin: 1.25em 0 0.45em 2.6em;
+    padding: 0;
+    border-radius: 0;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #b5637a !important;
+    font-size: 1em;
+    font-weight: 650;
+    text-shadow: none !important;
+}
+
+.note-split.eric-knowledge-base .ck-content h6 {
+    margin: 1.15em 0 0.4em 3.3em;
+    padding: 0;
+    border-radius: 0;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #b0c249 !important;
+    font-size: 0.92em;
+    font-weight: 650;
+    text-shadow: none !important;
+}
+
+/* Give the first paragraph under a heading a subtle nested relationship. */
+.note-split.eric-knowledge-base .ck-content h2 + p:not([style*="margin-left"]):not([style*="text-indent"]) {
+    margin-left: 0.75em;
+}
+
+.note-split.eric-knowledge-base .ck-content h3 + p:not([style*="margin-left"]):not([style*="text-indent"]) {
+    margin-left: 1.25em;
+}
+
+.note-split.eric-knowledge-base .ck-content h4 + p:not([style*="margin-left"]):not([style*="text-indent"]),
+.note-split.eric-knowledge-base .ck-content h5 + p:not([style*="margin-left"]):not([style*="text-indent"]),
+.note-split.eric-knowledge-base .ck-content h6 + p:not([style*="margin-left"]):not([style*="text-indent"]) {
+    margin-left: 1.75em;
+}
+
+/* Set by the “取消层级缩进” toolbar action for a specific paragraph.
+   只重置自动层级缩进（margin-left），保留主题 Blue Theme Light 的
+   正文首行缩进（text-indent: 2em），否则会显得比普通段落还浅。 */
+.note-split.eric-knowledge-base .ck-content p[data-eric-no-auto-indent="true"] {
+    margin-left: 0 !important;
+}
+
+/* Paragraph rhythm; lists keep their own structural indentation. */
+.note-split.eric-knowledge-base .ck-content p {
+    margin-top: 0.52em;
+    margin-bottom: 0.52em;
+}
+
+.note-split.eric-knowledge-base .ck-content ul,
+.note-split.eric-knowledge-base .ck-content ol {
+    margin-top: 0.6em;
+    margin-bottom: 0.9em;
+    padding-inline-start: 1.35em;
+    list-style-position: outside;
+}
+
+/* CKEditor can serialize a list item either as <li>text</li> or
+   <li><p>text</p></li>. Blue Theme's paragraph first-line indent must not
+   leak into the second form, otherwise visually identical items misalign. */
+.note-split.eric-knowledge-base .ck-content li > p {
+    margin: 0.18em 0;
+    text-indent: 0 !important;
+}
+
+.note-split.eric-knowledge-base .ck-content li > p[data-eric-no-auto-indent="true"] {
+    margin-left: 0 !important;
+}
+
+/* A restrained Youdao-like horizontal divider. */
+.note-split.eric-knowledge-base .ck-content hr {
+    height: 1px;
+    margin: 2.1em 0;
+    border: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(104, 180, 194, 0.78),
+        rgba(104, 180, 194, 0.20) 72%,
+        transparent
+    );
+}
+
+/* Technical content should remain visually distinct from prose. */
+.note-split.eric-knowledge-base .ck-content blockquote {
+    margin: 1.15em 0;
+    padding: 0.72em 1em;
+    border-left: 3px solid #68b4c2;
+    border-radius: 0 6px 6px 0;
+    background: rgba(104, 180, 194, 0.07);
+    color: #40536b;
+}
+
+.note-split.eric-knowledge-base .ck-content pre,
+.note-split.eric-knowledge-base .ck-content figure.table {
+    margin-top: 1.2em;
+    margin-bottom: 1.35em;
+}
+
+/* Dark-theme compatibility. */
+body.theme-dark .note-split.eric-knowledge-base .ck-content,
+body.theme-dark .note-split.eric-knowledge-base .text-detail-content {
+    color: #d6dfec;
+}
+
+body.theme-dark .note-split.eric-knowledge-base .ck-content h2,
+body.theme-dark .note-split.eric-knowledge-base .ck-content h3,
+body.theme-dark .note-split.eric-knowledge-base .ck-content h4 {
+    color: #b9d1f5;
+}

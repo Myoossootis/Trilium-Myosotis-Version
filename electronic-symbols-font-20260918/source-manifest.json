@@ -1,0 +1,1071 @@
+[
+  {
+    "id": "antenna-com-loop",
+    "name": "Looped Antenna",
+    "category": "ANTENNA",
+    "standard": "COMMON",
+    "filename": "Antenna-COM-Loop",
+    "codepoint": "U+F700",
+    "svg": "SVG/Antenna-COM-Loop.svg"
+  },
+  {
+    "id": "antenna-com-dipole",
+    "name": "Dipole Antenna",
+    "category": "ANTENNA",
+    "standard": "COMMON",
+    "filename": "Antenna-COM-Dipole",
+    "codepoint": "U+F701",
+    "svg": "SVG/Antenna-COM-Dipole.svg"
+  },
+  {
+    "id": "antenna-com-aerial",
+    "name": "Aerial Antenna",
+    "category": "ANTENNA",
+    "standard": "COMMON",
+    "filename": "Antenna-COM-Aerial",
+    "codepoint": "U+F702",
+    "svg": "SVG/Antenna-COM-Aerial.svg"
+  },
+  {
+    "id": "audio-ieee-microphone",
+    "name": "Microphone",
+    "category": "AUDIO",
+    "standard": "IEEE",
+    "filename": "Audio-IEEE-Microphone",
+    "codepoint": "U+F703",
+    "svg": "SVG/Audio-IEEE-Microphone.svg"
+  },
+  {
+    "id": "audio-iec-microphone",
+    "name": "Microphone",
+    "category": "AUDIO",
+    "standard": "IEC",
+    "filename": "Audio-IEC-Microphone",
+    "codepoint": "U+F704",
+    "svg": "SVG/Audio-IEC-Microphone.svg"
+  },
+  {
+    "id": "audio-com-loudspeaker",
+    "name": "Loudspeaker / Speaker",
+    "category": "AUDIO",
+    "standard": "COMMON",
+    "filename": "Audio-COM-Loudspeaker",
+    "codepoint": "U+F705",
+    "svg": "SVG/Audio-COM-Loudspeaker.svg"
+  },
+  {
+    "id": "audio-com-buzzer",
+    "name": "Buzzer",
+    "category": "AUDIO",
+    "standard": "COMMON",
+    "filename": "Audio-COM-Buzzer",
+    "codepoint": "U+F706",
+    "svg": "SVG/Audio-COM-Buzzer.svg"
+  },
+  {
+    "id": "capacitor-ieee-nonpolarized",
+    "name": "Capacitor",
+    "category": "CAPACITOR",
+    "standard": "IEEE",
+    "filename": "Capacitor-IEEE-NonPolarized",
+    "codepoint": "U+F707",
+    "svg": "SVG/Capacitor-IEEE-NonPolarized.svg"
+  },
+  {
+    "id": "capacitor-ieee-polarized",
+    "name": "Electrolytic Capacitor",
+    "category": "CAPACITOR",
+    "standard": "IEEE",
+    "filename": "Capacitor-IEEE-Polarized",
+    "codepoint": "U+F708",
+    "svg": "SVG/Capacitor-IEEE-Polarized.svg"
+  },
+  {
+    "id": "capacitor-iec-nonpolarized",
+    "name": "Capacitor",
+    "category": "CAPACITOR",
+    "standard": "IEC",
+    "filename": "Capacitor-IEC-NonPolarized",
+    "codepoint": "U+F709",
+    "svg": "SVG/Capacitor-IEC-NonPolarized.svg"
+  },
+  {
+    "id": "capacitor-iec-variable",
+    "name": "Variable Capacitor",
+    "category": "CAPACITOR",
+    "standard": "IEC",
+    "filename": "Capacitor-IEC-Variable",
+    "codepoint": "U+F70A",
+    "svg": "SVG/Capacitor-IEC-Variable.svg"
+  },
+  {
+    "id": "capacitor-iec-trimmer",
+    "name": "Trimmer Capacitor",
+    "category": "CAPACITOR",
+    "standard": "IEC",
+    "filename": "Capacitor-IEC-Trimmer",
+    "codepoint": "U+F70B",
+    "svg": "SVG/Capacitor-IEC-Trimmer.svg"
+  },
+  {
+    "id": "capacitor-iec-polarized",
+    "name": "Polarized Capacitor",
+    "category": "CAPACITOR",
+    "standard": "IEC",
+    "filename": "Capacitor-IEC-Polarized",
+    "codepoint": "U+F70C",
+    "svg": "SVG/Capacitor-IEC-Polarized.svg"
+  },
+  {
+    "id": "capacitor-com-feedthrough",
+    "name": "Feedthrough Capacitor",
+    "category": "CAPACITOR",
+    "standard": "COMMON",
+    "filename": "Capacitor-COM-Feedthrough",
+    "codepoint": "U+F70D",
+    "svg": "SVG/Capacitor-COM-Feedthrough.svg"
+  },
+  {
+    "id": "diode-com-zener",
+    "name": "Zener Diode",
+    "category": "DIODE",
+    "standard": "COMMON",
+    "filename": "Diode-COM-Zener",
+    "codepoint": "U+F70E",
+    "svg": "SVG/Diode-COM-Zener.svg"
+  },
+  {
+    "id": "diode-com-varicap",
+    "name": "Varicap Diode",
+    "category": "DIODE",
+    "standard": "COMMON",
+    "filename": "Diode-COM-Varicap",
+    "codepoint": "U+F70F",
+    "svg": "SVG/Diode-COM-Varicap.svg"
+  },
+  {
+    "id": "diode-com-tunnel",
+    "name": "Tunnel Diode",
+    "category": "DIODE",
+    "standard": "COMMON",
+    "filename": "Diode-COM-Tunnel",
+    "codepoint": "U+F710",
+    "svg": "SVG/Diode-COM-Tunnel.svg"
+  },
+  {
+    "id": "diode-com-shottky",
+    "name": "Shottky Diode",
+    "category": "DIODE",
+    "standard": "COMMON",
+    "filename": "Diode-COM-Shottky",
+    "codepoint": "U+F711",
+    "svg": "SVG/Diode-COM-Shottky.svg"
+  },
+  {
+    "id": "diode-com-shockley",
+    "name": "Shockley Diode",
+    "category": "DIODE",
+    "standard": "COMMON",
+    "filename": "Diode-COM-Shockley",
+    "codepoint": "U+F712",
+    "svg": "SVG/Diode-COM-Shockley.svg"
+  },
+  {
+    "id": "diode-com-photodiode",
+    "name": "Photodiode",
+    "category": "DIODE",
+    "standard": "COMMON",
+    "filename": "Diode-COM-Photodiode",
+    "codepoint": "U+F713",
+    "svg": "SVG/Diode-COM-Photodiode.svg"
+  },
+  {
+    "id": "diode-com-led",
+    "name": "LED",
+    "category": "DIODE",
+    "standard": "COMMON",
+    "filename": "Diode-COM-LED",
+    "codepoint": "U+F714",
+    "svg": "SVG/Diode-COM-LED.svg"
+  },
+  {
+    "id": "diode-com-laser",
+    "name": "LASER Diode",
+    "category": "DIODE",
+    "standard": "COMMON",
+    "filename": "Diode-COM-Laser",
+    "codepoint": "U+F715",
+    "svg": "SVG/Diode-COM-Laser.svg"
+  },
+  {
+    "id": "diode-com-standard",
+    "name": "Standard Diode",
+    "category": "DIODE",
+    "standard": "COMMON",
+    "filename": "Diode-COM-Standard",
+    "codepoint": "U+F716",
+    "svg": "SVG/Diode-COM-Standard.svg"
+  },
+  {
+    "id": "fuse-ieee-alt",
+    "name": "Fuse",
+    "category": "FUSE",
+    "standard": "IEEE",
+    "filename": "Fuse-IEEE-Alt",
+    "codepoint": "U+F717",
+    "svg": "SVG/Fuse-IEEE-Alt.svg"
+  },
+  {
+    "id": "fuse-iec",
+    "name": "Fuse",
+    "category": "FUSE",
+    "standard": "IEC",
+    "filename": "Fuse-IEC",
+    "codepoint": "U+F718",
+    "svg": "SVG/Fuse-IEC.svg"
+  },
+  {
+    "id": "fuse-ieee",
+    "name": "Fuse",
+    "category": "FUSE",
+    "standard": "IEEE",
+    "filename": "Fuse-IEEE",
+    "codepoint": "U+F719",
+    "svg": "SVG/Fuse-IEEE.svg"
+  },
+  {
+    "id": "ground-com-signal",
+    "name": "Digital/Signal Ground",
+    "category": "GROUND",
+    "standard": "COMMON",
+    "filename": "Ground-COM-Signal",
+    "codepoint": "U+F71A",
+    "svg": "SVG/Ground-COM-Signal.svg"
+  },
+  {
+    "id": "ground-com-general",
+    "name": "Common/Earth Ground",
+    "category": "GROUND",
+    "standard": "COMMON",
+    "filename": "Ground-COM-General",
+    "codepoint": "U+F71B",
+    "svg": "SVG/Ground-COM-General.svg"
+  },
+  {
+    "id": "ground-com-chassis",
+    "name": "Chassis Ground",
+    "category": "GROUND",
+    "standard": "COMMON",
+    "filename": "Ground-COM-Chassis",
+    "codepoint": "U+F71C",
+    "svg": "SVG/Ground-COM-Chassis.svg"
+  },
+  {
+    "id": "ic-com-schmitt",
+    "name": "Schmitt Trigger",
+    "category": "IC",
+    "standard": "COMMON",
+    "filename": "IC-COM-Schmitt",
+    "codepoint": "U+F71D",
+    "svg": "SVG/IC-COM-Schmitt.svg"
+  },
+  {
+    "id": "ic-com-schmitt-inverted",
+    "name": "Inverted Schmitt Trigger",
+    "category": "IC",
+    "standard": "COMMON",
+    "filename": "IC-COM-Schmitt-Inverted",
+    "codepoint": "U+F71E",
+    "svg": "SVG/IC-COM-Schmitt-Inverted.svg"
+  },
+  {
+    "id": "ic-com-opamp",
+    "name": "Operational Amplifier (OpAmp)",
+    "category": "IC",
+    "standard": "COMMON",
+    "filename": "IC-COM-OpAmp",
+    "codepoint": "U+F71F",
+    "svg": "SVG/IC-COM-OpAmp.svg"
+  },
+  {
+    "id": "ic-com-comparator",
+    "name": "Comparator",
+    "category": "IC",
+    "standard": "COMMON",
+    "filename": "IC-COM-Comparator",
+    "codepoint": "U+F720",
+    "svg": "SVG/IC-COM-Comparator.svg"
+  },
+  {
+    "id": "ic-com-flipflop-clockedd",
+    "name": "Clocked-D Flip-Flop",
+    "category": "IC",
+    "subCategory": "FLIP-FLOP",
+    "standard": "COMMON",
+    "filename": "IC-COM-FlipFlop-ClockedD",
+    "codepoint": "U+F721",
+    "svg": "SVG/IC-COM-FlipFlop-ClockedD.svg"
+  },
+  {
+    "id": "ic-com-flipflop-clockedjk",
+    "name": "Clocked-JK Flip-Flop",
+    "category": "IC",
+    "subCategory": "FLIP-FLOP",
+    "standard": "COMMON",
+    "filename": "IC-COM-FlipFlop-ClockedJK",
+    "codepoint": "U+F722",
+    "svg": "SVG/IC-COM-FlipFlop-ClockedJK.svg"
+  },
+  {
+    "id": "ic-com-flipflop-clockedt",
+    "name": "Clocked-T Flip-Flop",
+    "category": "IC",
+    "subCategory": "FLIP-FLOP",
+    "standard": "COMMON",
+    "filename": "IC-COM-FlipFlop-ClockedT",
+    "codepoint": "U+F723",
+    "svg": "SVG/IC-COM-FlipFlop-ClockedT.svg"
+  },
+  {
+    "id": "ic-com-flipflop-gatedd",
+    "name": "Gated-D Flip-Flop",
+    "category": "IC",
+    "subCategory": "FLIP-FLOP",
+    "standard": "COMMON",
+    "filename": "IC-COM-FlipFlop-GatedD",
+    "codepoint": "U+F724",
+    "svg": "SVG/IC-COM-FlipFlop-GatedD.svg"
+  },
+  {
+    "id": "ic-com-flipflop-gatedsr",
+    "name": "Gated-SR Flip-Flop",
+    "category": "IC",
+    "subCategory": "FLIP-FLOP",
+    "standard": "COMMON",
+    "filename": "IC-COM-FlipFlop-GatedSR",
+    "codepoint": "U+F725",
+    "svg": "SVG/IC-COM-FlipFlop-GatedSR.svg"
+  },
+  {
+    "id": "ic-com-flipflop-simplesr",
+    "name": "Simple-SR Flip-Flop",
+    "category": "IC",
+    "subCategory": "FLIP-FLOP",
+    "standard": "COMMON",
+    "filename": "IC-COM-FlipFlop-SimpleSR",
+    "codepoint": "U+F726",
+    "svg": "SVG/IC-COM-FlipFlop-SimpleSR.svg"
+  },
+  {
+    "id": "ic-com-logic-buffer",
+    "name": "Buffer",
+    "category": "IC",
+    "subCategory": "LOGIC",
+    "standard": "COMMON",
+    "filename": "IC-COM-Logic-Buffer",
+    "codepoint": "U+F727",
+    "svg": "SVG/IC-COM-Logic-Buffer.svg"
+  },
+  {
+    "id": "ic-com-logic-inverter",
+    "name": "Inverter (Inverted Buffer)",
+    "category": "IC",
+    "subCategory": "LOGIC",
+    "standard": "COMMON",
+    "filename": "IC-COM-Logic-Inverter",
+    "codepoint": "U+F728",
+    "svg": "SVG/IC-COM-Logic-Inverter.svg"
+  },
+  {
+    "id": "ic-com-logic-and",
+    "name": "Logic AND",
+    "category": "IC",
+    "subCategory": "LOGIC",
+    "standard": "COMMON",
+    "filename": "IC-COM-Logic-AND",
+    "codepoint": "U+F729",
+    "svg": "SVG/IC-COM-Logic-AND.svg"
+  },
+  {
+    "id": "ic-com-logic-nand",
+    "name": "Logic NAND",
+    "category": "IC",
+    "subCategory": "LOGIC",
+    "standard": "COMMON",
+    "filename": "IC-COM-Logic-NAND",
+    "codepoint": "U+F72A",
+    "svg": "SVG/IC-COM-Logic-NAND.svg"
+  },
+  {
+    "id": "ic-com-logic-nor",
+    "name": "Logic NOR",
+    "category": "IC",
+    "subCategory": "LOGIC",
+    "standard": "COMMON",
+    "filename": "IC-COM-Logic-NOR",
+    "codepoint": "U+F72B",
+    "svg": "SVG/IC-COM-Logic-NOR.svg"
+  },
+  {
+    "id": "ic-com-logic-or",
+    "name": "Logic OR",
+    "category": "IC",
+    "subCategory": "LOGIC",
+    "standard": "COMMON",
+    "filename": "IC-COM-Logic-OR",
+    "codepoint": "U+F72C",
+    "svg": "SVG/IC-COM-Logic-OR.svg"
+  },
+  {
+    "id": "ic-com-logic-xnor",
+    "name": "Logic XNOR",
+    "category": "IC",
+    "subCategory": "LOGIC",
+    "standard": "COMMON",
+    "filename": "IC-COM-Logic-XNOR",
+    "codepoint": "U+F72D",
+    "svg": "SVG/IC-COM-Logic-XNOR.svg"
+  },
+  {
+    "id": "ic-com-logic-xor",
+    "name": "Logic XOR",
+    "category": "IC",
+    "subCategory": "LOGIC",
+    "standard": "COMMON",
+    "filename": "IC-COM-Logic-XOR",
+    "codepoint": "U+F72E",
+    "svg": "SVG/IC-COM-Logic-XOR.svg"
+  },
+  {
+    "id": "inductor-com-variable",
+    "name": "Variable Inductor",
+    "category": "INDUCTOR",
+    "standard": "COMMON",
+    "filename": "Inductor-COM-Variable",
+    "codepoint": "U+F72F",
+    "svg": "SVG/Inductor-COM-Variable.svg"
+  },
+  {
+    "id": "inductor-com-tapped",
+    "name": "Tapped Inductor",
+    "category": "INDUCTOR",
+    "standard": "COMMON",
+    "filename": "Inductor-COM-Tapped",
+    "codepoint": "U+F730",
+    "svg": "SVG/Inductor-COM-Tapped.svg"
+  },
+  {
+    "id": "inductor-com-magnetic",
+    "name": "Inductor (Magnetic/Ferrite Core)",
+    "category": "INDUCTOR",
+    "standard": "COMMON",
+    "filename": "Inductor-COM-Magnetic",
+    "codepoint": "U+F731",
+    "svg": "SVG/Inductor-COM-Magnetic.svg"
+  },
+  {
+    "id": "inductor-com-ferrite-bead",
+    "name": "Ferrite Bead",
+    "category": "INDUCTOR",
+    "standard": "COMMON",
+    "filename": "Inductor-COM-Ferrite-Bead",
+    "codepoint": "U+F732",
+    "svg": "SVG/Inductor-COM-Ferrite-Bead.svg"
+  },
+  {
+    "id": "inductor-com-air",
+    "name": "Inductor (Air-Core)",
+    "category": "INDUCTOR",
+    "standard": "COMMON",
+    "filename": "Inductor-COM-Air",
+    "codepoint": "U+F733",
+    "svg": "SVG/Inductor-COM-Air.svg"
+  },
+  {
+    "id": "miscellaneous-com-probe_point",
+    "name": "Probe Point",
+    "category": "MISCELLANEOUS",
+    "standard": "COMMON",
+    "filename": "Miscellaneous-COM-Probe_Point",
+    "codepoint": "U+F734",
+    "svg": "SVG/Miscellaneous-COM-Probe_Point.svg"
+  },
+  {
+    "id": "miscellaneous-com-optocoupler",
+    "name": "Optocoupler",
+    "category": "MISCELLANEOUS",
+    "standard": "COMMON",
+    "filename": "Miscellaneous-COM-Optocoupler",
+    "codepoint": "U+F735",
+    "svg": "SVG/Miscellaneous-COM-Optocoupler.svg"
+  },
+  {
+    "id": "miscellaneous-com-lamp-indicator",
+    "name": "Indicator Lamp",
+    "category": "MISCELLANEOUS",
+    "standard": "COMMON",
+    "filename": "Miscellaneous-COM-Lamp-Indicator",
+    "codepoint": "U+F736",
+    "svg": "SVG/Miscellaneous-COM-Lamp-Indicator.svg"
+  },
+  {
+    "id": "miscellaneous-com-lamp-incandescent",
+    "name": "Incadecent Lamp",
+    "category": "MISCELLANEOUS",
+    "standard": "COMMON",
+    "filename": "Miscellaneous-COM-Lamp-Incandescent",
+    "codepoint": "U+F737",
+    "svg": "SVG/Miscellaneous-COM-Lamp-Incandescent.svg"
+  },
+  {
+    "id": "miscellaneous-com-dac",
+    "name": "Digital-to-Analog (DTA) Converter",
+    "category": "MISCELLANEOUS",
+    "standard": "COMMON",
+    "filename": "Miscellaneous-COM-DAC",
+    "codepoint": "U+F738",
+    "svg": "SVG/Miscellaneous-COM-DAC.svg"
+  },
+  {
+    "id": "miscellaneous-com-crystal_oscillator",
+    "name": "Crystal Oscillator",
+    "category": "MISCELLANEOUS",
+    "standard": "COMMON",
+    "filename": "Miscellaneous-COM-Crystal_Oscillator",
+    "codepoint": "U+F739",
+    "svg": "SVG/Miscellaneous-COM-Crystal_Oscillator.svg"
+  },
+  {
+    "id": "miscellaneous-com-adc",
+    "name": "Analog-to-Digital (ATD) Converter",
+    "category": "MISCELLANEOUS",
+    "standard": "COMMON",
+    "filename": "Miscellaneous-COM-ADC",
+    "codepoint": "U+F73A",
+    "svg": "SVG/Miscellaneous-COM-ADC.svg"
+  },
+  {
+    "id": "relay-ieee-spst-no",
+    "name": "SPST Relay Normally-Open",
+    "category": "RELAY",
+    "standard": "IEEE",
+    "filename": "Relay-IEEE-SPST-NO",
+    "codepoint": "U+F73B",
+    "svg": "SVG/Relay-IEEE-SPST-NO.svg"
+  },
+  {
+    "id": "relay-ieee-spst-nc",
+    "name": "SPST Relay Normally-Closed",
+    "category": "RELAY",
+    "standard": "IEEE",
+    "filename": "Relay-IEEE-SPST-NC",
+    "codepoint": "U+F73C",
+    "svg": "SVG/Relay-IEEE-SPST-NC.svg"
+  },
+  {
+    "id": "relay-ieee-spdt",
+    "name": "SPDT Relay",
+    "category": "RELAY",
+    "standard": "IEEE",
+    "filename": "Relay-IEEE-SPDT",
+    "codepoint": "U+F73D",
+    "svg": "SVG/Relay-IEEE-SPDT.svg"
+  },
+  {
+    "id": "relay-iec-spst-no",
+    "name": "SPST Relay Normally-Open",
+    "category": "RELAY",
+    "standard": "IEC",
+    "filename": "Relay-IEC-SPST-NO",
+    "codepoint": "U+F73E",
+    "svg": "SVG/Relay-IEC-SPST-NO.svg"
+  },
+  {
+    "id": "relay-iec-spst-nc",
+    "name": "SPST Relay Normally-Closed",
+    "category": "RELAY",
+    "standard": "IEC",
+    "filename": "Relay-IEC-SPST-NC",
+    "codepoint": "U+F73F",
+    "svg": "SVG/Relay-IEC-SPST-NC.svg"
+  },
+  {
+    "id": "relay-iec-spdt",
+    "name": "SPDT Relay",
+    "category": "RELAY",
+    "standard": "IEC",
+    "filename": "Relay-IEC-SPDT",
+    "codepoint": "U+F740",
+    "svg": "SVG/Relay-IEC-SPDT.svg"
+  },
+  {
+    "id": "relay-com-com-spst-no",
+    "name": "SPST Relay Normally-Open (Common Style)",
+    "category": "RELAY",
+    "standard": "COMMON",
+    "filename": "Relay-COM-COM-SPST-NO",
+    "codepoint": "U+F741",
+    "svg": "SVG/Relay-COM-COM-SPST-NO.svg"
+  },
+  {
+    "id": "relay-com-com-spst-nc",
+    "name": "SPST Relay Normally-Closed (Common Style)",
+    "category": "RELAY",
+    "standard": "COMMON",
+    "filename": "Relay-COM-COM-SPST-NC",
+    "codepoint": "U+F742",
+    "svg": "SVG/Relay-COM-COM-SPST-NC.svg"
+  },
+  {
+    "id": "relay-com-com-spdt",
+    "name": "SPDT Relay (Common Style)",
+    "category": "RELAY",
+    "standard": "COMMON",
+    "filename": "Relay-COM-COM-SPDT",
+    "codepoint": "U+F743",
+    "svg": "SVG/Relay-COM-COM-SPDT.svg"
+  },
+  {
+    "id": "resistor-com-memristor",
+    "name": "Memristor",
+    "category": "RESISTOR",
+    "standard": "COMMON",
+    "filename": "Resistor-COM-Memristor",
+    "codepoint": "U+F744",
+    "svg": "SVG/Resistor-COM-Memristor.svg"
+  },
+  {
+    "id": "resistor-ieee-standard",
+    "name": "Resistor (IEEE/ANSI)",
+    "category": "RESISTOR",
+    "standard": "IEEE",
+    "filename": "Resistor-IEEE-Standard",
+    "codepoint": "U+F745",
+    "svg": "SVG/Resistor-IEEE-Standard.svg"
+  },
+  {
+    "id": "resistor-ieee-varistor",
+    "name": "Varistor (IEEE/ANSI)",
+    "category": "RESISTOR",
+    "standard": "IEEE",
+    "filename": "Resistor-IEEE-Varistor",
+    "codepoint": "U+F746",
+    "svg": "SVG/Resistor-IEEE-Varistor.svg"
+  },
+  {
+    "id": "resistor-ieee-trimmer",
+    "name": "Trimmer / Trim-Pot (IEEE/ANSI)",
+    "category": "RESISTOR",
+    "standard": "IEEE",
+    "filename": "Resistor-IEEE-Trimmer",
+    "codepoint": "U+F747",
+    "svg": "SVG/Resistor-IEEE-Trimmer.svg"
+  },
+  {
+    "id": "resistor-ieee-thermistor",
+    "name": "Thermistor (IEEE/ANSI)",
+    "category": "RESISTOR",
+    "standard": "IEEE",
+    "filename": "Resistor-IEEE-Thermistor",
+    "codepoint": "U+F748",
+    "svg": "SVG/Resistor-IEEE-Thermistor.svg"
+  },
+  {
+    "id": "resistor-ieee-rheostat",
+    "name": "Rheostat / Variable Resistor (IEEE/ANSI)",
+    "category": "RESISTOR",
+    "standard": "IEEE",
+    "filename": "Resistor-IEEE-Rheostat",
+    "codepoint": "U+F749",
+    "svg": "SVG/Resistor-IEEE-Rheostat.svg"
+  },
+  {
+    "id": "resistor-ieee-potentiometer",
+    "name": "Potentiometer (IEEE/ANSI)",
+    "category": "RESISTOR",
+    "standard": "IEEE",
+    "filename": "Resistor-IEEE-Potentiometer",
+    "codepoint": "U+F74A",
+    "svg": "SVG/Resistor-IEEE-Potentiometer.svg"
+  },
+  {
+    "id": "resistor-ieee-photoresistor",
+    "name": "Photoresistor (IEEE/ANSI)",
+    "category": "RESISTOR",
+    "standard": "IEEE",
+    "filename": "Resistor-IEEE-Photoresistor",
+    "codepoint": "U+F74B",
+    "svg": "SVG/Resistor-IEEE-Photoresistor.svg"
+  },
+  {
+    "id": "resistor-iec-standard",
+    "name": "Resistor",
+    "category": "RESISTOR",
+    "standard": "IEC",
+    "filename": "Resistor-IEC-Standard",
+    "codepoint": "U+F74C",
+    "svg": "SVG/Resistor-IEC-Standard.svg"
+  },
+  {
+    "id": "resistor-iec-varistor",
+    "name": "Varistor",
+    "category": "RESISTOR",
+    "standard": "IEC",
+    "filename": "Resistor-IEC-Varistor",
+    "codepoint": "U+F74D",
+    "svg": "SVG/Resistor-IEC-Varistor.svg"
+  },
+  {
+    "id": "resistor-iec-trimmer",
+    "name": "Trimmer / Trim-Pot",
+    "category": "RESISTOR",
+    "standard": "IEC",
+    "filename": "Resistor-IEC-Trimmer",
+    "codepoint": "U+F74E",
+    "svg": "SVG/Resistor-IEC-Trimmer.svg"
+  },
+  {
+    "id": "resistor-iec-thermistor",
+    "name": "Thermistor",
+    "category": "RESISTOR",
+    "standard": "IEC",
+    "filename": "Resistor-IEC-Thermistor",
+    "codepoint": "U+F74F",
+    "svg": "SVG/Resistor-IEC-Thermistor.svg"
+  },
+  {
+    "id": "resistor-iec-rheostat",
+    "name": "Rheostat / Variable Resistor",
+    "category": "RESISTOR",
+    "standard": "IEC",
+    "filename": "Resistor-IEC-Rheostat",
+    "codepoint": "U+F750",
+    "svg": "SVG/Resistor-IEC-Rheostat.svg"
+  },
+  {
+    "id": "resistor-iec-potentiometer",
+    "name": "Potentiometer",
+    "category": "RESISTOR",
+    "standard": "IEC",
+    "filename": "Resistor-IEC-Potentiometer",
+    "codepoint": "U+F751",
+    "svg": "SVG/Resistor-IEC-Potentiometer.svg"
+  },
+  {
+    "id": "resistor-iec-photoresistor",
+    "name": "Photoresistor",
+    "category": "RESISTOR",
+    "standard": "IEC",
+    "filename": "Resistor-IEC-Photoresistor",
+    "codepoint": "U+F752",
+    "svg": "SVG/Resistor-IEC-Photoresistor.svg"
+  },
+  {
+    "id": "source-com-photovoltaic",
+    "name": "Photovoltaic Solar Cell",
+    "category": "SOURCE",
+    "standard": "COMMON",
+    "filename": "Source-COM-Photovoltaic",
+    "codepoint": "U+F753",
+    "svg": "SVG/Source-COM-Photovoltaic.svg"
+  },
+  {
+    "id": "source-com-dc",
+    "name": "DC Voltage Source",
+    "category": "SOURCE",
+    "standard": "COMMON",
+    "filename": "Source-COM-DC",
+    "codepoint": "U+F754",
+    "svg": "SVG/Source-COM-DC.svg"
+  },
+  {
+    "id": "source-com-dc-controlled",
+    "name": "Controlled DC Source",
+    "category": "SOURCE",
+    "standard": "COMMON",
+    "filename": "Source-COM-DC-Controlled",
+    "codepoint": "U+F755",
+    "svg": "SVG/Source-COM-DC-Controlled.svg"
+  },
+  {
+    "id": "source-com-current",
+    "name": "Current Source",
+    "category": "SOURCE",
+    "standard": "COMMON",
+    "filename": "Source-COM-Current",
+    "codepoint": "U+F756",
+    "svg": "SVG/Source-COM-Current.svg"
+  },
+  {
+    "id": "source-com-current-controlled",
+    "name": "Controlled Current Source",
+    "category": "SOURCE",
+    "standard": "COMMON",
+    "filename": "Source-COM-Current-Controlled",
+    "codepoint": "U+F757",
+    "svg": "SVG/Source-COM-Current-Controlled.svg"
+  },
+  {
+    "id": "source-com-battery-single",
+    "name": "Battery (Single Cell)",
+    "category": "SOURCE",
+    "standard": "COMMON",
+    "filename": "Source-COM-Battery-Single",
+    "codepoint": "U+F758",
+    "svg": "SVG/Source-COM-Battery-Single.svg"
+  },
+  {
+    "id": "source-com-battery-multiple",
+    "name": "Battery (Multiple Cells)",
+    "category": "SOURCE",
+    "standard": "COMMON",
+    "filename": "Source-COM-Battery-Multiple",
+    "codepoint": "U+F759",
+    "svg": "SVG/Source-COM-Battery-Multiple.svg"
+  },
+  {
+    "id": "source-com-ac",
+    "name": "AC Voltage Source",
+    "category": "SOURCE",
+    "standard": "COMMON",
+    "filename": "Source-COM-AC",
+    "codepoint": "U+F75A",
+    "svg": "SVG/Source-COM-AC.svg"
+  },
+  {
+    "id": "source-com-square",
+    "name": "Square Wave Generator",
+    "category": "SOURCE",
+    "subCategory": "FUNCTION",
+    "standard": "COMMON",
+    "filename": "Source-COM-Square",
+    "codepoint": "U+F75B",
+    "svg": "SVG/Source-COM-Square.svg"
+  },
+  {
+    "id": "source-com-triangle",
+    "name": "Triangle Wave Generator",
+    "category": "SOURCE",
+    "subCategory": "FUNCTION",
+    "standard": "COMMON",
+    "filename": "Source-COM-Triangle",
+    "codepoint": "U+F75C",
+    "svg": "SVG/Source-COM-Triangle.svg"
+  },
+  {
+    "id": "switch-com-spst",
+    "name": "SPST Switch",
+    "category": "SWITCH",
+    "standard": "COMMON",
+    "filename": "Switch-COM-SPST",
+    "codepoint": "U+F75D",
+    "svg": "SVG/Switch-COM-SPST.svg"
+  },
+  {
+    "id": "switch-com-spdt",
+    "name": "SPDT Switch",
+    "category": "SWITCH",
+    "standard": "COMMON",
+    "filename": "Switch-COM-SPDT",
+    "codepoint": "U+F75E",
+    "svg": "SVG/Switch-COM-SPDT.svg"
+  },
+  {
+    "id": "switch-com-dpst",
+    "name": "DPST Switch",
+    "category": "SWITCH",
+    "standard": "COMMON",
+    "filename": "Switch-COM-DPST",
+    "codepoint": "U+F75F",
+    "svg": "SVG/Switch-COM-DPST.svg"
+  },
+  {
+    "id": "switch-com-dpdt",
+    "name": "DPDT Switch",
+    "category": "SWITCH",
+    "standard": "COMMON",
+    "filename": "Switch-COM-DPDT",
+    "codepoint": "U+F760",
+    "svg": "SVG/Switch-COM-DPDT.svg"
+  },
+  {
+    "id": "switch-com-pushbutton-nc",
+    "name": "Pushbutton Normally-Closed",
+    "category": "SWITCH",
+    "subCategory": "MOMENTARY",
+    "standard": "COMMON",
+    "filename": "Switch-COM-Pushbutton-NC",
+    "codepoint": "U+F761",
+    "svg": "SVG/Switch-COM-Pushbutton-NC.svg"
+  },
+  {
+    "id": "switch-com-pushbutton-no",
+    "name": "Pushbutton Normally-Open",
+    "category": "SWITCH",
+    "subCategory": "MOMENTARY",
+    "standard": "COMMON",
+    "filename": "Switch-COM-Pushbutton-NO",
+    "codepoint": "U+F762",
+    "svg": "SVG/Switch-COM-Pushbutton-NO.svg"
+  },
+  {
+    "id": "switch-com-pushbutton-two_circuit",
+    "name": "Pushbutton Two-Circuit",
+    "category": "SWITCH",
+    "subCategory": "MOMENTARY",
+    "standard": "COMMON",
+    "filename": "Switch-COM-Pushbutton-Two_Circuit",
+    "codepoint": "U+F763",
+    "svg": "SVG/Switch-COM-Pushbutton-Two_Circuit.svg"
+  },
+  {
+    "id": "transformer-com-center",
+    "name": "Center-Tapped Transformer",
+    "category": "TRANSFORMER",
+    "standard": "COMMON",
+    "filename": "Transformer-COM-Center",
+    "codepoint": "U+F764",
+    "svg": "SVG/Transformer-COM-Center.svg"
+  },
+  {
+    "id": "transformer-com-center-double",
+    "name": "Double-Center-Tapped Transformer",
+    "category": "TRANSFORMER",
+    "standard": "COMMON",
+    "filename": "Transformer-COM-Center-Double",
+    "codepoint": "U+F765",
+    "svg": "SVG/Transformer-COM-Center-Double.svg"
+  },
+  {
+    "id": "transformer-com-standard",
+    "name": "Transformer",
+    "category": "TRANSFORMER",
+    "standard": "COMMON",
+    "filename": "Transformer-COM-Standard",
+    "codepoint": "U+F766",
+    "svg": "SVG/Transformer-COM-Standard.svg"
+  },
+  {
+    "id": "transistor-com-phototransitor",
+    "name": "Phototransistor",
+    "category": "TRANSISTOR",
+    "standard": "COMMON",
+    "filename": "Transistor-COM-Phototransitor",
+    "codepoint": "U+F767",
+    "svg": "SVG/Transistor-COM-Phototransitor.svg"
+  },
+  {
+    "id": "transistor-com-jfet-p",
+    "name": "JFET-P",
+    "category": "TRANSISTOR",
+    "standard": "COMMON",
+    "filename": "Transistor-COM-JFET-P",
+    "codepoint": "U+F768",
+    "svg": "SVG/Transistor-COM-JFET-P.svg"
+  },
+  {
+    "id": "transistor-com-jfet-n",
+    "name": "JFET-N",
+    "category": "TRANSISTOR",
+    "standard": "COMMON",
+    "filename": "Transistor-COM-JFET-N",
+    "codepoint": "U+F769",
+    "svg": "SVG/Transistor-COM-JFET-N.svg"
+  },
+  {
+    "id": "transistor-com-darlington-pnp",
+    "name": "PNP Darlington Pair",
+    "category": "TRANSISTOR",
+    "standard": "COMMON",
+    "filename": "Transistor-COM-Darlington-PNP",
+    "codepoint": "U+F76A",
+    "svg": "SVG/Transistor-COM-Darlington-PNP.svg"
+  },
+  {
+    "id": "transistor-com-darlington-npn",
+    "name": "NPN Darlington Pair",
+    "category": "TRANSISTOR",
+    "standard": "COMMON",
+    "filename": "Transistor-COM-Darlington-NPN",
+    "codepoint": "U+F76B",
+    "svg": "SVG/Transistor-COM-Darlington-NPN.svg"
+  },
+  {
+    "id": "transistor-com-bjt-pnp",
+    "name": "PNP Transistor",
+    "category": "TRANSISTOR",
+    "standard": "COMMON",
+    "filename": "Transistor-COM-BJT-PNP",
+    "codepoint": "U+F76C",
+    "svg": "SVG/Transistor-COM-BJT-PNP.svg"
+  },
+  {
+    "id": "transistor-com-bjt-npn",
+    "name": "NPN Transistor",
+    "category": "TRANSISTOR",
+    "standard": "COMMON",
+    "filename": "Transistor-COM-BJT-NPN",
+    "codepoint": "U+F76D",
+    "svg": "SVG/Transistor-COM-BJT-NPN.svg"
+  },
+  {
+    "id": "transistor-com-mosfet-n",
+    "name": "N-Channel MOSFET",
+    "category": "TRANSISTOR",
+    "subCategory": "MOSFET",
+    "standard": "COMMON",
+    "filename": "Transistor-COM-MOSFET-N",
+    "codepoint": "U+F76E",
+    "svg": "SVG/Transistor-COM-MOSFET-N.svg"
+  },
+  {
+    "id": "transistor-com-mosfet-n-depletion",
+    "name": "N-Channel MOSFET in Depletion Mode",
+    "category": "TRANSISTOR",
+    "subCategory": "MOSFET",
+    "standard": "COMMON",
+    "filename": "Transistor-COM-MOSFET-N-Depletion",
+    "codepoint": "U+F76F",
+    "svg": "SVG/Transistor-COM-MOSFET-N-Depletion.svg"
+  },
+  {
+    "id": "transistor-com-mosfet-n-enhancement",
+    "name": "N-Channel MOSFET in Enhancement Mode",
+    "category": "TRANSISTOR",
+    "subCategory": "MOSFET",
+    "standard": "COMMON",
+    "filename": "Transistor-COM-MOSFET-N-Enhancement",
+    "codepoint": "U+F770",
+    "svg": "SVG/Transistor-COM-MOSFET-N-Enhancement.svg"
+  },
+  {
+    "id": "transistor-com-mosfet-p",
+    "name": "P-Channel MOSFET",
+    "category": "TRANSISTOR",
+    "subCategory": "MOSFET",
+    "standard": "COMMON",
+    "filename": "Transistor-COM-MOSFET-P",
+    "codepoint": "U+F771",
+    "svg": "SVG/Transistor-COM-MOSFET-P.svg"
+  },
+  {
+    "id": "transistor-com-mosfet-p-depletion",
+    "name": "P-Channel MOSFET in Depletion Mode",
+    "category": "TRANSISTOR",
+    "subCategory": "MOSFET",
+    "standard": "COMMON",
+    "filename": "Transistor-COM-MOSFET-P-Depletion",
+    "codepoint": "U+F772",
+    "svg": "SVG/Transistor-COM-MOSFET-P-Depletion.svg"
+  },
+  {
+    "id": "transistor-com-mosfet-p-enhancement",
+    "name": "P-Channel MOSFET in Enhancement Mode",
+    "category": "TRANSISTOR",
+    "subCategory": "MOSFET",
+    "standard": "COMMON",
+    "filename": "Transistor-COM-MOSFET-P-Enhancement",
+    "codepoint": "U+F773",
+    "svg": "SVG/Transistor-COM-MOSFET-P-Enhancement.svg"
+  }
+]

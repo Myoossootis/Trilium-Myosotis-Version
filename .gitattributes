@@ -1,0 +1,9 @@
+# Keep the bundled Windows runtime in GitHub LFS because GitHub's regular Git
+# object limit is 100 MB.  Source code and installer scripts remain ordinary
+# Git files so they are easy to review.
+trilium-portable/**/*.exe filter=lfs diff=lfs merge=lfs -text
+trilium-portable/**/*.dll filter=lfs diff=lfs merge=lfs -text
+trilium-portable/**/*.asar filter=lfs diff=lfs merge=lfs -text
+trilium-portable/**/*.pak filter=lfs diff=lfs merge=lfs -text
+trilium-portable/**/*.dat filter=lfs diff=lfs merge=lfs -text
+trilium-portable/**/*.bin filter=lfs diff=lfs merge=lfs -text
