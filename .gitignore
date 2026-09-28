@@ -36,6 +36,8 @@ startup-metrics.log
 # Generated OS/editor files.
 node_modules/
 .npm-cache/
+.venv/
+__pycache__/
 .font-build-tools/
 .vendor-electronic-symbols-git-backup/
 .vscode/
