@@ -119,6 +119,12 @@ def discover_program_ids(conn: sqlite3.Connection) -> set[str]:
             if exists:
                 ids.add(target)
                 pending.append(target)
+    # Electron's native menu and launcher initialization require built-in
+    # nodes such as _lbBookmarks. These IDs belong to the app, not user notes.
+    # Add them after relation traversal so user bookmark targets aren't kept.
+    ids.update(row[0] for row in conn.execute(
+        "SELECT noteId FROM notes WHERE noteId GLOB '_*' AND isDeleted=0"
+    ))
     return ids
 
 
@@ -235,6 +241,11 @@ def copy_seed(source: Path, output: Path) -> set[str]:
     dst.execute("PRAGMA foreign_keys = OFF")
     ids = discover_program_ids(dst)
     ids.add(PROGRAM_ROOT_ID)
+    builtin_branches = list(dst.execute(
+        "SELECT branchId,noteId,parentNoteId,notePosition,isExpanded FROM branches "
+        "WHERE noteId GLOB '_*' AND noteId <> '_hidden' AND isDeleted=0 "
+        "AND (parentNoteId GLOB '_*' OR parentNoteId='root')"
+    ))
 
     placeholders = ",".join("?" for _ in ids)
     # Delete all user content from the copied template.
@@ -304,6 +315,11 @@ def copy_seed(source: Path, output: Path) -> set[str]:
         """,
         (PROGRAM_ROOT_ID, utc_modified),
     )
+    # Personal search/dictionary state is not needed by a fresh installation.
+    dst.execute(
+        "UPDATE notes SET blobId=? WHERE noteId IN ('_search','_customDictionary','_userHidden')",
+        (PROGRAM_ROOT_BLOB_ID,),
+    )
 
     # Keep the portable seed in sync with source files even when a newly
     # introduced customization has not yet been installed in the live DB.
@@ -317,6 +333,7 @@ def copy_seed(source: Path, output: Path) -> set[str]:
         ("root__hidden", "_hidden", "root", 999999999, 0),
         ("MyoRootProgram", PROGRAM_ROOT_ID, "root", 20, 1),
     ]
+    branches.extend(builtin_branches)
     if "HmeDashboard" in ids:
         branches.append(("MyoProgramHome", "HmeDashboard", PROGRAM_ROOT_ID, 10, 0))
     if "ZrxUIJf75kFS" in ids:
@@ -328,6 +345,7 @@ def copy_seed(source: Path, output: Path) -> set[str]:
             if note_id in ids:
                 branches.append((f"MyoTodo{pos}", note_id, "ZrxUIJf75kFS", pos, 1))
     excluded = {"root", "_hidden", PROGRAM_ROOT_ID, "HmeDashboard", "ZrxUIJf75kFS"}
+    excluded.update(note_id for note_id in ids if note_id.startswith("_"))
     excluded.update({"52Z91MOBH5g9", "IXeWPMzNDeCF", "VRagMKcXpZ6N", "G1dMogAOtW5i"})
     pos = 100
     for note_id in sorted(ids - excluded):
@@ -365,6 +383,7 @@ def copy_seed(source: Path, output: Path) -> set[str]:
     now = utc_modified
     for name, value in (
         ("initialized", "true"),
+        ("theme", "codex-ui"),
         ("documentId", base64.b64encode(secrets.token_bytes(16)).decode("ascii")),
         ("documentSecret", base64.b64encode(secrets.token_bytes(16)).decode("ascii")),
         (

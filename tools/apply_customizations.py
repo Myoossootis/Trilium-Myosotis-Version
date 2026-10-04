@@ -121,6 +121,12 @@ class Etapi:
             payload["isInheritable"] = bool(attr["isInheritable"])
         self.request("POST", "/attributes", body=payload)
 
+    def remove_attribute(self, attribute_id: str) -> None:
+        if self.dry_run:
+            print(f"[dry-run] remove attribute {attribute_id}")
+            return
+        self.request("DELETE", f"/attributes/{urllib.parse.quote(attribute_id, safe='')}")
+
 
 def existing_attribute(note: dict[str, Any], attr_type: str, name: str, value: str) -> bool:
     return any(
@@ -195,6 +201,10 @@ def main() -> int:
     for item in notes:
         note_id = ids[item["key"]]
         note = api.get_note(note_id)
+        if item["key"] == "codex_ui":
+            for attribute in note.get("attributes", []):
+                if attribute.get("type") == "label" and attribute.get("name") == "appCss":
+                    api.remove_attribute(attribute["attributeId"])
         attrs = [("label", name, value, False) for name, value in item.get("labels", [])]
         for name, target_key in item.get("relations", []):
             if target_key not in ids:

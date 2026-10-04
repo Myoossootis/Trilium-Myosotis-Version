@@ -8,6 +8,15 @@
  * there is no continuously running animation or backdrop filter.
  */
 
+/* Registered as #appTheme=codex-ui with #appThemeBase=next-light. Loading and
+   unloading this stylesheet through Appearance makes the theme switchable. */
+:root {
+    --theme-style: light;
+    --main-font-family: "Segoe UI", "Microsoft YaHei UI", system-ui, sans-serif;
+    --tree-font-family: "Segoe UI", "Microsoft YaHei UI", system-ui, sans-serif;
+    --native-titlebar-background: #f7f7f8;
+}
+
 /* ------------------------------------------------------------------------- *
  * Light shell tokens
  * ------------------------------------------------------------------------- */
@@ -132,8 +141,8 @@ body.dark-theme #app {
  * The three-column shell
  * ------------------------------------------------------------------------- */
 #launcher-pane {
-    background: var(--launcher-pane-background-color) !important;
-    color: var(--launcher-pane-text-color) !important;
+    background: var(--codex-sidebar) !important;
+    color: var(--codex-muted) !important;
     border-inline-end: 1px solid var(--codex-border) !important;
     box-shadow: none !important;
 }
@@ -407,7 +416,6 @@ body.dark-theme #app {
 }
 
 .modal-content,
-.modal-dialog,
 .dropdown-menu,
 .context-menu,
 .popup,
@@ -420,7 +428,6 @@ body.dark-theme #app {
 }
 
 body.dark-theme .modal-content,
-body.dark-theme .modal-dialog,
 body.dark-theme .dropdown-menu,
 body.dark-theme .context-menu,
 body.dark-theme .popup,
@@ -480,15 +487,5 @@ body.light-theme *::-webkit-scrollbar-thumb:hover {
     background-clip: padding-box;
 }
 
-/* Very narrow windows retain the content area instead of forcing a fixed
-   sidebar width. */
-@media (max-width: 900px) {
-    #left-pane {
-        max-width: 28vw;
-    }
-
-    .tab-row-widget .note-tab {
-        width: min(240px, 42vw) !important;
-    }
-}
-
+/* Tab widths and sidebar sizes are calculated by Trilium. Keeping these
+   measurements native preserves drag ordering and the user's split sizes. */

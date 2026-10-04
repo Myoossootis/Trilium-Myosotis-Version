@@ -35,7 +35,7 @@
       "type": "code",
       "mime": "text/css",
       "path": "trilium-codex-ui.css",
-      "labels": [["appCss", ""], ["homeInternal", ""]]
+      "labels": [["appTheme", "codex-ui"], ["appThemeBase", "next-light"], ["homeInternal", ""], ["iconClass", "bx bx-palette"]]
     },
     {
       "key": "todo_board",
