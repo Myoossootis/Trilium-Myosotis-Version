@@ -13,15 +13,19 @@ from __future__ import annotations
 import argparse
 import base64
 import datetime as dt
+import json
 import secrets
 import sqlite3
 from pathlib import Path
 
 
 ROOT_NOTE_IDS = {"root", "_hidden"}
+ROOT = Path(__file__).resolve().parents[1]
+MANIFEST_PATH = ROOT / "customizations-manifest.json"
 PROGRAM_TITLES = {
     "Home 仪表盘脚本",
     "Home 仪表盘样式",
+    "Codex 风格应用界面",
     "字典排版 · 学术与硬件",
     "ToDo 四列看板脚本",
     "ToDo 四列看板样式",
@@ -118,6 +122,108 @@ def discover_program_ids(conn: sqlite3.Connection) -> set[str]:
     return ids
 
 
+def inject_manifest_code_notes(
+    conn: sqlite3.Connection,
+    ids: set[str],
+    date_created: str,
+    utc_modified: str,
+) -> None:
+    """Add manifest code notes that were not present in the source database.
+
+    A portable seed is normally produced from the author's live database.  A
+    newly added app-level customization may not exist in that database yet,
+    though, so relying on title discovery alone would silently omit it from a
+    fresh clone.  Manifest code notes are small and deterministic; inject only
+    missing titles and let the normal program-root branch rebuild expose them.
+    """
+    if not MANIFEST_PATH.exists():
+        return
+    try:
+        manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return
+
+    existing_titles = {
+        row[0]
+        for row in conn.execute(
+            "SELECT title FROM notes WHERE isDeleted = 0"
+        )
+    }
+    code_definitions = [
+        item
+        for item in manifest.get("notes", [])
+        if item.get("type") == "code" and item.get("path")
+    ]
+
+    ordinal = 1
+    for item in code_definitions:
+        title = str(item.get("title") or "").strip()
+        source_path = ROOT / str(item.get("path") or "")
+        if not title or title in existing_titles or not source_path.is_file():
+            continue
+
+        # These IDs are deliberately stable across seed rebuilds.  They are
+        # not linked from user notes and therefore do not need source IDs.
+        while True:
+            note_id = f"MyoCode{ordinal:02d}"
+            blob_id = f"MyoCodeBlob{ordinal:02d}"
+            attr_prefix = f"MyoCodeAttr{ordinal:02d}"
+            if (
+                conn.execute("SELECT 1 FROM notes WHERE noteId = ?", (note_id,)).fetchone()
+                is None
+                and conn.execute("SELECT 1 FROM blobs WHERE blobId = ?", (blob_id,)).fetchone()
+                is None
+            ):
+                break
+            ordinal += 1
+
+        content = source_path.read_text(encoding="utf-8")
+        mime = str(item.get("mime") or "text/plain")
+        conn.execute(
+            """
+            INSERT INTO blobs
+              (blobId, content, dateModified, utcDateModified, textRepresentation)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (blob_id, content, date_created, utc_modified, content),
+        )
+        conn.execute(
+            """
+            INSERT INTO notes
+              (noteId, title, isProtected, type, mime, blobId, isDeleted, deleteId,
+               dateCreated, dateModified, utcDateCreated, utcDateModified)
+            VALUES (?, ?, 0, 'code', ?, ?, 0, NULL, ?, ?, ?, ?)
+            """,
+            (
+                note_id,
+                title,
+                mime,
+                blob_id,
+                date_created,
+                date_created,
+                utc_modified,
+                utc_modified,
+            ),
+        )
+        for position, label in enumerate(item.get("labels", []), start=1):
+            if not isinstance(label, (list, tuple)) or not label:
+                continue
+            name = str(label[0])
+            value = str(label[1]) if len(label) > 1 else ""
+            conn.execute(
+                """
+                INSERT INTO attributes
+                  (attributeId, noteId, type, name, value, position, utcDateModified,
+                   isDeleted, deleteId, isInheritable)
+                VALUES (?, ?, 'label', ?, ?, ?, ?, 0, NULL, 0)
+                """,
+                (f"{attr_prefix}{position:02d}", note_id, name, value, position * 10, utc_modified),
+            )
+        ids.add(note_id)
+        existing_titles.add(title)
+        ordinal += 1
+
+
 def copy_seed(source: Path, output: Path) -> set[str]:
     output.parent.mkdir(parents=True, exist_ok=True)
     if output.exists():
@@ -199,6 +305,10 @@ def copy_seed(source: Path, output: Path) -> set[str]:
         (PROGRAM_ROOT_ID, utc_modified),
     )
 
+    # Keep the portable seed in sync with source files even when a newly
+    # introduced customization has not yet been installed in the live DB.
+    inject_manifest_code_notes(dst, ids, date_created, utc_modified)
+
     # Rebuild a small deterministic tree.  This removes all user branches and
     # leaves the program notes available without exposing the original tree.
     dst.execute("DELETE FROM branches")
@@ -267,12 +377,22 @@ def copy_seed(source: Path, output: Path) -> set[str]:
             (name, value, now),
         )
 
-    # Rebuild statistics after pruning the source database.
+    # Rebuild statistics after pruning the source database.  A Windows SQLite
+    # backup can leave the old source file's trailing pages allocated even
+    # after a normal VACUUM (the header is compact, but the file is not).  A
+    # fresh VACUUM INTO guarantees that the checked-in seed is genuinely
+    # small instead of carrying hidden user-database pages.
     dst.commit()
-    dst.execute("VACUUM")
     dst.execute("ANALYZE")
     dst.commit()
     dst.close()
+    compact_output = output.with_name(output.name + ".compact")
+    if compact_output.exists():
+        compact_output.unlink()
+    vacuum_conn = sqlite3.connect(output)
+    vacuum_conn.execute("VACUUM INTO ?", (str(compact_output),))
+    vacuum_conn.close()
+    compact_output.replace(output)
     return ids
 
 

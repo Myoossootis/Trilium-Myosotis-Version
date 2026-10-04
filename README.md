@@ -15,7 +15,7 @@ cd Trilium-Myosotis-Version
 
 也可以在 GitHub 网页中下载仓库归档；如果归档中显示为 LFS 指针文件，请使用上面的 Git LFS clone 方式。
 
-首次启动时，根目录启动脚本会把仓库中的 `trilium-seed-data\document.db` 复制到 `trilium-portable\trilium-data`。这个种子数据库只含 Home、ToDo、公式、排版、字数统计和图标包等程序组件，不含个人笔记、附件历史或密码。之后产生的 `trilium-data` 和 `trilium-electron-data` 都是本机运行时目录，未提交到仓库。
+首次启动时，根目录启动脚本会把仓库中的 `trilium-seed-data\document.db` 复制到 `trilium-portable\trilium-data`。这个种子数据库只含 Home、ToDo、公式、排版、字数统计、图标包和 Codex 风格应用界面等程序组件，不含个人笔记、附件历史或密码。之后产生的 `trilium-data` 和 `trilium-electron-data` 都是本机运行时目录，未提交到仓库。
 
 ## 在另一台机器恢复修改
 
@@ -26,7 +26,7 @@ $env:TRILIUM_ETAPI_TOKEN = '<你的 ETAPI token>'
 python .\tools\apply_customizations.py
 ```
 
-该安装器只创建或更新程序代码/渲染笔记，不导入用户笔记、附件、历史版本或 Home 数据。笔记文件按计划放入单独的笔记仓库。
+该安装器只创建或更新程序代码/渲染笔记，不导入用户笔记、附件、历史版本或 Home 数据。安装器会同时安装 `Codex 风格应用界面` 全局 CSS：它覆盖启动栏、笔记树、标签页、编辑工具栏、左右面板、弹窗和滚动条，保留正文排版与 Home 内容组件。笔记文件按计划放入单独的笔记仓库。
 
 电路符号字体已随种子库启用；对已有数据库可用 `install_electronic_symbols_pack.py --db <document.db>` 更新图标包，所有路径均可通过参数覆盖。
 
