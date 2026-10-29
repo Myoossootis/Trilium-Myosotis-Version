@@ -1,0 +1,85 @@
+/* A single native left pane, with independent scrolling for tools and notes. */
+body.kb-workspace-nav{--kw-bg:#f7f8f5;--kw-text:#33443a;--kw-muted:#78877c;--kw-line:#e3e9e1;--kw-accent:#477d65;--kw-selected:#e7f1e9;--kw-menu:#fff}
+body.dark-theme.kb-workspace-nav{--kw-bg:#1e2420;--kw-text:#e0e9e1;--kw-muted:#a1b1a6;--kw-line:#354039;--kw-accent:#9bcaac;--kw-selected:#304438;--kw-menu:#29312b}
+body.kb-workspace-nav:has(#left-pane #kb-workspace-navigation) #launcher-pane{display:none!important}
+body.kb-workspace-nav #left-pane{min-width:220px!important;flex-shrink:0!important;background:var(--kw-bg)!important;color:var(--kw-text)!important;isolation:isolate;position:relative;z-index:30}
+#kb-workspace-navigation,#kb-workspace-directory,#kb-workspace-tools{box-sizing:border-box;font-family:var(--main-font-family,"Segoe UI","Microsoft YaHei",sans-serif)}
+#kb-workspace-navigation{order:0;padding:20px 12px 6px;flex:0 1 auto;min-height:0;max-height:56%;display:flex;flex-direction:column;overflow:visible}
+#kb-workspace-navigation .kw-label{margin:0 10px 10px;font-size:12px;font-weight:600;line-height:20px;color:var(--kw-muted);letter-spacing:.04em;flex-shrink:0}
+#kb-workspace-navigation button{display:flex;align-items:center;gap:12px;width:100%;min-width:0;box-sizing:border-box;min-height:40px;padding:9px 10px;text-align:left;border:0;border-radius:7px;background:transparent;color:var(--kw-text);font:600 15px/22px var(--main-font-family,"Segoe UI","Microsoft YaHei",sans-serif);cursor:pointer;flex-shrink:0}
+#kb-workspace-navigation button>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#kb-workspace-navigation button>i{font-size:20px;line-height:1;flex:0 0 22px;text-align:center}
+#kb-workspace-navigation button:hover{color:var(--kw-text);background:var(--kw-selected)}
+#kb-workspace-navigation button[aria-current=page]{color:var(--kw-accent);background:var(--kw-selected);font-weight:600}
+#kb-workspace-navigation button:disabled{opacity:.45;cursor:default}
+#kb-workspace-shortcuts{position:relative;display:flex;flex-direction:column;min-height:0;margin-top:12px;padding-top:10px;border-top:1px solid var(--kw-line)}
+.kw-shortcuts-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 10px 6px;flex-shrink:0;color:var(--kw-muted);font-size:12px;font-weight:600;line-height:22px}
+#kb-workspace-navigation .kw-shortcuts-heading button{width:auto;min-height:28px;padding:0 2px;color:var(--kw-accent);font-size:12px;line-height:24px}
+.kw-shortcut-list{min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:2px 0}
+#kb-workspace-navigation .kw-shortcut{position:relative;font-size:15px;min-height:38px;padding:8px 10px;cursor:grab}
+#kb-workspace-navigation .kw-shortcut>span{flex:1}
+#kb-workspace-navigation .kw-drag-handle{flex:0 0 12px;font-size:14px;opacity:0;transition:opacity .12s}
+#kb-workspace-navigation .kw-shortcut:hover .kw-drag-handle,#kb-workspace-navigation .kw-shortcut:focus-visible .kw-drag-handle{opacity:.6}
+.kw-dragging{opacity:.4}
+.kw-drop-before{box-shadow:inset 0 2px var(--kw-accent)}
+.kw-drop-after{box-shadow:inset 0 -2px var(--kw-accent)}
+.kw-empty-tools{padding:6px 10px;color:var(--kw-muted);font-size:11px;line-height:20px}
+#kb-workspace-navigation .kw-tools-menu{position:absolute;top:40px;left:0;width:280px;max-width:calc(100vw - 30px);z-index:1200;background:var(--kw-menu);color:var(--kw-text);border:1px solid var(--kw-line);border-radius:10px;box-shadow:0 8px 30px #0002;padding:10px}
+.kw-menu-title{font-size:12px;font-weight:600;line-height:20px;color:var(--kw-text);padding:0 4px 3px}
+.kw-menu-hint{font-size:11px;line-height:18px;color:var(--kw-muted);padding:0 4px 8px}
+.kw-tool-choices{max-height:min(45vh,350px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.kw-tool-choices label{display:flex;align-items:center;gap:9px;margin:0;padding:7px 5px;cursor:pointer;border-radius:5px;font-size:13px;font-weight:600;line-height:22px}
+.kw-tool-choices label:hover{background:var(--kw-selected)}
+.kw-tool-choices input{accent-color:var(--kw-accent);margin:0;flex-shrink:0}
+.kw-tool-choices i{font-size:20px;flex:0 0 22px;color:var(--kw-text)}
+.kw-save-status{font-size:11px;line-height:20px;color:var(--kw-accent);padding:3px 4px 0}
+body.kb-workspace-nav #left-pane>.quick-search{order:1;position:relative;flex:0 0 auto;flex-direction:row-reverse;width:100%;height:50px;box-sizing:border-box;padding:8px 12px 10px;margin:0;flex-wrap:nowrap;gap:0;border:0!important;background:transparent!important;box-shadow:none!important;z-index:20}
+/* The theme also draws ::before. Use that as the single shared search surface. */
+body.kb-workspace-nav #left-pane>.quick-search::before{content:"";position:absolute;inset:8px 12px 10px!important;width:auto!important;height:auto!important;box-sizing:border-box;background:var(--kw-selected)!important;border:1px solid var(--kw-line)!important;border-radius:7px!important;box-shadow:none!important;pointer-events:none}
+body.kb-workspace-nav #left-pane>.quick-search:focus-within::before{border-color:var(--kw-accent)!important}
+body.kb-workspace-nav #left-pane .quick-search input,body.kb-workspace-nav #left-pane .quick-search .search-button{position:relative;height:32px;box-sizing:border-box;margin:0!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;outline:none!important;z-index:1}
+body.kb-workspace-nav #left-pane .quick-search input{min-width:0;padding:4px 12px;font-size:14px!important;font-weight:500;color:var(--kw-text)}
+body.kb-workspace-nav #left-pane .quick-search .input-group-prepend{position:relative;flex:0 0 32px;min-width:32px;width:32px;height:32px;margin:0!important;padding:0;background:transparent!important;border:0!important;box-shadow:none!important}
+body.kb-workspace-nav #left-pane .quick-search .search-button{display:grid;place-items:center;width:32px;min-width:0;color:var(--kw-text);font-size:18px;padding:4px}
+body.kb-workspace-nav #left-pane .quick-search .dropdown-menu{max-width:min(720px,calc(100vw - 28px));min-width:min(400px,calc(100vw - 28px))}
+#kb-workspace-directory{order:2;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 20px 8px;color:var(--kw-muted);font-size:12px;font-weight:600;line-height:22px;flex:0 0 auto}
+#kb-workspace-directory button{border:0;background:transparent;color:var(--kw-muted);font:inherit;padding:2px 0;white-space:nowrap;cursor:pointer}
+body.kb-workspace-nav #left-pane .tree-wrapper{order:3;flex:1 1 0!important;min-height:70px;overflow:hidden}
+body.kb-workspace-nav #left-pane .tree{box-sizing:border-box;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin}
+body.kb-workspace-nav #left-pane .fancytree-container{color:var(--kw-text);padding:0 8px 38px!important}
+body.kb-workspace-nav #left-pane .fancytree-node{box-sizing:border-box;align-items:center;min-height:36px!important;height:36px!important;margin:1px 0!important;padding:3px 6px!important;line-height:26px!important;font-size:15px;font-weight:600;color:var(--kw-text)!important;border-radius:7px}
+body.kb-workspace-nav #left-pane .fancytree-title{min-width:0;font-size:15px;font-weight:600;line-height:26px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--kw-text)}
+body.kb-workspace-nav #left-pane .fancytree-expander,body.kb-workspace-nav #left-pane .fancytree-custom-icon{flex-shrink:0;font-size:18px;width:20px;line-height:26px}
+body.kb-workspace-nav #left-pane .fancytree-active,body.kb-workspace-nav #left-pane .fancytree-selected{background:var(--kw-selected)!important;color:var(--kw-accent)!important}
+body.kb-workspace-nav #left-pane .fancytree-node .fancytree-custom-icon{color:var(--kw-text)!important}
+#kb-workspace-tools{order:4;display:grid;grid-template-columns:repeat(4,minmax(44px,1fr));align-items:center;gap:2px;flex:0 0 auto;border-top:1px solid var(--kw-line);padding:8px 6px;background:var(--kw-bg)}
+#kb-workspace-tools button{display:flex;align-items:center;justify-content:center;gap:4px;min-width:0;box-sizing:border-box;white-space:nowrap;border:0;border-radius:6px;height:36px;padding:6px 2px;background:transparent;color:var(--kw-text);font:600 12px/20px var(--main-font-family,"Segoe UI","Microsoft YaHei",sans-serif);cursor:pointer}
+#kb-workspace-tools button>i{font-size:18px;line-height:1}
+#kb-workspace-tools [data-command="hideLeftPane"] i{font-size:20px}
+#kb-workspace-tools .launcher-button.myo-day-night-icon{width:100%;height:36px;min-height:36px;margin:0}
+#kb-workspace-tools .launcher-button.myo-day-night-icon::before{left:calc(50% - 22px);top:8px}
+#kb-workspace-tools .launcher-button.myo-day-night-icon::after{left:calc(50% - 20px);top:10px}
+#kb-workspace-tools button:hover{background:var(--kw-selected);color:var(--kw-text)}
+#kb-workspace-tools button[aria-current=page]{background:var(--kw-selected);color:var(--kw-accent);font-weight:600}
+#kb-workspace-navigation [hidden]{display:none!important}
+#kb-workspace-navigation button:focus-visible,#kb-workspace-tools button:focus-visible,#kb-workspace-directory button:focus-visible{outline:2px solid var(--kw-accent);outline-offset:-2px}
+@media(max-height:600px){#kb-workspace-navigation{padding-top:8px;max-height:57%}#kb-workspace-navigation>button{padding-block:5px}#kb-workspace-shortcuts{margin-top:6px}}
+@media(max-width:700px){body.kb-workspace-nav #left-pane{min-width:200px!important}}
+@media(pointer:coarse){#kb-workspace-navigation .kw-drag-handle{opacity:.5}}
+@media(prefers-reduced-motion:reduce){#kb-workspace-navigation .kw-drag-handle{transition:none}}
+
+/* The collapsed workspace has the same destinations and palette as the full pane. */
+#kb-workspace-rail{display:none;box-sizing:border-box;flex:0 0 60px;width:60px;min-width:60px;padding:16px 6px 8px;background:var(--kw-bg);color:var(--kw-muted);border-right:1px solid var(--kw-line);flex-direction:column;align-items:stretch;gap:10px;min-height:0;z-index:30}
+body.kb-workspace-nav.kb-workspace-collapsed #kb-workspace-rail{display:flex}
+#kb-workspace-rail button{display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:40px;height:36px;min-height:36px;flex-shrink:0;padding:0;margin:0 auto;border:0;border-radius:8px;background:transparent;color:var(--kw-text);cursor:pointer;font:22px/1 var(--main-font-family,"Segoe UI",sans-serif)}
+#kb-workspace-rail button>span{display:none}
+#kb-workspace-rail button>i{font-size:22px}
+#kb-workspace-rail button:hover,#kb-workspace-rail button[aria-current=page]{background:var(--kw-selected);color:var(--kw-accent)}
+#kb-workspace-rail button:focus-visible{outline:2px solid var(--kw-accent);outline-offset:-2px}
+#kb-workspace-rail button:disabled{opacity:.45;cursor:default}
+.kw-rail-workspace,.kw-rail-shortcuts,.kw-rail-footer{display:flex;flex-direction:column;align-items:stretch;gap:5px}
+.kw-rail-workspace{flex-shrink:0}
+.kw-rail-shortcuts{min-height:0;overflow-y:auto;scrollbar-width:thin;overscroll-behavior:contain;padding-top:10px;border-top:1px solid var(--kw-line)}
+.kw-rail-shortcuts:empty{display:none}
+.kw-rail-footer{margin-top:auto;padding-top:10px;border-top:1px solid var(--kw-line);flex-shrink:0}
+@media(max-height:500px){#kb-workspace-rail{padding-top:8px;gap:6px}.kw-rail-workspace,.kw-rail-shortcuts,.kw-rail-footer{gap:2px}#kb-workspace-rail button{height:32px;min-height:32px}}

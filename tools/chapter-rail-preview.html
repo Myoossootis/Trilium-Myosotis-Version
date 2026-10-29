@@ -1,0 +1,68 @@
+<!doctype html><html lang="zh"><meta charset="utf-8"><title>章节预览条测试</title>
+<style>
+body{margin:0;background:#faf9f6;color:#30343b;font:16px/1.9 'Segoe UI','Microsoft YaHei',sans-serif}
+aside{position:fixed;left:0;top:0;bottom:0;width:220px;background:#f1f0ec;padding:24px;box-sizing:border-box}
+.note-split{margin-left:220px}.note-split-title{height:65px;padding-left:42px;display:flex;align-items:center;border-bottom:1px solid #e6e5e0;font-size:22px;font-weight:600}
+.scrolling-container{height:calc(100vh - 66px);overflow:auto}.ck-content{padding:25px 48px 500px;max-width:850px}
+h2{position:sticky;top:0;background:#faf9f6;color:#4d919d}h3{position:sticky;top:50px;background:#faf9f6;color:#5d83ac}
+p{margin:16px 0}#result{font-size:12px;color:#647064}
+/* Deterministic headless checks, independent of compositor animation timing. */
+.myo-chapter-tick::before{transition:none!important}
+</style>
+<aside>Home<br>工作台<br>学术知识库<br>硬件工程师知识库<br><br><span id="result">测试运行中</span></aside>
+<main class="note-split" data-ntx-id="preview"><header class="note-split-title">07 MOSFET 驱动与 Bootstrap</header>
+<div class="scrolling-container"><article class="ck-content">
+<h2>7.1 高边驱动概述</h2><p>高边开关的驱动电压需要以源极为参考，而不是直接以系统地为参考。</p>
+<h3>7.1.1 栅源电压</h3><p>理解栅源电压、电流路径和驱动回路，是分析开关状态的基础。</p>
+<h3>7.1.2 开关过程</h3><p>栅极充电过程影响切换速度，需要同时考虑寄生电容和驱动能力。</p>
+<h2>7.2 电路原理</h2><p>SW 上升时，BST 随 SW 一起上升，保持足够的栅源电压。</p>
+<h3>7.2.1 自举充电路径</h3><p>低边开关导通期间，自举电容通过二极管获得电荷。</p>
+<h2>7.3 Bootstrap 电容值</h2><p>电容选型需要综合考虑栅极电荷、静态消耗与允许的电压下降。</p>
+<h3>7.3.1 计算条件</h3><p>根据应用电压、开关频率、占空比与器件参数确定工作范围。</p>
+<h4>7.3.1.1 参数检查</h4><p>检查额定电压和温度范围，保留合适余量。</p>
+</article></div></main>
+<script>window.api={getNoteContexts:()=>[{ntxId:'preview',note:{noteId:'demo',type:'text'}}]};</script>
+<script src="../customizations/frontend/chapter-preview-rail.js"></script>
+<script>
+setTimeout(()=>{
+    const check=(value,message)=>{if(!value)throw Error(message)};
+    try{
+        const rail=document.querySelector('.myo-chapter-rail');
+        check(rail.children.length===8,'标题数量错误');
+        const viewport=document.querySelector('.scrolling-container').getBoundingClientRect();
+        const bounds=rail.getBoundingClientRect();
+        check(bounds.left>viewport.left+viewport.width/2 && bounds.right<=viewport.right,'导航条未靠右放置');
+        check(Math.abs((bounds.top+bounds.bottom)/2-(viewport.top+viewport.bottom)/2)<1,'导航条未垂直居中');
+        const fixedHeight=parseFloat(rail.style.height);
+        rail.dispatchEvent(new Event('pointerenter'));
+        check(parseFloat(rail.style.height)===fixedHeight,'移入时整体高度发生变化');
+        check([...rail.children].every(button=>!button.hidden),'刻度被隐藏');
+        const positions=[...rail.children].map(button=>button.getBoundingClientRect().top);
+        const widths=[...rail.children].map(button=>getComputedStyle(button,'::before').width);
+        check(widths.every(width=>parseFloat(width)<=8),'常态刻度过长');
+        rail.children[5].click();
+        check(document.querySelector('.scrolling-container').scrollTop>0,'点击未跳转');
+        setTimeout(()=>{
+            try{
+                check(rail.children[5].hasAttribute('data-active'),'当前章节高亮错误');
+                rail.children[5].dispatchEvent(new Event('pointerenter'));
+                setTimeout(()=>{
+                    try{
+                        const preview=document.querySelector('.myo-chapter-preview');
+                        check(!preview.hidden,'预览未显示');
+                        check(preview.getBoundingClientRect().right<rail.getBoundingClientRect().left,'预览未在导航条左侧展开');
+                        check(preview.textContent.includes('电容选型'),'摘要错误');
+                        check(parseFloat(getComputedStyle(rail.children[5],'::before').width)>8,'单根刻度未伸长');
+                        check([...rail.children].every((button,index)=>Math.abs(button.getBoundingClientRect().top-positions[index])<1),'悬停导致整体移动');
+                        check(parseFloat(getComputedStyle(rail.children[4],'::before').width)<=8,'其他刻度也被展开');
+                        rail.children[5].dispatchEvent(new Event('pointerleave'));
+                        rail.dispatchEvent(new Event('pointerleave'));
+                        check(parseFloat(rail.style.height)===fixedHeight,'整体高度变化');
+                        document.querySelector('#result').textContent='PASS：单根伸长、整体固定、短刻度、跳转与预览';
+                    }catch(error){document.querySelector('#result').textContent='FAIL: '+error.message}
+                },300);
+            }catch(error){document.querySelector('#result').textContent='FAIL: '+error.message}
+        },250);
+    }catch(error){document.querySelector('#result').textContent='FAIL: '+error.message}
+},700);
+</script></html>

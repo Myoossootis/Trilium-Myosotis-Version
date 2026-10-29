@@ -1,0 +1,177 @@
+                  <div class="desk-app">
+        <aside class="desk-rail" aria-label="主导航">
+          <div class="rail-brand"><span class="rail-mark">题</span><div><strong>通用刷题</strong><small>Desktop HUD</small></div></div>
+          <nav class="rail-nav" id="rail-nav">
+            <button type="button" class="rail-item active" data-rail="practice"><span class="rail-ico">▷</span><span>练习</span></button>
+            <button type="button" class="rail-item" data-rail="resume" id="rail-resume" hidden><span class="rail-ico">↻</span><span>继续练习</span></button>
+            <button type="button" class="rail-item" data-rail="banks"><span class="rail-ico">类</span><span>按分类练习</span></button>
+            <button type="button" class="rail-item" data-rail="wrong"><span class="rail-ico">错</span><span>错题本</span></button>
+            <button type="button" class="rail-item" data-rail="favorites"><span class="rail-ico">★</span><span>收藏</span></button>
+            <button type="button" class="rail-item" data-rail="topics"><span class="rail-ico">知</span><span>知识点</span></button>
+            <button type="button" class="rail-item" data-rail="daily"><span class="rail-ico">日</span><span>每日刷题</span></button>
+            <button type="button" class="rail-item" data-rail="stats"><span class="rail-ico">统</span><span>统计</span></button>
+            <button type="button" class="rail-item" data-rail="settings"><span class="rail-ico">⚙</span><span>设置</span></button>
+          </nav>
+          <div class="rail-foot"><button id="theme-toggle" class="icon-button" aria-label="切换深浅色" title="切换深浅色">◐</button></div>
+        </aside>
+
+        <section class="desk-main">
+          <header class="desk-topbar">
+            <div class="topbar-text"><strong id="browse-title">练习</strong><p id="browse-subtitle">选择题库范围后开始练习</p></div>
+            <div class="topbar-actions">
+              <label class="search-field top-search"><span>⌕</span><input id="question-search" placeholder="搜索题目 / 编号 / 知识点" aria-label="搜索题目"></label>
+              <button id="start-learning" class="primary top-start">开始练习</button>
+              <button id="daily-button" class="secondary" hidden>每日刷题</button>
+              <button id="manage-button" class="secondary" hidden>导入与管理</button>
+            </div>
+          </header>
+          <section id="resume-card" class="resume-card resume-compact" hidden></section>
+
+          <section id="panel-stats" class="desk-panel stats-panel" hidden>
+            <div class="stats-grid">
+              <div class="stat-tile"><div class="stat-label">今日答题</div><div class="stat-value" id="stat-answered">0</div></div>
+              <div class="stat-tile"><div class="stat-label">今日正确率</div><div class="stat-value" id="stat-accuracy">—</div></div>
+              <div class="stat-tile"><div class="stat-label">错题数</div><div class="stat-value" id="stat-wrong">0</div></div>
+              <div class="stat-tile"><div class="stat-label">收藏数</div><div class="stat-value" id="stat-fav">0</div></div>
+              <div class="stat-tile"><div class="stat-label">总题量</div><div class="stat-value" id="stat-total">0</div></div>
+              <div class="stat-tile"><div class="stat-label">每日目标</div><div class="stat-value" id="stat-target">20</div></div>
+            </div>
+          </section>
+
+          <section id="panel-workspace" class="desk-panel workspace-panel">
+            <div class="library desk-library list-mode" id="desk-library">
+              <aside class="topic-panel" id="topic-panel" hidden>
+                <div class="panel-heading"><strong>知识点</strong><button id="add-topic" class="icon-button" aria-label="新建知识点" title="新建知识点">＋</button></div>
+                <p class="topic-hint">勾选要练的知识点；点「全部知识点」则不限。</p>
+                <div id="topic-tree"></div>
+              </aside>
+              <div class="question-library">
+                <div class="list-toolbar-bar">
+                  <div class="scope-line">
+                    <button type="button" class="scope-chip" id="scope-chip" title="展开/收起知识点筛选">范围：全部知识点</button>
+                    <strong id="scope-title" class="sr-only">范围：全部知识点</strong>
+                    <span id="selected-topics"></span>
+                    <span id="pool-count" class="pool-count"></span>
+                    <p id="scope-description" class="sr-only"></p>
+                  </div>
+                  <div class="list-controls">
+                    <label class="ctrl">题量<select id="question-count"><option>10</option><option selected>20</option><option>50</option></select></label>
+                    <label class="ctrl">顺序<select id="question-order"><option value="random">均匀随机</option><option value="balanced">知识点均衡</option><option value="weighted">薄弱优先</option><option value="warm">知识保温</option><option value="sequential">顺序</option></select></label>
+                    <div class="library-tabs" id="library-tabs">
+                      <button data-tab="all" class="active">全部</button>
+                      <button data-tab="wrong">错题</button>
+                      <button data-tab="favorites">收藏</button>
+                      <label class="scope-limit-toggle" id="scope-limit-wrap" hidden title="仅对错题/收藏生效"><input type="checkbox" id="limit-topic-filter"> 限知识点</label>
+                    </div>
+                    <button id="start-learning-secondary" class="primary" hidden>开始练习</button>
+                  </div>
+                </div>
+                <div id="bank-actions" class="bank-actions" hidden>
+                  <button type="button" class="secondary" data-bank-act="sequential">按编号顺序练</button>
+                  <button type="button" class="secondary" data-bank-act="random">随机 N 题</button>
+                  <button type="button" class="secondary" data-bank-act="wrong">本类错题</button>
+                </div>
+                                <div id="nk-bank-home" class="nk-bank-home" hidden>
+                  <div class="nk-home-main">
+                    <div id="nk-cat-tabs" class="nk-cat-tabs" role="tablist" aria-label="题库分类"></div>
+                    <div id="nk-type-filters" class="nk-type-filters" aria-label="题型筛选"></div>
+                    <div id="nk-bank-sections" class="nk-bank-sections"></div>
+                    <div id="bank-picker" class="bank-picker nk-card-grid" hidden></div>
+                  </div>
+                  <aside id="nk-history" class="nk-history" aria-label="练习记录">
+                    <div class="nk-history-head"><strong>练习记录</strong></div>
+                    <div id="nk-history-list" class="nk-history-list"></div>
+                    <div class="nk-history-foot">
+                      <button type="button" class="text-button" data-nk-hist="resume">继续练习</button>
+                      <button type="button" class="text-button" data-nk-hist="wrong">错题练习</button>
+                    </div>
+                  </aside>
+                </div>
+                <div id="bank-shortcuts" class="bank-shortcuts" hidden></div>
+                <div id="batch-actions" class="batch-actions" hidden><span id="batch-count"></span><button id="batch-tag" class="secondary">批量打标签</button><button id="clear-selected" class="text-button">取消选择</button></div>
+                <div class="qtable-wrap">
+                  <div class="list-heading qtable-head" id="list-heading">
+                    <span class="col-check"><label><input id="select-page" type="checkbox" aria-label="选择本页题目"></label></span>
+                    <span class="col-no">编号</span>
+                    <span class="col-stem">题干摘要</span>
+                    <span class="col-src">分类</span>
+                    <span class="col-tags">标签</span>
+                    <span class="col-status">状态</span>
+                  </div>
+                  <div id="question-list" class="qtable-body"></div>
+                </div>
+                <div id="list-pagination" class="pagination"></div>
+              </div>
+              </div>
+            </div>
+          </section>
+        </section>
+      </div>
+
+
+  <dialog id="study-dialog" class="study-dialog study-hud study-docked" aria-labelledby="study-title">
+    <header class="study-header">
+      <div class="study-title-block">
+        <h2 id="study-title">练习中</h2>
+        <span class="eyebrow" id="study-mode" hidden>本次练习</span>
+        <span id="save-status" class="save-status sr-only">已保存</span>
+      </div>
+      <div class="study-actions">
+        <button type="button" id="study-favorite" class="header-action" aria-label="收藏">☆ 收藏</button>
+        <button type="button" id="study-edit-question" class="header-action" aria-label="编辑题目">✎ 编辑题目</button>
+        <div class="font-controls" title="字号"><button type="button" id="font-smaller" aria-label="减小字号">A−</button><button type="button" id="font-larger" aria-label="增大字号">A＋</button></div>
+        <button type="button" id="close-study" class="icon-button close-button" aria-label="保存并关闭练习" title="保存并关闭">×</button>
+      </div>
+    </header>
+    <div class="session-progress"><div id="session-progress-bar"></div></div>
+    <div class="study-body">
+      <section id="question-scroll" class="question-scroll" tabindex="-1">
+        <div class="study-toolbar" id="study-toolbar">
+          <button type="button" class="tool-btn" id="tool-edit-stem">修改题干</button>
+          <button type="button" class="tool-btn" id="tool-edit-answer">修改答案</button>
+          <button type="button" class="tool-btn tool-gear" id="tool-font" title="字号" hidden>⚙</button>
+          <span class="spacer"></span>
+          <button type="button" class="expert-badge" id="expert-badge" hidden>专家解析</button>
+        </div>
+        <div id="study-question"></div>
+      </section>
+      <aside class="answer-sidebar" id="answer-sidebar">
+        <button type="button" class="icon-button answer-collapse" id="toggle-answer-card" title="折叠答题卡" aria-label="折叠答题卡">⟩</button>
+        <div class="answer-heading"><strong>答题卡</strong><span id="answered-count"></span></div>
+        <div id="answer-map" class="answer-map"></div>
+        <div class="map-legend"><span><i class="legend-dot neutral"></i>未答</span><span><i class="legend-dot draft"></i>已选</span><span><i class="legend-dot correct"></i>正确</span><span><i class="legend-dot wrong"></i>错误</span><span><i class="legend-dot self"></i>自评</span></div>
+        <div class="session-tip">A–H 选答 · Enter 提交/下一题 · Esc 关闭</div>
+      </aside>
+    </div>
+    <footer class="study-footer study-footer-hud">
+      <button type="button" id="previous-question" class="secondary footer-nav">上一题</button>
+      <button type="button" id="primary-study-action" class="primary footer-nav">提交</button>
+      <button type="button" id="next-question" class="secondary footer-nav">下一题</button>
+      <span id="question-position" class="sr-only"></span>
+      <button type="button" id="skip-question" class="text-button" hidden>跳过</button>
+    </footer>
+  </dialog>
+  <dialog id="tags-dialog" class="small-dialog" aria-labelledby="tags-title"><form method="dialog"><header class="small-dialog-heading"><h2 id="tags-title">知识点标签</h2><button class="icon-button" aria-label="关闭标签窗口">×</button></header></form><p id="tags-description"></p><div id="tag-options" class="tag-options"></div><div class="small-dialog-footer"><button id="save-tags" class="primary">保存标签</button></div></dialog>
+  <dialog id="topic-dialog" class="small-dialog" aria-labelledby="topic-title"><form id="topic-form"><header class="small-dialog-heading"><h2 id="topic-title">新建知识点</h2><button type="button" id="close-topic" class="icon-button" aria-label="关闭">×</button></header><label class="form-label">名称<input id="topic-name" maxlength="40" required placeholder="例如：温度特性"></label><label class="form-label">上级知识点<select id="topic-parent"></select></label><div class="small-dialog-footer"><button class="primary">创建知识点</button></div></form></dialog>
+  <dialog id="daily-dialog" class="small-dialog" aria-labelledby="daily-title"><form id="daily-form"><header class="small-dialog-heading"><h2 id="daily-title">每日刷题</h2><button type="button" id="close-daily" class="icon-button" aria-label="关闭每日设置">×</button></header><label class="form-label">今日目标题量<input id="daily-target" type="number" min="1" step="1" required inputmode="numeric"></label><p id="daily-description" class="daily-description"></p><label class="scope-limit-toggle daily-scope-toggle"><input type="checkbox" id="daily-use-scope"> 沿用当前筛选（默认从全库抽题）</label><p class="daily-note">新题、错题与保温题统一计入；同一道题当天重复练习计为 1 题。默认不限知识点与套卷。</p><div class="small-dialog-footer"><button class="primary" id="start-daily">保存并开始</button></div></form></dialog>
+  <dialog id="manage-dialog" class="small-dialog manage-dialog" aria-labelledby="manage-title"><form method="dialog"><header class="small-dialog-heading"><h2 id="manage-title">导入来源与管理</h2><button class="icon-button" aria-label="关闭管理窗口">×</button></header></form><p>来源用于追溯题目资料，练习可以跨来源选题。</p><div id="source-list" class="source-list"></div><details class="source-options"><summary>资料与答案</summary><label class="form-label">导入来源<select id="source-select"></select></label><div class="small-dialog-footer"><button id="export-source" class="secondary">导出题目</button><button id="import-answers" class="secondary">导入答案</button><input id="answers-file" type="file" hidden accept=".json,application/json"></div></details><div class="small-dialog-footer"><button id="import-web" class="secondary">导入网页题目</button><button id="import-bank" class="secondary">导入题目</button><button id="export-prototype" class="secondary">导出学习记录</button><button id="export-unsaved" class="text-button">导出未保存内容</button></div></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+<dialog id="import-dialog" class="small-dialog manage-dialog"><form id="import-form"><header class="small-dialog-heading"><h2>导入题目</h2><button type="button" id="close-import" class="icon-button">×</button></header><p>选择题库 JSON 文件，或粘贴内容。导入的题目先放入未归类。</p><div class="header-actions"><label class="secondary">选择文件<input id="import-file" type="file" accept=".json,application/json" hidden></label><button type="button" id="import-template" class="secondary">下载模板</button></div><textarea id="import-content" rows="10" required aria-label="题目 JSON" placeholder='{"title":"题库名称","questions":[{"stem":"题干","options":["甲","乙"],"answer":"A"}]}'></textarea><div class="small-dialog-footer"><button class="primary" id="import-confirm">导入题目</button></div></form></dialog>
+<dialog id="edit-dialog" class="small-dialog question-edit-dialog" aria-labelledby="edit-dialog-title">
+    <form id="edit-form">
+      <header class="small-dialog-heading"><h2 id="edit-dialog-title">编辑题目</h2><button type="button" id="close-edit" class="icon-button" aria-label="关闭">×</button></header>
+      <label class="form-label">题干<textarea id="edit-stem" rows="5" maxlength="20000" required placeholder="题干"></textarea></label>
+      <div class="edit-options-block">
+        <div class="form-label-text">选项与答案</div>
+        <div id="edit-options-list" class="edit-options-list"></div>
+      </div>
+      <input type="hidden" id="edit-answer" value="">
+      <label class="form-label">题型<select id="edit-type"><option value="single">单选题</option><option value="multi">多选题</option><option value="self">自评题</option></select></label>
+      <label class="form-label">参考解析（可选）<textarea id="edit-explanation" rows="4" maxlength="20000" placeholder="解析"></textarea></label>
+      <p class="edit-hint">将写入学习记录中的题目覆盖（题干/选项/标答/解析）；历史作答保留当时参考答案。<span id="edit-answer-source"></span></p>
+      <div class="small-dialog-footer"><button type="button" id="cancel-edit" class="secondary">取消</button><button class="primary" id="save-edit-question">保存到题库</button></div>
+    </form>
+  </dialog>
+<dialog id="stem-dialog" class="small-dialog" aria-labelledby="stem-title"><form id="stem-form"><header class="small-dialog-heading"><h2 id="stem-title">修改题干</h2><button type="button" id="close-stem" class="icon-button" aria-label="关闭">×</button></header><label class="form-label">题干<textarea id="stem-content" rows="8" maxlength="20000" required></textarea></label><div class="small-dialog-footer"><button type="button" id="restore-stem" class="text-button">恢复原题干</button><button id="save-stem" class="primary">保存题干</button></div></form></dialog>
+
+<dialog id="web-dialog" class="small-dialog manage-dialog" aria-labelledby="web-title"><header class="small-dialog-heading"><h2 id="web-title">导入网页题目</h2><button id="close-web" type="button" class="icon-button" aria-label="关闭">×</button></header><p>选择牛客助手保存的题目包，先预览再导入。冲突题跳过，现有学习记录保留。</p><label class="secondary">选择题目包<input id="web-file" type="file" accept=".json,application/json" hidden></label><p id="web-preview" role="status"></p><div id="web-items" class="web-preview-list"></div><div class="small-dialog-footer"><button id="web-confirm" class="primary" disabled>确认导入</button></div></dialog>

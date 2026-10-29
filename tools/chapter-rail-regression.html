@@ -1,0 +1,40 @@
+<!doctype html><html lang="zh"><meta charset="utf-8"><title>章节导航跳转回归测试</title>
+<style>
+body{margin:0;font:16px/1.8 system-ui;background:#faf9f6;color:#30343b}
+.note-split{margin-left:220px}.scrolling-container{height:calc(100vh - 50px);overflow:auto;border-top:1px solid #eee;scroll-behavior:smooth}
+.ck-content{padding:20px 40px 450px}h2{position:sticky;top:0;background:#faf9f6}h3{position:sticky;top:45px;background:#faf9f6}
+.ck-content p{min-height:240px}#result{position:fixed;left:14px;top:14px;width:190px;font-size:12px}
+.myo-chapter-tick::before{transition:none!important}
+</style><div id="result">测试中</div>
+<main class="note-split" data-ntx-id="regression"><header style="height:49px">04 压力传感器 - 回归测试</header><div class="scrolling-container"><article class="ck-content" contenteditable="false" id="visible-content"></article></div></main>
+<script>
+const root=document.querySelector('.note-split'),scroller=document.querySelector('.scrolling-container');
+let visible=document.querySelector('#visible-content');
+for(let i=0;i<12;i++){const h=document.createElement(i%3===0?'h2':'h3');h.textContent=`4.${i+1} 压力传感器章节`;const p=document.createElement('p');p.textContent='这一节讨论压力如何转变为薄膜弯曲、应力、电阻变化和电桥输出。';visible.append(h,p);}
+const snapshot=visible.cloneNode(true);snapshot.removeAttribute('id');snapshot.style.display='none';scroller.prepend(snapshot);
+window.api={getNoteContexts:()=>[{ntxId:'regression',note:{noteId:'demo-regression',type:'text'}}]};
+localStorage.removeItem('myosotis-reading-positions-v1');
+</script><script src="../customizations/frontend/reading-position.js"></script><script src="../customizations/frontend/chapter-preview-rail.js"></script>
+<script>
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const check=(ok,msg)=>{if(!ok)throw Error(msg)};
+const buttons=()=>[...document.querySelectorAll('.myo-chapter-tick')];
+function target(index){const sheet=document.styleSheets[0],rule=sheet.insertRule('.note-split .ck-content :is(h1,h2,h3,h4,h5,h6){position:static!important;top:auto!important}',sheet.cssRules.length);try{return Math.min(scroller.scrollHeight-scroller.clientHeight,Math.max(0,visible.querySelectorAll('h2,h3')[index].getBoundingClientRect().top-scroller.getBoundingClientRect().top+scroller.scrollTop-105))}finally{sheet.deleteRule(rule)}}
+async function jump(index){const expected=target(index);buttons()[index].click();check(Math.abs(scroller.scrollTop-expected)<2,`章节 ${index} 未立即定位: ${scroller.scrollTop} 应为 ${expected}`);await wait(40);check(Math.abs(scroller.scrollTop-expected)<2,`章节 ${index}: ${scroller.scrollTop} 应为 ${expected}`);return scroller.scrollTop;}
+(async()=>{
+await wait(500);check(buttons().length===12,'重复或隐藏正文标题进入了导航');
+const original=visible.innerHTML;const destinations=[];
+for(const index of [3,6,9])destinations.push(await jump(index));
+check(new Set(destinations).size===3 && destinations.every(y=>y>300),'多个刻度全部返回顶部');
+check(visible.innerHTML===original,'导航修改了编辑器正文');
+const retained=buttons()[6];
+root.style.display='none';const hiddenTop=scroller.scrollTop;retained.click();check(scroller.scrollTop===hiddenTop,'隐藏正文点击仍执行跳转');await wait(180);
+root.style.display='block';await wait(260);await jump(6);
+const editor=visible.cloneNode(true);editor.id='editor-content';editor.setAttribute('contenteditable','true');visible.style.display='none';scroller.append(editor);visible=editor;await wait(300);
+check(buttons().length===12,'阅读到编辑模式没有选择可见正文');await jump(3);await jump(9);
+const added=document.createElement('p');added.textContent='模拟图片晚加载产生的额外高度';added.style.height='500px';visible.prepend(added);
+await jump(6); // Before debounced mutation/resize observers can refresh caches.
+check(snapshot.style.display==='none','隐藏阅读副本被导航改变');
+document.querySelector('#result').textContent='PASS：隐藏副本、不同章节跳转、冻结标题、模式切换、隐藏标签、延迟布局、正文不变';
+})().catch(error=>document.querySelector('#result').textContent='FAIL: '+error.message);
+</script></html>

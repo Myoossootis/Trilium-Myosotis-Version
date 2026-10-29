@@ -1,0 +1,16 @@
+<!doctype html><html lang="zh"><meta charset="utf-8"><title>查找定位回归</title>
+<style>body{margin:0}.note-split{overflow:hidden}.scrolling-container{height:300px;overflow:auto;scroll-behavior:smooth}.ck-content{padding:20px}.spacer{height:650px}.ck-find-result_selected{background:orange}#other{height:100px}</style>
+<p id="result">运行中</p><button id="up">上一处</button><button id="down">下一处</button>
+<section class="note-split" data-ntx-id="test"><div class="scrolling-container"><div class="ck-content"><p><span>查看一</span></p><div class="spacer"></div><p><span>查看二</span></p><div class="spacer"></div><p><span>查看三</span></p><div class="spacer"></div></div></div></section>
+<section class="note-split" data-ntx-id="other"><div class="scrolling-container" id="other"><div class="ck-content"><div class="spacer"></div></div></div></section>
+<script src="../customizations/frontend/find-result-navigation.js"></script>
+<script>
+const matches=[...document.querySelectorAll('span')],scroller=document.querySelector('.scrolling-container');let index=0,jumps=0;
+scroller.addEventListener('myosotis-reference-jump',()=>jumps++);
+function select(next){matches[index].classList.remove('ck-find-result_selected');index=(next+matches.length)%matches.length;matches[index].classList.add('ck-find-result_selected');}
+document.querySelector('#down').onclick=()=>select(index+1);document.querySelector('#up').onclick=()=>select(index-1);
+const wait=()=>new Promise(resolve=>setTimeout(resolve,100));
+function check(ok,message){if(!ok)throw Error(message);}
+function visible(){const r=matches[index].getBoundingClientRect(),b=scroller.getBoundingClientRect();return r.top>=b.top && r.bottom<=b.bottom;}
+(async()=>{select(0);await wait();check(visible(),'First match not visible');document.querySelector('#down').click();await wait();check(visible() && scroller.scrollTop>400,'Next match not revealed');const second=scroller.scrollTop;document.querySelector('#down').click();await wait();check(visible() && scroller.scrollTop>second,'Third match not revealed');document.querySelector('#down').click();await wait();check(visible() && scroller.scrollTop<100,'Wraparound failed');document.querySelector('#up').click();await wait();check(visible() && scroller.scrollTop>second,'Previous match failed');check(jumps>=4,'Jump did not cancel reading restoration: '+jumps);check(document.querySelector('#other').scrollTop===0,'Other pane scrolled');document.querySelector('#result').textContent='PASS: next/previous, wraparound, nested scroll container, explicit reading jump and separate panes';})().catch(error=>document.querySelector('#result').textContent='FAIL: '+error.message);
+</script></html>

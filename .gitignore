@@ -10,6 +10,9 @@ document.db-*
 trilium-data/
 trilium-data-backup-*/
 backup-*.db
+backups/home-pages-*/
+backups/before-home-pages-install-*/
+backups/dsh-chat-*/
 
 # Credentials and local machine configuration.
 .trilium-api.env

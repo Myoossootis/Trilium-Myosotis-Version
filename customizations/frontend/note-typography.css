@@ -1,0 +1,56 @@
+/* Optional typography: CSS only; CKEditor content/model is never rewritten. */
+.nt-settings{padding:16px 12px;border-bottom:1px solid var(--main-border-color);color:var(--main-text-color)}
+.nt-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}
+.nt-head strong{display:block;font-size:14px;font-weight:600}.nt-current{display:block;font-size:12px;margin-top:4px;color:var(--muted-text-color)}
+.nt-enable{display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer;white-space:nowrap}.nt-enable input{width:18px;height:18px;accent-color:var(--theme-accent,var(--link-color))}
+.nt-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.nt-card{min-width:0;text-align:left;border:1px solid var(--main-border-color);border-radius:10px;padding:8px;background:var(--main-background-color);color:var(--main-text-color);font:12px/1.6 var(--main-font-family,sans-serif);cursor:pointer}
+.nt-card[aria-pressed=true]{border-color:var(--theme-accent,var(--link-color));box-shadow:0 0 0 1px var(--theme-accent,var(--link-color))}
+.nt-card:hover{border-color:var(--theme-accent,var(--link-color))}.nt-card:focus-visible,.nt-enable input:focus-visible{outline:2px solid var(--theme-accent,var(--link-color));outline-offset:3px}
+.nt-card:disabled{opacity:.6;cursor:wait}.nt-card>strong{display:block;margin-top:8px;font-weight:600}.nt-description{display:block;color:var(--muted-text-color);margin-top:4px;font-size:11px}.nt-selected{display:block;min-height:18px;margin-top:4px;color:var(--theme-accent,var(--link-color))}
+.nt-thumb{height:116px;padding:12px 8px;overflow:hidden;background:var(--accented-background-color);border-radius:6px}.nt-sheet{height:100%;padding:8px;background:var(--main-background-color)}
+.nt-sheet b{display:block;font-size:9px;line-height:1.5}.nt-sheet i{display:block;height:2px;background:var(--main-border-color);margin-top:5px}.nt-sheet i:nth-of-type(even){width:75%}.nt-sheet em{display:table;font-size:8px;font-weight:600;font-style:normal;margin-top:8px}.nt-sheet blockquote{font-size:8px;margin:6px 0 0;padding-left:5px;border-left:2px solid var(--theme-accent,var(--link-color))}
+.nt-card[data-style=study] .nt-sheet em{box-shadow:0 3px color-mix(in srgb,var(--theme-accent,var(--link-color)) 28%,transparent)}
+.nt-card[data-style=reading] .nt-sheet{font-family:Georgia,SimSun,serif;border:1px solid var(--main-border-color);padding:8px 12px}.nt-card[data-style=reading] .nt-sheet b{text-align:center}
+.nt-help{font-size:12px;line-height:1.7;color:var(--muted-text-color);margin:16px 0 4px}.nt-status{display:block;min-height:18px;font-size:12px;color:var(--muted-text-color)}
+@media(max-width:650px){.nt-grid{grid-template-columns:1fr}.nt-card{display:grid;grid-template-columns:100px minmax(0,1fr);column-gap:12px}.nt-thumb{grid-row:1/4;height:100px}.nt-card>strong{align-self:end}.nt-description,.nt-selected{grid-column:2}.nt-head{flex-wrap:wrap}}
+/* Desktop Trilium keeps its full settings sidebar on narrow windows. Stack it
+   above Appearance while our controls are present, preserving every settings link. */
+@media(max-width:500px){
+    .options-dialog:has(.nt-settings) .modal-dialog{width:calc(100vw - 16px)!important;max-width:calc(100vw - 16px)!important;margin:8px auto!important}
+    .options-dialog:has(.nt-settings) .modal-content{flex-direction:column!important}
+    .options-dialog:has(.nt-settings) .modal-sidebar{width:100%!important;max-height:144px;flex:0 0 auto;overflow-y:auto}
+    .options-dialog:has(.nt-settings) .modal-main{min-width:0!important;width:100%!important}
+}
+
+/* Scope excludes render notes, code editors, the workspace and chat overlays. */
+body[data-note-typography] :is(.note-detail-editable-text,.note-detail-readonly-text) .ck-content{
+    /* Respect Trilium's native content-width setting (§3.4), including wide tables. */
+    box-sizing:border-box!important;width:100%!important;max-width:100%!important;min-width:0!important;
+    margin-inline:auto!important;padding:24px 32px!important;
+    font-size:16px!important;line-height:1.9!important;overflow-wrap:break-word;
+}
+body[data-note-typography] :is(.note-detail-editable-text,.note-detail-readonly-text) .ck-content :is(p,ul,ol,blockquote){line-height:1.9;margin-block:0 20px}
+body[data-note-typography] :is(.note-detail-editable-text,.note-detail-readonly-text) .ck-content :is(h1,h2,h3,h4,h5,h6){line-height:1.5!important;margin-block:28px 12px!important}
+body[data-note-typography] :is(.note-detail-editable-text,.note-detail-readonly-text) .ck-content h1{font-size:28px!important}
+body[data-note-typography] :is(.note-detail-editable-text,.note-detail-readonly-text) .ck-content h2{font-size:22px!important}
+body[data-note-typography] :is(.note-detail-editable-text,.note-detail-readonly-text) .ck-content h3{font-size:18px!important}
+body[data-note-typography] :is(.note-detail-editable-text,.note-detail-readonly-text) .ck-content :is(h4,h5,h6){font-size:16px!important}
+body[data-note-typography] :is(.note-detail-editable-text,.note-detail-readonly-text) .ck-content pre{max-width:100%;overflow-x:auto;overflow-wrap:normal;font-size:14px;line-height:1.6}
+body[data-note-typography] :is(.note-detail-editable-text,.note-detail-readonly-text) .ck-content figure.table{max-width:100%;overflow-x:auto}
+body[data-note-typography] :is(.note-detail-editable-text,.note-detail-readonly-text) .ck-content img{max-width:100%;height:auto}
+body[data-note-typography=reading] :is(.note-detail-editable-text,.note-detail-readonly-text) .ck-content{
+    background:var(--ts-surface,var(--main-background-color));border:1px solid var(--main-border-color)!important;
+    padding:32px 36px!important;font-family:Georgia,"Noto Serif SC","Songti SC",SimSun,serif!important;
+}
+body[data-note-typography=reading] .scrolling-container:has(:is(.note-detail-editable-text,.note-detail-readonly-text)){background:var(--ts-sidebar,var(--accented-background-color));padding:24px 16px!important}
+body[data-note-typography=reading] :is(.note-detail-editable-text,.note-detail-readonly-text) .ck-content h1{text-align:center}
+body[data-note-typography=reading] :is(.note-detail-editable-text,.note-detail-readonly-text) .ck-content h2{border-top:1px solid var(--main-border-color);padding-top:20px}
+body[data-note-typography=reading] :is(.note-detail-editable-text,.note-detail-readonly-text) .ck-content blockquote{background:var(--accented-background-color);padding:12px 20px;border-left:0}
+body[data-note-typography=study] :is(.note-detail-editable-text,.note-detail-readonly-text) .ck-content :is(h1,h2,h3){text-decoration:underline;text-decoration-thickness:5px;text-underline-offset:3px;text-decoration-color:color-mix(in srgb,var(--theme-accent,var(--link-color)) 30%,transparent)}
+body[data-note-typography=study] :is(.note-detail-editable-text,.note-detail-readonly-text) .ck-content blockquote{background:var(--accented-background-color);padding:12px 20px;border-left:3px solid var(--theme-accent,var(--link-color))}
+@media(max-width:650px){
+    body[data-note-typography] :is(.note-detail-editable-text,.note-detail-readonly-text) .ck-content{padding:20px 16px!important}
+    body[data-note-typography=reading] .scrolling-container:has(:is(.note-detail-editable-text,.note-detail-readonly-text)){padding:12px 8px!important}
+    body[data-note-typography] :is(.note-detail-editable-text,.note-detail-readonly-text) .ck-content h1{font-size:24px!important}
+}

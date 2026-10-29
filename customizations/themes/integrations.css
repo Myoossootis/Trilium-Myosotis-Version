@@ -1,0 +1,87 @@
+/* Theme Studio: semantic colors for Trilium and the installed workspace plugins.
+   Scoped to native studio themes; unloaded when a different theme is selected. */
+body[data-theme-id^="studio-"]{
+    --codex-bg:var(--ts-page);--codex-panel:var(--ts-surface);--codex-panel-soft:var(--ts-soft);
+    --codex-sidebar:var(--ts-sidebar);--codex-sidebar-hover:var(--ts-soft);--codex-sidebar-active:var(--ts-selected);
+    --codex-border:var(--ts-border);--codex-border-strong:var(--ts-strong);--codex-text:var(--ts-text);--codex-muted:var(--ts-muted);
+    --codex-accent:var(--ts-accent);--codex-accent-soft:var(--ts-selected);--codex-focus:var(--ts-accent);
+    --theme-accent:var(--ts-accent);
+    --main-background-color:var(--ts-surface);--main-text-color:var(--ts-text);--main-border-color:var(--ts-border);
+    --accented-background-color:var(--ts-soft);--more-accented-background-color:var(--ts-selected);
+    --subtle-border-color:var(--ts-border);--muted-text-color:var(--ts-muted);
+    --window-background-color:var(--ts-page);--tool-dialog-background-color:var(--ts-surface);
+    --dropdown-border-color:var(--ts-strong);--button-border-color:var(--ts-strong);--button-text-color:var(--ts-text);
+    --button-background-color:var(--ts-soft);--primary-button-background-color:var(--ts-accent);--primary-button-border-color:var(--ts-accent);--primary-button-text-color:var(--ts-onAccent);
+    --input-background-color:var(--ts-surface);--input-text-color:var(--ts-text);--input-border-color:var(--ts-strong);
+    --hover-item-background-color:var(--ts-soft);--hover-item-text-color:var(--ts-text);--hover-item-border-color:transparent;
+    --active-item-background-color:var(--ts-selected);--active-item-text-color:var(--ts-accent);
+    --left-pane-background-color:var(--ts-sidebar);--left-pane-text-color:var(--ts-text);
+    --launcher-pane-background-color:var(--ts-sidebar);--launcher-pane-text-color:var(--ts-muted);
+    --active-tab-background-color:var(--ts-surface);--active-tab-text-color:var(--ts-text);--active-tab-hover-background-color:var(--ts-soft);
+    --inactive-tab-background-color:var(--ts-sidebar);--inactive-tab-hover-background-color:var(--ts-soft);--inactive-tab-text-color:var(--ts-muted);
+    --selection-background-color:var(--ts-selected);--link-color:var(--ts-accent);
+    --tooltip-background-color:var(--ts-soft);--tooltip-text-color:var(--ts-text);--tooltip-foreground-color:var(--ts-text);
+    --scrollbar-background-color:var(--ts-strong);--code-background-color:var(--ts-soft);--code-text-color:var(--ts-text);
+    --kw-bg:var(--ts-sidebar)!important;--kw-text:var(--ts-text)!important;--kw-muted:var(--ts-muted)!important;
+    --kw-line:var(--ts-border)!important;--kw-accent:var(--ts-accent)!important;--kw-selected:var(--ts-selected)!important;--kw-menu:var(--ts-surface)!important;
+    --ck-color-base-background:var(--ts-surface);--ck-color-base-foreground:var(--ts-soft);--ck-color-base-text:var(--ts-text);
+    --ck-color-text:var(--ts-text);--ck-color-toolbar-background:var(--ts-surface);--ck-color-toolbar-border:var(--ts-border);
+    --ck-color-panel-background:var(--ts-surface);--ck-color-panel-border:var(--ts-border);--ck-color-dropdown-panel-background:var(--ts-surface);
+    --ck-color-input-background:var(--ts-surface);--ck-color-input-text:var(--ts-text);--ck-color-input-border:var(--ts-strong);
+    --ck-color-focus-border:var(--ts-accent);--ck-color-button-default-hover-background:var(--ts-soft);--ck-color-button-on-background:var(--ts-selected);--ck-color-button-on-color:var(--ts-accent);
+    --bs-body-bg:var(--ts-surface);--bs-body-color:var(--ts-text);--bs-border-color:var(--ts-border);--bs-secondary-color:var(--ts-muted);
+    --bs-primary:var(--ts-accent);--bs-link-color:var(--ts-accent);--bs-tertiary-bg:var(--ts-soft);
+}
+body[data-theme-id^="studio-"] :is(.modal-content,.dropdown-menu,.tn-dropdown-list,.popover){background-color:var(--ts-surface)!important;color:var(--ts-text);border-color:var(--ts-border)}
+body[data-theme-id^="studio-"] :is(.modal-header,.modal-footer){border-color:var(--ts-border)}
+body[data-theme-id^="studio-"] :is(.note-detail-text,.note-detail-code,.cm-editor,.cm-gutters){background-color:var(--ts-surface);color:var(--ts-text)}
+body[data-theme-id^="studio-"] .ck-content{color:var(--ts-text)}
+body[data-theme-id^="studio-"] .ck-content a{color:var(--ts-accent)}
+body[data-theme-id^="studio-"] .ck-content :is(blockquote,pre){border-color:var(--ts-border)}
+body[data-theme-id^="studio-"] .ck-content pre{background:var(--ts-soft);color:var(--ts-text)}
+body[data-theme-id^="studio-"] .ck-content :is(th,td){border-color:var(--ts-strong)}
+body[data-theme-id^="studio-"] .ck-content th{background:var(--ts-soft)}
+body[data-theme-id^="studio-"] *::-webkit-scrollbar-thumb{background-color:var(--ts-strong)}
+body[data-theme-id^="studio-"] .knowledge-hub{
+    --kh-bg:var(--ts-surface)!important;--kh-side:var(--ts-sidebar)!important;--kh-text:var(--ts-text)!important;--kh-muted:var(--ts-muted)!important;
+    --kh-line:var(--ts-border)!important;--kh-soft:var(--ts-soft)!important;--kh-accent:var(--ts-accent)!important;--kh-accent-bg:var(--ts-selected)!important;--kh-paper:var(--ts-soft)!important;
+}
+body[data-theme-id^="studio-"] .hardware-library{
+    --hl-bg:var(--ts-page)!important;--hl-surface:var(--ts-surface)!important;--hl-text:var(--ts-text)!important;--hl-muted:var(--ts-muted)!important;
+    --hl-line:var(--ts-border)!important;--hl-accent:var(--ts-accent)!important;--hl-soft:var(--ts-soft)!important;--hl-hero:var(--ts-selected)!important;
+}
+body[data-theme-id^="studio-"] .note-detail-render:has(.hardware-library){background:var(--ts-page)}
+body[data-theme-id^="studio-"] :is(.knowledge-hub .kh-primary,.hl-resume button){color:var(--ts-onAccent)!important}
+body[data-theme-id^="studio-"] .eric-home-dashboard{
+    --background-primary:var(--ts-surface);--background-secondary:var(--ts-soft);--background-modifier-border:var(--ts-border);
+    --background-modifier-hover:var(--ts-soft);--text-normal:var(--ts-text);--text-muted:var(--ts-muted);--text-error:var(--ts-danger);
+    --interactive-accent:var(--ts-accent);--text-on-accent:var(--ts-onAccent);--color-orange:var(--ts-warning);
+    --hp-card-bg:var(--ts-surface);--hp-muted:var(--ts-muted);--hp-border:var(--ts-border);
+}
+body[data-theme-id^="studio-"] .hp-hero{background:linear-gradient(120deg,var(--ts-selected),var(--ts-soft))!important;color:var(--ts-text)}
+body[data-theme-id^="studio-"] .hp-hero :is(.hp-hero-greeting,.hp-hero-clock){color:var(--ts-text)}
+body[data-theme-id^="studio-"] .hp-hero :is(.hp-hero-name,.hp-hero-date){color:var(--ts-accent)}
+body[data-theme-id^="studio-"] .hp-card-header{background:var(--ts-soft);border-color:var(--ts-border)}
+body[data-theme-id^="studio-"] :is(.myo-market .mm-tabs button[aria-pressed=true],.mm-icon,.mm-card a,.mm-card footer button:not(.mm-switch),.myo-quests .mq-tabs .selected){color:var(--ts-accent)}
+body[data-theme-id^="studio-"] .myo-market .mm-tabs button[aria-pressed=true]{background:var(--ts-selected)}
+body[data-theme-id^="studio-"] :is(.myo-market .mm-switch[aria-checked=true],.myo-quests .mq-primary,.myo-pomodoro .mp-primary){background:var(--ts-accent);border-color:var(--ts-accent);color:var(--ts-onAccent)}
+body[data-theme-id^="studio-"] :is(.mm-error,.mq-error,.mp-error){color:var(--ts-danger)}
+body[data-theme-id^="studio-"] :is(.mm-notice,.mq-notice){color:var(--ts-success)}
+body[data-theme-id^="studio-"] .mp-timer{--mp-accent:var(--ts-accent)}
+body[data-theme-id^="studio-"] :is(.mp-mode-short,.mp-mode-long){--mp-accent:var(--ts-success)}
+body[data-theme-id^="studio-"] :is(.hw-quiz,.hw-quiz.dark){
+    color-scheme:var(--ts-mode);--bg:var(--ts-page);--surface:var(--ts-surface);--soft:var(--ts-soft);--text:var(--ts-text);--muted:var(--ts-muted);--border:var(--ts-border);--accent:var(--ts-accent);--accent-soft:var(--ts-selected);
+    --green:var(--ts-success);--green-bg:color-mix(in srgb,var(--ts-success) 12%,var(--ts-surface));--red:var(--ts-danger);--red-bg:color-mix(in srgb,var(--ts-danger) 12%,var(--ts-surface));
+    --nk-accent:var(--ts-accent);--nk-accent-soft:var(--ts-selected);--nk-bg:var(--ts-page);--nk-card:var(--ts-surface);--nk-muted:var(--ts-muted);--nk-danger:var(--ts-danger);
+}
+body[data-theme-id^="studio-"] .hw-quiz button.primary{background:var(--ts-accent);color:var(--ts-onAccent)}
+
+body[data-theme-id^="studio-"] :is(.modal,.dropdown-menu,.popover){--bs-modal-bg:var(--ts-surface);--bs-modal-color:var(--ts-text);--bs-modal-border-color:var(--ts-border);--bs-dropdown-bg:var(--ts-surface);--bs-dropdown-color:var(--ts-text);--bs-dropdown-link-color:var(--ts-text);--bs-dropdown-link-hover-bg:var(--ts-soft);--bs-dropdown-link-hover-color:var(--ts-text)}
+body[data-theme-id^="studio-"] .hp-hero :is(.hp-hero-meta,.hp-hero-chip){color:var(--ts-accent)}
+body[data-theme-id^="studio-"] .hp-hero-chip{background:var(--ts-selected)}
+
+body[data-theme-id^="studio-"] .options-dialog .modal-sidebar{background:var(--ts-sidebar)!important}
+body[data-theme-id^="studio-"] .options-dialog .options-page-header{background:var(--ts-surface)!important;border-color:var(--ts-border)}
+body[data-theme-id^="studio-"] .settings-navigation-item.active{background:var(--ts-selected)!important;color:var(--ts-accent)!important}
+body[data-theme-id^="studio-"] .dropdown-menu .dropdown-item{color:var(--ts-text)!important}
+body[data-theme-id^="studio-"] .dropdown-menu .dropdown-item:is(:hover,:focus){background:var(--ts-selected)!important;color:var(--ts-accent)!important}

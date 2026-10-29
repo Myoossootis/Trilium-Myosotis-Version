@@ -1,0 +1,30 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const {transform,readArchive,headerHash,updateExecutableIntegrity}=require('./patch_svg_icon_support.cjs');
+const helper=fs.readFileSync('customizations/svg-icons/runtime.js','utf8');
+const context={};vm.createContext(context);vm.runInContext(helper,context);
+const pack=JSON.parse(fs.readFileSync('customizations/svg-icons/electronic-symbols.json','utf8'));
+const css=context.myoSvgCss(pack,'electronic-symbols');
+assert.equal(Object.keys(pack.icons).length,116);
+assert.equal((css.match(/mask-image:/g)||[]).length,232);
+assert.ok(!css.includes('@font-face'));
+for(const svg of ['<svg><script>alert(1)</script></svg>','<svg onload="alert(1)"></svg>','<svg><image href="https://evil"/></svg>','<svg><path fill="url(https://evil)"/></svg>','<svg><foreignObject/></svg>','<!DOCTYPE svg><svg/>','<svg><path style="color:red"/></svg>','<svg/><svg/>'])assert.throws(()=>context.myoSafeSvg(svg));
+const main=fs.readFileSync('trilium-asar-work-20260915/main.cjs','utf8');
+const next=transform('main.cjs',main);assert.equal(transform('main.cjs',next),next);
+const start=next.indexOf('function n9r('),end=next.indexOf('var iUa',start);
+const backend={...context,Ee:()=>({error:()=>{}}),Bg:String};vm.createContext(backend);vm.runInContext(next.slice(start,end),backend);
+const mock={getJsonContentSafely:()=>pack,getLabelValue:()=> 'electronic-symbols',title:'Electronic Symbols',noteId:'test',getIcon:()=> 'bx bx-package',getAttachmentsByRole:()=>{throw Error('SVG pack must not require fonts');}};
+const registered=backend.n9r(mock);assert.equal(registered.fontMime,'image/svg+xml');
+assert.equal(backend.REt(registered,''),css);
+const font={...mock,getJsonContentSafely:()=>({icons:{sample:{glyph:'x',terms:['sample']}}}),getAttachmentsByRole:()=>[{mime:'font/woff2',attachmentId:'old-font'}]};backend.iUa=['font/woff2'];backend.aUa={'font/woff2':'woff2'};
+assert.ok(backend.REt(backend.n9r(font),'font.woff2').includes('@font-face'));
+const preview=transform('public/src/IconPackPreview-C_UIBQX5.js',fs.readFileSync('trilium-asar-work-20260915/public/src/IconPackPreview-C_UIBQX5.js','utf8'));
+vm.runInContext(preview.slice(preview.indexOf('function w(e){'),preview.indexOf('var E=',preview.indexOf('function w(e){'))),context);
+const parsed=context.w(JSON.stringify(pack));assert.equal(parsed.format,'svg');assert.ok(parsed.icons.every(i=>typeof i.svg==='string'));
+assert.ok(context.myoSvgCss({icons:Object.fromEntries(parsed.icons.map(i=>[i.id,i]))},'preview').includes('mask-image'));
+for(const archive of process.argv.slice(2)){
+ const data=readArchive(archive);let node=data.header.files['main.cjs'];const code=data.bytes.subarray(data.start+Number(node.offset),data.start+Number(node.offset)+node.size).toString();assert.ok(code.includes('function myoSafeSvg('));
+ const path=require('node:path'),exe=fs.readFileSync(path.resolve(path.dirname(archive),'..','trilium.exe'));
+ const hash=headerHash(data.bytes);assert.ok(exe.includes(Buffer.from(hash)),'EXE must match ASAR header');
+ assert.throws(()=>updateExecutableIntegrity(exe,'0'.repeat(64),hash),/mismatch/);
+}
+console.log('PASS: 116 original SVGs, strict safety checks, fontless native registry/CSS, legacy fonts, idempotent patch');

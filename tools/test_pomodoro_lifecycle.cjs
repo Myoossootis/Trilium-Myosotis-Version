@@ -1,0 +1,11 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const source=fs.readFileSync('customizations/frontend/pomodoro-runtime.js','utf8');
+let stored=null,serial=0;const timers=new Set(),events=new Map();
+const window={setInterval(){timers.add(++serial);return serial;},clearInterval(id){timers.delete(id);},setTimeout(){},addEventListener(name,fn){events.set(name,fn);},removeEventListener(name,fn){events.delete(name);}};
+const document={addEventListener(name,fn){events.set(name,fn);},removeEventListener(name,fn){events.delete(name);},getElementById(){return null;}};
+const context=vm.createContext({window,document,Date,localStorage:{getItem:()=>stored,setItem:(key,value)=>stored=value}});
+vm.runInContext(source,context);const first=window.MyoPomodoro;first.task('模电');first.start();const deadline=first.snapshot().deadline;
+vm.runInContext(source,context);assert.equal(window.MyoPomodoro,first);assert.equal(timers.size,1);assert.equal(events.size,4);
+first.runtimeVersion=1;vm.runInContext(source,context);assert.notEqual(window.MyoPomodoro,first);assert.equal(timers.size,1);assert.equal(events.size,4);assert.equal(window.MyoPomodoro.snapshot().deadline,deadline);assert.equal(window.MyoPomodoro.snapshot().task,'模电');
+window.MyoPomodoro.dispose();assert.equal(timers.size,0);assert.equal(events.size,0);
+console.log('PASS: same-version singleton, runtime upgrade cleanup, one timer, preserved deadline and listeners released');

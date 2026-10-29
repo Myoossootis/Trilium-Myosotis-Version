@@ -3,15 +3,330 @@
   "description": "Myosotis Trilium customization code. Note content and attachments are intentionally excluded.",
   "notes": [
     {
+      "key": "pomodoro_runtime",
+      "noteId": "MyoPomoRun1",
+      "group": "番茄钟",
+      "title": "番茄钟计时服务",
+      "type": "code",
+      "mime": "application/javascript;env=frontend",
+      "path": "customizations/frontend/pomodoro-runtime.js",
+      "labels": [
+        [
+          "run",
+          "frontendStartup"
+        ],
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "pomodoro_ui",
+      "noteId": "MyoPomoUI01",
+      "group": "番茄钟",
+      "title": "番茄钟界面",
+      "type": "code",
+      "mime": "text/jsx",
+      "path": "customizations/frontend/pomodoro-board.jsx",
+      "labels": [
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "pomodoro_css",
+      "noteId": "MyoPomoCSS1",
+      "group": "番茄钟",
+      "title": "番茄钟样式",
+      "type": "code",
+      "mime": "text/css",
+      "path": "customizations/frontend/pomodoro-board.css",
+      "labels": [
+        [
+          "appCss",
+          ""
+        ],
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "pomodoro_open",
+      "noteId": "MyoPomoOpen",
+      "group": "番茄钟",
+      "title": "打开番茄钟",
+      "type": "code",
+      "mime": "application/javascript;env=frontend",
+      "path": "customizations/frontend/open-pomodoro.js",
+      "labels": [
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "pomodoro_render",
+      "noteId": "MyoPomoBoard",
+      "group": "番茄钟",
+      "title": "番茄钟",
+      "type": "render",
+      "path": "",
+      "labels": [
+        [
+          "iconClass",
+          "bx bx-timer"
+        ],
+        [
+          "homeInternal",
+          ""
+        ]
+      ],
+      "relations": [
+        [
+          "renderNote",
+          "pomodoro_ui"
+        ]
+      ]
+    },
+    {
+      "key": "pomodoro_launcher",
+      "noteId": "al_MyoPomoEntry",
+      "group": "番茄钟",
+      "title": "番茄钟",
+      "type": "launcher",
+      "path": "",
+      "parentNoteId": "_lbVisibleLaunchers",
+      "notePosition": 89,
+      "labels": [
+        [
+          "launcherType",
+          "script"
+        ],
+        [
+          "iconClass",
+          "bx bx-timer mp-pomodoro-entry"
+        ]
+      ],
+      "relations": [
+        [
+          "script",
+          "pomodoro_open"
+        ]
+      ]
+    },
+    {
+      "key": "commission_service",
+      "noteId": "MyoQuestSvc1",
+      "group": "学习 RPG",
+      "title": "委托数据服务",
+      "type": "code",
+      "mime": "application/javascript;env=backend",
+      "path": "customizations/backend/commission-service.js",
+      "labels": [
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "commission_ui",
+      "noteId": "MyoQuestUI01",
+      "group": "学习 RPG",
+      "title": "委托中心界面",
+      "type": "code",
+      "mime": "text/jsx",
+      "path": "customizations/frontend/commission-board.jsx",
+      "labels": [
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "commission_css",
+      "noteId": "MyoQuestCSS1",
+      "group": "学习 RPG",
+      "title": "委托中心样式",
+      "type": "code",
+      "mime": "text/css",
+      "path": "customizations/frontend/commission-board.css",
+      "labels": [
+        [
+          "appCss",
+          ""
+        ],
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "commission_open",
+      "noteId": "MyoQuestOpen",
+      "group": "学习 RPG",
+      "title": "打开委托中心",
+      "type": "code",
+      "mime": "application/javascript;env=frontend",
+      "path": "customizations/frontend/open-commissions.js",
+      "labels": [
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "commission_data",
+      "noteId": "MyoQuestData",
+      "group": "学习 RPG",
+      "preserveContent": true,
+      "title": "委托与奖励数据",
+      "type": "code",
+      "mime": "application/json",
+      "path": "customizations/data/commissions-empty.json",
+      "labels": [
+        [
+          "commissionData",
+          ""
+        ],
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "commission_render",
+      "noteId": "MyoQuestBoard",
+      "group": "学习 RPG",
+      "title": "人升",
+      "legacyTitle": "委托中心",
+      "type": "render",
+      "path": "",
+      "labels": [
+        [
+          "iconClass",
+          "bx bx-task"
+        ],
+        [
+          "homeInternal",
+          ""
+        ]
+      ],
+      "relations": [
+        [
+          "renderNote",
+          "commission_ui"
+        ]
+      ]
+    },
+    {
+      "key": "commission_launcher",
+      "noteId": "al_MyoQuestEntry",
+      "parentNoteId": "_lbVisibleLaunchers",
+      "title": "人升",
+      "legacyTitle": "学习委托",
+      "type": "launcher",
+      "path": "",
+      "notePosition": 65,
+      "labels": [
+        [
+          "launcherType",
+          "script"
+        ],
+        [
+          "iconClass",
+          "bx bx-task"
+        ]
+      ],
+      "relations": [
+        [
+          "script",
+          "commission_open"
+        ]
+      ]
+    },
+    {
+      "key": "chapter_preview_rail",
+      "group": "阅读与导航",
+      "title": "章节分级预览条",
+      "type": "code",
+      "mime": "application/javascript;env=frontend",
+      "path": "customizations/frontend/chapter-preview-rail.js",
+      "labels": [
+        [
+          "run",
+          "frontendStartup"
+        ],
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "block_references",
+      "group": "阅读与导航",
+      "title": "段落与标题引用",
+      "type": "code",
+      "mime": "application/javascript;env=frontend",
+      "path": "customizations/frontend/block-references.js",
+      "labels": [
+        [
+          "run",
+          "frontendStartup"
+        ],
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "reading_position",
+      "group": "阅读与导航",
+      "title": "阅读位置记忆与恢复",
+      "type": "code",
+      "mime": "application/javascript;env=frontend",
+      "path": "customizations/frontend/reading-position.js",
+      "labels": [
+        [
+          "run",
+          "frontendStartup"
+        ],
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
       "key": "home_dashboard",
       "title": "Home 仪表盘脚本",
       "type": "code",
       "mime": "text/jsx",
       "path": "trilium-home-dashboard.js",
       "labels": [
-        ["homeInternal", ""],
-        ["iconClass", "bx bx-home-heart"]
-      ]
+        [
+          "homeInternal",
+          ""
+        ],
+        [
+          "iconClass",
+          "bx bx-home-heart"
+        ]
+      ],
+      "group": "首页",
+      "noteId": "gTC4ItLtMiD5"
     },
     {
       "key": "home_dashboard_css",
@@ -19,7 +334,18 @@
       "type": "code",
       "mime": "text/css",
       "path": "trilium-home-dashboard.css",
-      "labels": [["appCss", ""], ["homeInternal", ""]]
+      "labels": [
+        [
+          "appCss",
+          ""
+        ],
+        [
+          "homeInternal",
+          ""
+        ]
+      ],
+      "group": "首页",
+      "noteId": "MD9L0aUcgHSV"
     },
     {
       "key": "dictionary_layout",
@@ -27,7 +353,12 @@
       "type": "code",
       "mime": "text/css",
       "path": "trilium-dictionary-layout.css",
-      "labels": [["appCss", ""]]
+      "labels": [
+        [
+          "appCss",
+          ""
+        ]
+      ]
     },
     {
       "key": "codex_ui",
@@ -35,7 +366,24 @@
       "type": "code",
       "mime": "text/css",
       "path": "trilium-codex-ui.css",
-      "labels": [["appTheme", "codex-ui"], ["appThemeBase", "next-light"], ["homeInternal", ""], ["iconClass", "bx bx-palette"]]
+      "labels": [
+        [
+          "appTheme",
+          "codex-ui"
+        ],
+        [
+          "appThemeBase",
+          "next-light"
+        ],
+        [
+          "homeInternal",
+          ""
+        ],
+        [
+          "iconClass",
+          "bx bx-palette"
+        ]
+      ]
     },
     {
       "key": "todo_board",
@@ -43,7 +391,12 @@
       "type": "code",
       "mime": "text/jsx",
       "path": "trilium-todo-board.js",
-      "labels": [["homeInternal", ""]]
+      "labels": [
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
     },
     {
       "key": "todo_board_css",
@@ -51,7 +404,16 @@
       "type": "code",
       "mime": "text/css",
       "path": "trilium-todo-board.css",
-      "labels": [["appCss", ""], ["homeInternal", ""]]
+      "labels": [
+        [
+          "appCss",
+          ""
+        ],
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
     },
     {
       "key": "auto_formula",
@@ -59,7 +421,20 @@
       "type": "code",
       "mime": "application/javascript;env=frontend",
       "path": "trilium-auto-formula-paste.js",
-      "labels": [["run", "frontendStartup"], ["autoFormulaPaste", ""], ["homeInternal", ""]]
+      "labels": [
+        [
+          "run",
+          "frontendStartup"
+        ],
+        [
+          "autoFormulaPaste",
+          ""
+        ],
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
     },
     {
       "key": "home_startup",
@@ -67,7 +442,16 @@
       "type": "code",
       "mime": "application/javascript;env=frontend",
       "path": "trilium-home-startup.js",
-      "labels": [["run", "frontendStartup"], ["homeInternal", ""]]
+      "labels": [
+        [
+          "run",
+          "frontendStartup"
+        ],
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
     },
     {
       "key": "home_open_tab",
@@ -75,7 +459,12 @@
       "type": "code",
       "mime": "application/javascript;env=frontend",
       "path": "trilium-open-home-tab.js",
-      "labels": [["homeInternal", ""]]
+      "labels": [
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
     },
     {
       "key": "list_styles",
@@ -83,7 +472,16 @@
       "type": "code",
       "mime": "application/javascript;env=frontend",
       "path": "customizations/frontend/list-style-buttons.js",
-      "labels": [["run", "frontendStartup"], ["homeInternal", ""]]
+      "labels": [
+        [
+          "run",
+          "frontendStartup"
+        ],
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
     },
     {
       "key": "left_panel_auto_zoom",
@@ -91,7 +489,16 @@
       "type": "code",
       "mime": "application/javascript;env=frontend",
       "path": "customizations/frontend/left-panel-auto-zoom.js",
-      "labels": [["run", "frontendStartup"], ["homeInternal", ""]]
+      "labels": [
+        [
+          "run",
+          "frontendStartup"
+        ],
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
     },
     {
       "key": "word_delta_tracker",
@@ -99,7 +506,16 @@
       "type": "code",
       "mime": "application/javascript;env=backend",
       "path": "trilium-word-change-tracker.js",
-      "labels": [["homeWordChangeTracker", ""], ["homeInternal", ""]]
+      "labels": [
+        [
+          "homeWordChangeTracker",
+          ""
+        ],
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
     },
     {
       "key": "todo_attribute_hook",
@@ -107,7 +523,12 @@
       "type": "code",
       "mime": "application/javascript;env=backend",
       "path": "customizations/backend/todo-attribute-changed.js",
-      "labels": [["todoTaskAttributeChanged", ""]]
+      "labels": [
+        [
+          "todoTaskAttributeChanged",
+          ""
+        ]
+      ]
     },
     {
       "key": "todo_branch_hook",
@@ -115,7 +536,12 @@
       "type": "code",
       "mime": "application/javascript;env=backend",
       "path": "customizations/backend/todo-branch-created.js",
-      "labels": [["todoBranchCreated", ""]]
+      "labels": [
+        [
+          "todoBranchCreated",
+          ""
+        ]
+      ]
     },
     {
       "key": "todo_note_hook",
@@ -123,23 +549,348 @@
       "type": "code",
       "mime": "application/javascript;env=backend",
       "path": "customizations/backend/todo-note-created.js",
-      "labels": [["todoTaskCreate", ""]]
+      "labels": [
+        [
+          "todoTaskCreate",
+          ""
+        ]
+      ]
     },
     {
       "key": "home_render",
-      "title": "Home",
+      "title": "工作台",
       "type": "render",
       "path": "",
-      "labels": [["homeInternal", ""], ["iconClass", "fa-solid fa-home-lg"]],
-      "relations": [["renderNote", "home_dashboard"]]
+      "labels": [
+        [
+          "homeInternal",
+          ""
+        ],
+        [
+          "iconClass",
+          "fa-solid fa-home-lg"
+        ]
+      ],
+      "relations": [
+        [
+          "renderNote",
+          "home_dashboard"
+        ]
+      ],
+      "group": "首页",
+      "noteId": "HmeDashboard",
+      "legacyTitle": "Home"
     },
     {
       "key": "todo_render",
       "title": "ToDo清单",
       "type": "render",
       "path": "",
-      "labels": [["todo", ""], ["workspace", ""], ["iconClass", "bx bx-list-ol"]],
-      "relations": [["renderNote", "todo_board"]]
+      "labels": [
+        [
+          "todo",
+          ""
+        ],
+        [
+          "workspace",
+          ""
+        ],
+        [
+          "iconClass",
+          "bx bx-list-ol"
+        ]
+      ],
+      "relations": [
+        [
+          "renderNote",
+          "todo_board"
+        ]
+      ]
+    },
+    {
+      "key": "find_result_navigation",
+      "noteId": "MyoFindNav1",
+      "group": "阅读与导航",
+      "title": "查找结果定位修复",
+      "type": "code",
+      "mime": "application/javascript;env=frontend",
+      "path": "customizations/frontend/find-result-navigation.js",
+      "labels": [
+        [
+          "run",
+          "frontendStartup"
+        ],
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "market_service",
+      "noteId": "MyoMarketSvc1",
+      "group": "插件市场",
+      "title": "插件市场数据服务",
+      "type": "code",
+      "mime": "application/javascript;env=backend",
+      "path": "customizations/backend/plugin-market-service.js",
+      "labels": [
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "market_ui",
+      "noteId": "MyoMarketUI01",
+      "group": "插件市场",
+      "title": "插件市场界面",
+      "type": "code",
+      "mime": "text/jsx",
+      "path": "customizations/frontend/plugin-market.jsx",
+      "labels": [
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "market_css",
+      "noteId": "MyoMarketCSS1",
+      "group": "插件市场",
+      "title": "插件市场样式",
+      "type": "code",
+      "mime": "text/css",
+      "path": "customizations/frontend/plugin-market.css",
+      "labels": [
+        [
+          "homeInternal",
+          ""
+        ],
+        [
+          "appCss",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "codex_dark",
+      "noteId": "MyoCodexDark1",
+      "title": "Codex 暗色",
+      "type": "code",
+      "mime": "text/css",
+      "path": "trilium-codex-dark.css",
+      "labels": [
+        [
+          "appTheme",
+          "codex-ui-dark"
+        ],
+        [
+          "appThemeBase",
+          "next-dark"
+        ],
+        [
+          "homeInternal",
+          ""
+        ],
+        [
+          "iconClass",
+          "bx bx-moon"
+        ]
+      ]
+    },
+    {
+      "key": "codex_toggle",
+      "noteId": "MyoCodexFlip",
+      "title": "Codex 日夜切换",
+      "type": "code",
+      "mime": "application/javascript;env=frontend",
+      "path": "customizations/frontend/codex-theme-toggle.js",
+      "labels": [
+        [
+          "homeInternal",
+          ""
+        ]
+      ],
+      "group": "Codex 日夜切换"
+    },
+    {
+      "key": "codex_toggle_css",
+      "noteId": "MyoCodexFlipCSS",
+      "title": "Codex 日夜切换样式",
+      "type": "code",
+      "mime": "text/css",
+      "path": "customizations/frontend/codex-theme-toggle.css",
+      "labels": [
+        [
+          "appCss",
+          ""
+        ],
+        [
+          "homeInternal",
+          ""
+        ]
+      ],
+      "group": "Codex 日夜切换"
+    },
+    {
+      "key": "calendar_view_only",
+      "noteId": "MyoCalView1",
+      "title": "日历仅浏览",
+      "type": "code",
+      "mime": "application/javascript;env=frontend",
+      "path": "customizations/frontend/calendar-view-only.js",
+      "labels": [
+        [
+          "run",
+          "frontendStartup"
+        ],
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "create_root_note",
+      "noteId": "MyoNewRoot1",
+      "title": "新建根目录笔记",
+      "type": "code",
+      "mime": "application/javascript;env=frontend",
+      "path": "customizations/frontend/create-root-note.js",
+      "labels": [
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "codex_toggle_launcher",
+      "noteId": "al_MyoCodexTheme",
+      "group": "Codex 日夜切换",
+      "title": "切换浅色 / 暗色",
+      "type": "launcher",
+      "path": "",
+      "parentNoteId": "_lbVisibleLaunchers",
+      "notePosition": 180,
+      "labels": [
+        [
+          "launcherType",
+          "script"
+        ],
+        [
+          "iconClass",
+          "bx myo-day-night-icon"
+        ]
+      ],
+      "relations": [
+        [
+          "script",
+          "codex_toggle"
+        ]
+      ]
+    },
+    {
+      "key": "hardware_library_service",
+      "noteId": "MyoHardwareSvc",
+      "title": "硬件知识库索引服务",
+      "group": "硬件知识库首页",
+      "type": "code",
+      "mime": "application/javascript;env=backend",
+      "path": "customizations/backend/hardware-library-service.js",
+      "labels": [
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "hardware_library_ui",
+      "noteId": "MyoHardwareUI",
+      "title": "硬件知识库首页界面",
+      "group": "硬件知识库首页",
+      "type": "code",
+      "mime": "text/jsx",
+      "path": "customizations/frontend/hardware-library.jsx",
+      "labels": [
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "hardware_library_css",
+      "noteId": "MyoHardwareCSS",
+      "title": "硬件知识库首页样式",
+      "group": "硬件知识库首页",
+      "type": "code",
+      "mime": "text/css",
+      "path": "customizations/frontend/hardware-library.css",
+      "labels": [
+        [
+          "homeInternal",
+          ""
+        ],
+        [
+          "appCss",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "home_layout",
+      "noteId": "HmLayoutLib1",
+      "group": "首页",
+      "title": "首页拖拽布局引擎",
+      "type": "code",
+      "mime": "application/javascript",
+      "path": "trilium-home-layout.js",
+      "labels": [
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "home_service",
+      "noteId": "HmHomeSvc01",
+      "group": "首页",
+      "title": "首页布局服务",
+      "type": "code",
+      "mime": "application/javascript;env=backend",
+      "path": "trilium-home-service.js",
+      "labels": [
+        [
+          "homeInternal",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "home_data",
+      "noteId": "HmHomeData01",
+      "group": "首页",
+      "title": "首页布局数据",
+      "type": "code",
+      "mime": "application/json",
+      "path": "customizations/data/home-pages.json",
+      "preserveContent": true,
+      "labels": [
+        [
+          "homeInternal",
+          ""
+        ],
+        [
+          "homeLayoutData",
+          ""
+        ]
+      ]
     }
   ]
 }

@@ -1,0 +1,21 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const listeners=new Map();let selected=false,removed=false,blocked=0;
+const old={classList:{remove(){removed=true;}}};
+const cell={classList:{add(){selected=true;}},closest(){return {querySelectorAll(){return [old];}};}};
+const document={addEventListener(name,fn,capture){assert.equal(capture,true);listeners.set(name,fn);},removeEventListener(name){listeners.delete(name);}};
+const context={window:{},document};vm.createContext(context);
+const code=fs.readFileSync('customizations/frontend/calendar-view-only.js','utf8');
+vm.runInContext(code,context);vm.runInContext(code,context);assert.equal(listeners.size,1);
+listeners.get('click')({target:{closest(){return cell;}},preventDefault(){blocked++;},stopImmediatePropagation(){blocked++;}});
+assert.equal(blocked,2);assert.ok(selected&&removed);
+listeners.get('click')({target:{closest(){return null;}},preventDefault(){throw Error('Month navigation blocked');}});
+context.window.MyoCalendarViewOnly.dispose();assert.equal(listeners.size,0);
+(async()=>{
+    const calls=[];
+    const api={async triggerCommand(name,data){calls.push({name,data});},async createNote(parent,opts){calls.push({parent,opts});}};
+    const source=fs.readFileSync('customizations/frontend/create-root-note.js','utf8');
+    await new Function('api',`return (async()=>{${source}})()`)(api);
+    assert.equal(calls[0].name,'hoistNote');assert.equal(calls[0].data.noteId,'root');
+    assert.equal(calls[1].parent,'root');assert.equal(calls[1].opts.activate,true);
+    console.log('PASS: calendar dates select without note creation, month controls unaffected, root note creation and lifecycle');
+})().catch(error=>{console.error(error);process.exitCode=1;});

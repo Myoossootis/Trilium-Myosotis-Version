@@ -1,0 +1,32 @@
+/* Native launcher visual: available with the sidebar, without startup JavaScript. */
+:is(#launcher-pane,#kb-workspace-tools,#kb-workspace-rail) .launcher-button.myo-day-night-icon{
+    position:relative;min-width:44px;width:44px;height:30px;min-height:30px;
+    padding:0!important;margin:4px auto;border:0!important;flex:0 0 30px;
+    background:transparent!important;overflow:visible;font-size:0!important;
+}
+:is(#launcher-pane,#kb-workspace-tools,#kb-workspace-rail) .launcher-button.myo-day-night-icon::before{
+    content:'';position:absolute;width:44px;height:20px;left:0;top:5px;
+    border-radius:20px;
+    background:radial-gradient(ellipse at 100% 95%,#f3faff 0 11px,transparent 12px),radial-gradient(ellipse at 80% 115%,#f3faff 0 10px,transparent 11px),radial-gradient(ellipse at 105% 60%,#c3def0 0 10px,transparent 11px),#4685c0;
+    box-shadow:inset 0 1px 4px #0005;transition:background .45s;
+}
+:is(#launcher-pane,#kb-workspace-tools,#kb-workspace-rail) .launcher-button.myo-day-night-icon::after{
+    content:'';position:absolute;left:2px;top:7px;width:16px;height:16px;
+    border-radius:50%;background:#ffc323;z-index:1;
+    box-shadow:0 1px 3px #0005,inset 1px 1px 2px #ffe650,0 0 0 5px #ffffff18,0 0 0 10px #ffffff13;
+    transition:transform .5s cubic-bezier(.56,1.35,.52,1),background .45s;
+}
+body.dark-theme :is(#launcher-pane,#kb-workspace-tools,#kb-workspace-rail) .launcher-button.myo-day-night-icon::before{
+    background:radial-gradient(circle at 12% 32%,white 0 1px,transparent 1.5px),radial-gradient(circle at 30% 65%,#ffffffb0 0 .7px,transparent 1px),radial-gradient(circle at 43% 22%,white 0 .8px,transparent 1.2px),#202943;
+}
+body.dark-theme :is(#launcher-pane,#kb-workspace-tools,#kb-workspace-rail) .launcher-button.myo-day-night-icon::after{
+    transform:translateX(24px);
+    background:radial-gradient(circle at 35% 65%,#96a0b4 0 2.5px,transparent 3px),radial-gradient(circle at 70% 30%,#96a0b4 0 1.5px,transparent 2px),radial-gradient(circle at 73% 75%,#96a0b4 0 1px,transparent 1.5px),#ccd2df;
+    box-shadow:0 1px 3px #0006,inset 1px 1px 2px #eef2fb,0 0 0 5px #ffffff12,0 0 0 10px #ffffff0c;
+}
+:is(#launcher-pane,#kb-workspace-tools,#kb-workspace-rail) .launcher-button.myo-day-night-icon:focus-visible{outline:2px solid var(--main-text-color);outline-offset:2px}
+:is(#launcher-pane,#kb-workspace-tools,#kb-workspace-rail) .launcher-button.myo-day-night-icon:disabled{cursor:wait;opacity:.7}
+@media(prefers-reduced-motion:reduce){
+    :is(#launcher-pane,#kb-workspace-tools,#kb-workspace-rail) .launcher-button.myo-day-night-icon::before,
+    :is(#launcher-pane,#kb-workspace-tools,#kb-workspace-rail) .launcher-button.myo-day-night-icon::after{transition:none}
+}

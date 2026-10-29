@@ -1,39 +1,46 @@
 # Trilium Myosotis Version
 
-这是一个包含 Windows x64 Trilium 0.105.0 程序本体和 Myosotis 修改的便携版仓库。无需另外下载 Trilium：获取仓库后双击根目录的 `run-myosotis-trilium.bat` 即可启动。
+Windows x64 整合版，基于 Trilium 0.105.0，包含现有全部 14 个功能插件和独立插件管理器。默认纸墨暖色主题，知识库、工作台、笔记增强与 DeepSeek 侧栏已整合。
 
 ## 下载与启动
 
-仓库包含约 509 MB 的程序运行时。程序二进制通过 Git LFS 保存，因此用 Git 获取时先安装 Git LFS 并执行：
+在 [Releases](https://github.com/Myoossootis/Trilium-Myosotis-Version/releases/latest) 下载名称含 `windows-x64.zip` 的整合包，完整解压到可写目录，双击 `run-myosotis-trilium.bat`。**无需安装 Node、Python、Git 或另外下载 Trilium。**
+
+首次启动会建立独立数据库身份，并把初始库复制到 `trilium-portable/trilium-data/document.db`；已有数据库不会被覆盖。笔记、界面缓存与同步配置都保存在本机。更新整合包时先备份自己的数据目录，保留该目录后替换程序文件。
+
+初始库包含可直接运行的插件、原创演示笔记和一道示例题，不包含作者的个人笔记、导入题库、聊天记录、API key 或登录凭据。整合包为预装插件启用后端脚本，原生安全设置中可以调整。
+
+## 内置功能
+
+| 分类 | 插件 |
+| --- | --- |
+| 工作空间 | 工作台、知识库与 Wiki、任务管理、界面小工具 |
+| 笔记与阅读 | 笔记增强、DeepSeek 助手、拓展视图 |
+| 专注与学习 | 人升、番茄钟、通用刷题 |
+| 主题与资源 | 外观与主题、图标资源 |
+| 数据工具 | 资料导入工具、GitHub 数据库同步 |
+
+左下角「插件」中可逐个关闭、开启与打开功能；关闭插件保留其数据。外观设置提供主题预览卡片和可开关的笔记排版风格。
+
+知识库统一在一个工作区切换硬件/学术子库，支持正文搜索、命中片段、打开对应位置、右键菜单及返回上一级。刷题练习可与原生右侧 DeepSeek 面板并排使用。
+
+## GitHub 笔记备份
+
+双击 `login-github.bat` 完成自己的 GitHub 登录，再打开「插件 → GitHub 数据库同步」。填写自己的私有仓库与数据库位置，手动检查增删改和原文差异，确认后上传或恢复。可开启启动检查，覆盖始终需要确认。完整说明见 [GITHUB_SYNC_PLUGIN_README.md](GITHUB_SYNC_PLUGIN_README.md)。
+
+## DeepSeek
+
+图标采用官方鲸鱼 SVG。聊天依赖用户自行安装并配置的 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)，聊天历史、模型和 API key 由自己的 Harness 管理。先启动 Harness 一次，再运行 `setup-deepseek.bat`，重启 Harness 后打开右侧 DeepSeek 按钮。没有配置模型时，其他笔记插件仍可使用。
+
+整合包不附带 Harness 账户或 API 额度。桥接按协议检查本机 Harness 的会话接口；上游接口变化时会提示兼容错误，需要更新桥接。详见 [DSH_CHAT_PLUGIN_README.md](DSH_CHAT_PLUGIN_README.md)。
+
+## 源码与许可
+
+本仓库同时提供插件源代码、可编辑的初始数据库和 Windows 运行时。通过 Git 获取完整运行时时需要 Git LFS；GitHub 的普通源码 ZIP 可能包含 LFS 指针，请优先下载 Releases 整合包。
 
 ```powershell
 git lfs install
 git clone https://github.com/Myoossootis/Trilium-Myosotis-Version.git
-cd Trilium-Myosotis-Version
-.\run-myosotis-trilium.bat
 ```
 
-也可以在 GitHub 网页中下载仓库归档；如果归档中显示为 LFS 指针文件，请使用上面的 Git LFS clone 方式。
-
-首次启动时，根目录启动脚本会把仓库中的 `trilium-seed-data\document.db` 复制到 `trilium-portable\trilium-data`。这个种子数据库只含 Home、ToDo、公式、排版、字数统计、图标包和 Codex 风格应用界面等程序组件，不含个人笔记、附件历史或密码。之后产生的 `trilium-data` 和 `trilium-electron-data` 都是本机运行时目录，未提交到仓库。
-
-## 在另一台机器恢复修改
-
-本仓库包含源代码、图标/字体资源，以及 `customizations-manifest.json`。从种子数据库启动时这些程序组件已经存在；如果要把修改安装到另一份已有数据库，启动 Trilium 后生成 ETAPI token，再运行：
-
-```powershell
-$env:TRILIUM_ETAPI_TOKEN = '<你的 ETAPI token>'
-python .\tools\apply_customizations.py
-```
-
-该安装器只创建或更新程序代码/渲染笔记，不导入用户笔记、附件、历史版本或 Home 数据。安装器会同时安装 `Codex 风格应用界面` 可选主题：它覆盖启动栏、笔记树、标签页、编辑工具栏、左右面板、弹窗和滚动条，保留正文排版与 Home 内容组件。笔记文件按计划放入单独的笔记仓库。
-
-切换入口为左下角齿轮 → 设置/选项 → 外观 → 主题 → 自定义主题 → `Codex 风格应用界面`。新种子库默认使用此主题；已有数据库安装后可以在该菜单中选择并随时切回原主题。
-
-没有 ETAPI token 时，可运行 `python .\tools\install_codex_theme.py --db "<document.db 的完整路径>" --activate` 单独安装并启用主题。该工具会先备份数据库，完成后需正常关闭并重新打开 Trilium，以重新读取主题组件。它只修改主题组件及主题偏好。
-
-电路符号字体已随种子库启用；对已有数据库可用 `install_electronic_symbols_pack.py --db <document.db>` 更新图标包，所有路径均可通过参数覆盖。
-
-## 版本范围
-
-当前内置的是 Windows x64、Trilium 0.105.0 运行时。程序本体及其上游许可证文件随运行时保留；本仓库新增的脚本和样式按仓库许可证/上游 Trilium AGPL 条款使用。
+上游 Trilium 使用 AGPL-3.0-only。对应源代码、运行时补丁、构建方式与第三方许可证见 [SOURCE_INFO.md](SOURCE_INFO.md)、[LICENSE](LICENSE) 和 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。

@@ -140,6 +140,7 @@ def existing_attribute(note: dict[str, Any], attr_type: str, name: str, value: s
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--url", default=os.getenv("TRILIUM_ETAPI_URL", "http://127.0.0.1:37840/etapi"))
+    parser.add_argument("--group", help="只安装指定分组的组件（例如：学习 RPG）")
     parser.add_argument("--token", default=os.getenv("TRILIUM_ETAPI_TOKEN"))
     parser.add_argument("--parent", default="root", help="Parent note ID for the program component book")
     parser.add_argument("--dry-run", action="store_true")
@@ -153,13 +154,13 @@ def main() -> int:
     # Keep code notes out of the user's knowledge tree.  Existing notes with
     # the same title are updated in place, so running the installer is safe and
     # idempotent on the current machine.
-    program_book = next(iter(api.search_notes("Myosotis 程序组件")), None)
+    program_book = next(iter(api.search_notes("系统与插件")), None) or next(iter(api.search_notes("Myosotis 程序组件")), None)
     if program_book:
         program_root_id = program_book["noteId"]
     else:
         created = api.create_note({
             "parentNoteId": args.parent,
-            "title": "Myosotis 程序组件",
+            "title": "系统与插件",
             "type": "book",
             "content": "",
             "notePosition": 900,
@@ -168,29 +169,77 @@ def main() -> int:
 
     ids: dict[str, str] = {}
     notes = manifest.get("notes", [])
+    if args.group:
+        notes = [item for item in notes if item.get("group") == args.group or
+                 (item.get("type") == "launcher" and any(
+                     target == member.get("key")
+                     for _, target in item.get("relations", [])
+                     for member in manifest.get("notes", []) if member.get("group") == args.group))]
+        if not notes:
+            raise EtapiError(f"没有找到分组 {args.group!r}")
+    groups = {}
+    for title in dict.fromkeys(item.get("group") for item in notes if item.get("group")):
+        matches = api.search_notes(title)
+        candidates = [row for row in matches if program_root_id in
+                      (row.get("parentNoteIds") or api.get_note(row["noteId"]).get("parentNoteIds", []))]
+        if len(candidates) > 1:
+            raise EtapiError(f"Multiple plugin groups named {title!r}")
+        if candidates:
+            groups[title] = candidates[0]["noteId"]
+        else:
+            groups[title] = api.create_note({"parentNoteId": program_root_id, "title": title,
+                                            "type": "text", "content": "", "notePosition": 900})["note"]["noteId"]
     for item in notes:
         path = ROOT / item["path"] if item.get("path") else None
         content = path.read_text(encoding="utf-8") if path else ""
-        matches = api.search_notes(item["title"])
+        if path and path.name in ('knowledge-wiki.jsx', 'hardware-library.jsx'):
+            from build_knowledge_workspace import component_source
+            content = component_source('KbWikiUI0001' if path.name=='knowledge-wiki.jsx' else 'MyoHardwareUI', path)
+        if item.get("noteId") and not api.dry_run:
+            # Launchers may be excluded from title search. Resolve fixed IDs
+            # directly so reinstalls cannot create duplicate launcher branches.
+            try:
+                existing = api.get_note(item["noteId"])
+                if existing.get("title") not in (item["title"], item.get("legacyTitle")):
+                    raise EtapiError(f"组件 ID {item['noteId']!r} 已被其他笔记占用")
+                matches = [existing]
+            except EtapiError as exc:
+                if "HTTP 404" not in str(exc):
+                    raise
+                matches = []
+        else:
+            matches = api.search_notes(item["title"])
+            if item.get("noteId"):
+                matches = [row for row in matches if row["noteId"] == item["noteId"]]
+        if not matches and item.get("legacyTitle"):
+            matches = [row for row in api.search_notes(item["legacyTitle"]) if row["noteId"] == item.get("noteId")]
         row = matches[0] if matches else None
         if row:
             note_id = row["noteId"]
+            if item.get("noteId") and note_id != item["noteId"]:
+                raise EtapiError(f"组件 {item['title']!r} 的 ID 不匹配，拒绝覆盖")
             if row.get("type") not in (None, item["type"]):
                 raise EtapiError(
                     f"标题 {item['title']!r} 已存在但类型为 {row.get('type')!r}，拒绝覆盖"
                 )
-            api.put_content(note_id, content)
-            print(f"updated {item['title']} ({note_id})")
+            if row.get("title") == item.get("legacyTitle"):
+                api.request("PATCH", f"/notes/{urllib.parse.quote(note_id, safe='')}", body={"title": item["title"]})
+            if not item.get("preserveContent"):
+                api.put_content(note_id, content)
+            verb = "preserved" if item.get("preserveContent") else "updated"
+            print(f"{verb} {item['title']} ({note_id})")
         else:
             definition = {
-                "parentNoteId": program_root_id,
+                "parentNoteId": item.get("parentNoteId") or groups.get(item.get("group"), program_root_id),
                 "title": item["title"],
                 "type": item["type"],
                 "content": content,
-                "notePosition": 10,
+                "notePosition": item.get("notePosition", 10),
             }
             if item.get("mime"):
                 definition["mime"] = item["mime"]
+            if item.get("noteId"):
+                definition["noteId"] = item["noteId"]
             created = api.create_note(definition)
             note_id = created["note"]["noteId"]
             print(f"created {item['title']} ({note_id})")
@@ -211,7 +260,7 @@ def main() -> int:
                 raise EtapiError(f"relation target {target_key!r} is missing")
             attrs.append(("relation", name, ids[target_key], False))
         for index, (attr_type, name, value, inheritable) in enumerate(attrs, start=10):
-            if existing_attribute(note, attr_type, name, value):
+            if existing_attribute(note, attr_type, name, value) or existing_attribute(note, attr_type, "myoDisabled_" + name, value):
                 continue
             api.add_attribute(note_id, {
                 "type": attr_type,
@@ -221,7 +270,34 @@ def main() -> int:
                 "isInheritable": inheritable,
             })
 
-    print("程序组件已应用。Home/ToDo 启动栏及知识库根节点关系仍需按 README 配置。")
+    if "commission_render" in ids and not api.dry_run:
+        # Preserve old launcher notes while removing their launch-bar entries.
+        # ETAPI cannot change a branch's parent: clone first, then unlink.
+        for launcher_id, script_id in (("al_MyoShopEntry", "MyoShopOpen"),
+                                       ("al_MyoStockEntry", "MyoStockOpen")):
+            try:
+                note = api.get_note(launcher_id)
+            except EtapiError as exc:
+                if "HTTP 404" not in str(exc):
+                    raise
+                continue
+            if note.get("type") != "launcher" or not existing_attribute(note, "relation", "script", script_id):
+                raise EtapiError(f"旧入口 {launcher_id!r} 与预期不符，拒绝移动")
+            for branch_id in note.get("parentBranchIds", []):
+                branch = api.request("GET", f"/branches/{branch_id}")
+                if branch.get("parentNoteId") != "_lbVisibleLaunchers":
+                    continue
+                group_id = groups["学习 RPG"]
+                if group_id not in note.get("parentNoteIds", []):
+                    api.request("POST", "/branches", body={"noteId": launcher_id,
+                                "parentNoteId": group_id, "notePosition": 100})
+                api.request("DELETE", f"/branches/{branch_id}")
+                print(f"retired launch-bar entry {launcher_id}")
+
+    if args.group:
+        print(f"{args.group} 程序组件已应用。重新打开标签页或重启 Trilium 后加载新界面及入口。")
+    else:
+        print("程序组件已应用。Home/ToDo 启动栏及知识库根节点关系仍需按 README 配置。")
     return 0
 
 

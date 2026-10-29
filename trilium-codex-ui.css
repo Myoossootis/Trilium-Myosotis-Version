@@ -218,6 +218,28 @@ body.dark-theme #app {
     padding: 6px 8px !important;
 }
 
+/* Align guides with the parent arrow: 7px row padding + 1px border
+   + half the native 24px icon. Pseudo-elements preserve native tree geometry. */
+#left-pane .fancytree-container ul {
+    position: relative;
+}
+
+#left-pane .fancytree-container ul::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 19.5px;
+    width: 1px;
+    z-index: 1;
+    background: color-mix(in srgb, var(--codex-muted) 25%, transparent);
+    pointer-events: none;
+}
+
+/* Only the immediate sibling group is accented, rather than every ancestor. */
+#left-pane .fancytree-container ul:has(> li > .fancytree-active)::before {
+    background: color-mix(in srgb, var(--codex-accent) 60%, transparent);
+}
+
 #left-pane .fancytree-node {
     min-height: 32px;
     height: 32px;

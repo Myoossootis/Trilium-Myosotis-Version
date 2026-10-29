@@ -40,6 +40,7 @@ PROGRAM_TITLES = {
     "noteCreated",
     "Home",
     "ToDo清单",
+    "人升", "委托中心", "委托数据服务", "委托中心界面", "委托中心样式", "打开委托中心", "学习委托",
 }
 STATUS_LABELS = ("todoInProgress", "todoBacklog", "todoDone", "todoArchive")
 PROGRAM_LABELS = ("todoScripts", "collectionViews", "todoTimelineView")
@@ -171,9 +172,9 @@ def inject_manifest_code_notes(
         # These IDs are deliberately stable across seed rebuilds.  They are
         # not linked from user notes and therefore do not need source IDs.
         while True:
-            note_id = f"MyoCode{ordinal:02d}"
-            blob_id = f"MyoCodeBlob{ordinal:02d}"
-            attr_prefix = f"MyoCodeAttr{ordinal:02d}"
+            note_id = item.get("noteId") or f"MyoCode{ordinal:02d}"
+            blob_id = note_id + "B" if item.get("noteId") else f"MyoCodeBlob{ordinal:02d}"
+            attr_prefix = note_id + "A" if item.get("noteId") else f"MyoCodeAttr{ordinal:02d}"
             if (
                 conn.execute("SELECT 1 FROM notes WHERE noteId = ?", (note_id,)).fetchone()
                 is None
@@ -181,6 +182,8 @@ def inject_manifest_code_notes(
                 is None
             ):
                 break
+            if item.get("noteId"):
+                raise RuntimeError(f"Manifest component ID collision: {note_id}")
             ordinal += 1
 
         content = source_path.read_text(encoding="utf-8")
@@ -412,6 +415,23 @@ def copy_seed(source: Path, output: Path) -> set[str]:
     vacuum_conn.execute("VACUUM INTO ?", (str(compact_output),))
     vacuum_conn.close()
     compact_output.replace(output)
+    # Rebuild the native entry and explicitly empty personal commission data.
+    # A distributable must never inherit the author's tasks or reward ledger.
+    from install_commissions import install as install_commissions
+    install_commissions(output, seed=True)
+    from install_pomodoro import install as install_pomodoro
+    install_pomodoro(output)
+    from install_codex_theme import install as install_codex_theme
+    install_codex_theme(output)
+    from install_navigation_defaults import install as install_navigation_defaults
+    install_navigation_defaults(output)
+    from install_hardware_library import install as install_hardware_library
+    install_hardware_library(output)
+    from install_plugin_market import install as install_plugin_market
+    install_plugin_market(output)
+    # The bundled executable and ASAR are deployed as an integrity-matched pair.
+    from install_svg_electronic_symbols import install as install_svg_icons
+    install_svg_icons(output)
     return ids
 
 

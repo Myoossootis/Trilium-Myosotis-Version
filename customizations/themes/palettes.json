@@ -1,0 +1,222 @@
+[
+  {
+    "id": "studio-slate-light",
+    "key": "slate",
+    "name": "极简灰 · 浅色",
+    "mode": "light",
+    "noteId": "ThmSlateLight",
+    "colors": {
+      "page": "#f4f5f6",
+      "surface": "#ffffff",
+      "soft": "#f0f2f4",
+      "sidebar": "#f6f7f8",
+      "text": "#242a30",
+      "muted": "#5f6c78",
+      "border": "#dce1e6",
+      "strong": "#b8c2cc",
+      "accent": "#475c75",
+      "onAccent": "#ffffff",
+      "success": "#247456",
+      "warning": "#936317",
+      "danger": "#b8414b"
+    }
+  },
+  {
+    "id": "studio-slate-dark",
+    "key": "slate",
+    "name": "极简灰 · 暗色",
+    "mode": "dark",
+    "noteId": "ThmSlateDark",
+    "colors": {
+      "page": "#181c21",
+      "surface": "#21262d",
+      "soft": "#292f38",
+      "sidebar": "#1b2026",
+      "text": "#e2e7ed",
+      "muted": "#abb7c4",
+      "border": "#39424d",
+      "strong": "#5a6879",
+      "accent": "#a6bdd8",
+      "onAccent": "#18212d",
+      "success": "#8cd2ab",
+      "warning": "#e0bc77",
+      "danger": "#f3a0a8"
+    }
+  },
+  {
+    "id": "studio-forest-light",
+    "key": "forest",
+    "name": "森林绿 · 浅色",
+    "mode": "light",
+    "noteId": "ThmForestLight",
+    "colors": {
+      "page": "#f4f7f3",
+      "surface": "#ffffff",
+      "soft": "#edf3ec",
+      "sidebar": "#f1f5ef",
+      "text": "#26392c",
+      "muted": "#5d7363",
+      "border": "#d9e4d8",
+      "strong": "#aabeae",
+      "accent": "#386e4c",
+      "onAccent": "#ffffff",
+      "success": "#2b7753",
+      "warning": "#8f641e",
+      "danger": "#b44349"
+    }
+  },
+  {
+    "id": "studio-forest-dark",
+    "key": "forest",
+    "name": "森林绿 · 暗色",
+    "mode": "dark",
+    "noteId": "ThmForestDark",
+    "colors": {
+      "page": "#19221d",
+      "surface": "#222e26",
+      "soft": "#2b3a30",
+      "sidebar": "#1c2821",
+      "text": "#e1ece3",
+      "muted": "#a4bbaa",
+      "border": "#3c5042",
+      "strong": "#5c7965",
+      "accent": "#9fcca9",
+      "onAccent": "#1b2d20",
+      "success": "#93ceaa",
+      "warning": "#ddbd7b",
+      "danger": "#eda3a3"
+    }
+  },
+  {
+    "id": "studio-paper-light",
+    "key": "paper",
+    "name": "纸墨暖色 · 浅色",
+    "mode": "light",
+    "noteId": "ThmPaperLight",
+    "colors": {
+      "page": "#f5f1e8",
+      "surface": "#fffdf8",
+      "soft": "#f0ebdf",
+      "sidebar": "#f3eee3",
+      "text": "#39352d",
+      "muted": "#756a59",
+      "border": "#e1d8c7",
+      "strong": "#bfb098",
+      "accent": "#8a553a",
+      "onAccent": "#ffffff",
+      "success": "#397353",
+      "warning": "#8a621b",
+      "danger": "#b14639"
+    }
+  },
+  {
+    "id": "studio-paper-dark",
+    "key": "paper",
+    "name": "纸墨暖色 · 暗色",
+    "mode": "dark",
+    "noteId": "ThmPaperDark",
+    "colors": {
+      "page": "#24211d",
+      "surface": "#2e2a24",
+      "soft": "#383329",
+      "sidebar": "#28241f",
+      "text": "#eee6d7",
+      "muted": "#c1b39c",
+      "border": "#4d4538",
+      "strong": "#76684f",
+      "accent": "#e4b294",
+      "onAccent": "#342218",
+      "success": "#a9c394",
+      "warning": "#e7c17e",
+      "danger": "#efa596"
+    }
+  },
+  {
+    "id": "studio-ocean-light",
+    "key": "ocean",
+    "name": "深海蓝 · 浅色",
+    "mode": "light",
+    "noteId": "ThmOceanLight",
+    "colors": {
+      "page": "#f1f5f9",
+      "surface": "#ffffff",
+      "soft": "#eaf1f7",
+      "sidebar": "#edf3f8",
+      "text": "#253447",
+      "muted": "#5c7087",
+      "border": "#d6e2ec",
+      "strong": "#acbfd2",
+      "accent": "#306898",
+      "onAccent": "#ffffff",
+      "success": "#2a765e",
+      "warning": "#92631b",
+      "danger": "#b34450"
+    }
+  },
+  {
+    "id": "studio-ocean-dark",
+    "key": "ocean",
+    "name": "深海蓝 · 暗色",
+    "mode": "dark",
+    "noteId": "ThmOceanDark",
+    "colors": {
+      "page": "#17212c",
+      "surface": "#1e2c3b",
+      "soft": "#27394a",
+      "sidebar": "#1a2734",
+      "text": "#e1ebf5",
+      "muted": "#a3b9ce",
+      "border": "#364f64",
+      "strong": "#55738e",
+      "accent": "#92c6e8",
+      "onAccent": "#182c3d",
+      "success": "#8ed0b5",
+      "warning": "#e3c184",
+      "danger": "#eea4b0"
+    }
+  },
+  {
+    "id": "studio-mist-light",
+    "key": "mist",
+    "name": "柔雾紫 · 浅色",
+    "mode": "light",
+    "noteId": "ThmMistLight",
+    "colors": {
+      "page": "#f1eef6",
+      "surface": "#fdfbff",
+      "soft": "#eee8f5",
+      "sidebar": "#f3eff8",
+      "text": "#3e374e",
+      "muted": "#746785",
+      "border": "#dfd7e9",
+      "strong": "#b7a8cb",
+      "accent": "#7951a8",
+      "onAccent": "#ffffff",
+      "success": "#39765d",
+      "warning": "#916223",
+      "danger": "#b14665"
+    }
+  },
+  {
+    "id": "studio-mist-dark",
+    "key": "mist",
+    "name": "柔雾紫 · 暗色",
+    "mode": "dark",
+    "noteId": "ThmMistDark",
+    "colors": {
+      "page": "#211f2e",
+      "surface": "#2b283b",
+      "soft": "#363248",
+      "sidebar": "#252235",
+      "text": "#e8e2f5",
+      "muted": "#b9accf",
+      "border": "#49415f",
+      "strong": "#6a5d87",
+      "accent": "#c8a9ed",
+      "onAccent": "#2d203c",
+      "success": "#a0d2b7",
+      "warning": "#e1c18c",
+      "danger": "#f1a5bf"
+    }
+  }
+]

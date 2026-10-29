@@ -1,0 +1,10 @@
+const assert=require('node:assert/strict');
+const{chromium}=require('C:/Users/杜锦鸿/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+(async()=>{const b=await chromium.connectOverCDP(process.env.TRILIUM_TEST_CDP||'http://127.0.0.1:37844');try{const p=b.contexts()[0].pages()[0];p.setDefaultTimeout(10000);
+ await p.evaluate(async()=>{const a=(await import('trilium-app://app/src/content_renderer-BMc4Ylfn.js')).K;await a.tabManager.openInSameTab('HwQuizBoard01','root');});
+ await p.locator('#start-learning').waitFor();if(!await p.locator('#study-dialog').isVisible())await p.locator('#start-learning').click();
+ await p.evaluate(async()=>{const s=(await import('trilium-app://app/src/server-E-v8IJ6Q.js')).t;const r=await s.post('script/exec',{script:'function(){if(!api.getAppInfo().dataDirectory.includes("integrated-portable-"))throw Error("Fresh test profile required");const n=api.getNote("HwQuizState01"),v=n.getJsonContent();v.revision++;n.setContent(JSON.stringify(v));return true;}',params:[],startNoteId:'MyoMarketSvc1',currentNoteId:'MyoMarketSvc1'});if(!r.success)throw Error(r.error);});
+ await p.locator('#font-smaller').click();await p.locator('.hw-quiz-error').filter({hasText:'另一窗口更新'}).waitFor();
+ assert.equal(await p.locator('.hw-quiz #study-dialog').count(),1);assert.equal(await p.locator('#study-dialog').evaluate(e=>getComputedStyle(e).position),'fixed');await p.locator('#close-study').click();
+ console.log('PASS real backend revision conflict in synthetic profile preserves quiz host, styling and close action');
+ }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1});
