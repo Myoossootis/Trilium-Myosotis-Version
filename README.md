@@ -26,7 +26,7 @@ Windows x64 整合版，基于 Trilium 0.105.0，包含现有全部 14 个功能
 
 ## GitHub 笔记备份
 
-双击 `login-github.bat` 完成自己的 GitHub 登录，再打开「插件 → GitHub 数据库同步」。填写自己的私有仓库与数据库位置，手动检查增删改和原文差异，确认后上传或恢复。可开启启动检查，覆盖始终需要确认。完整说明见 [GITHUB_SYNC_PLUGIN_README.md](GITHUB_SYNC_PLUGIN_README.md)。
+双击 `login-github.bat` 完成自己的 GitHub 登录，再打开「插件 → GitHub 数据库同步」。填写自己的私有仓库与数据库位置，手动检查增删改和原文差异，确认后只上传变化的数据块，或恢复远端完整版本。首次空仓库同步需建立基线。可开启启动检查，覆盖始终需要确认。完整说明见 [GITHUB_SYNC_PLUGIN_README.md](GITHUB_SYNC_PLUGIN_README.md)。
 
 ## DeepSeek
 

@@ -1,9 +1,29 @@
-// GitHub stores immutable, compressed SQLite snapshots. No live DB replacement or Git execution.
+// GitHub stores immutable compressed SQLite blocks; complete versions reuse unchanged blocks.
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),zlib=require('node:zlib'),util=require('node:util'),cp=require('node:child_process');
 const hash=value=>crypto.createHash('sha256').update(value).digest('hex'),json=value=>JSON.stringify(value),CHUNK=4*1024*1024,MAX=2*1024*1024*1024;
+const BLOCK=1024*1024,TREE_BATCH=4*1024*1024;
+const gitBlobHash=text=>crypto.createHash('sha1').update('blob '+Buffer.byteLength(text)).update(Buffer.from([0])).update(text).digest('hex');
+function validateManifest(m,legacyOnly=false){
+ const fail=()=>{throw Error('远端快照清单无效或格式不兼容，请更新同步插件');};
+ if(!m||!Number.isSafeInteger(m.bytes)||m.bytes<512||m.bytes>MAX||!/^[a-f0-9]{64}$/.test(m.sha256)||!Array.isArray(m.chunks))fail();
+ if(m.version===1){
+  if(!Number.isSafeInteger(m.compressedBytes)||m.compressedBytes<1||m.compressedBytes>512*1024*1024||!m.chunks.length||m.chunks.length>128||m.chunks.some(c=>!c||!/^[a-f0-9]{40}$/.test(c.blob)||!/^[a-f0-9]{64}$/.test(c.sha256)))fail();
+ }else if(m.version===2&&!legacyOnly){
+  if(m.blockSize!==BLOCK||m.chunks.length!==Math.ceil(m.bytes/BLOCK))fail();
+  if(m.base)validateManifest(m.base,true);
+  for(let i=0;i<m.chunks.length;i++){
+   const c=m.chunks[i],size=Math.min(BLOCK,m.bytes-i*BLOCK);
+   if(!c||!/^[a-f0-9]{64}$/.test(c.sha256)||c.bytes!==size)fail();
+   if(c.blob){if(!/^[a-f0-9]{40}$/.test(c.blob)||!Number.isSafeInteger(c.compressedBytes)||c.compressedBytes<1||c.compressedBytes>BLOCK+65536||c.baseOffset!==undefined)fail();}
+   else if(!m.base||!Number.isSafeInteger(c.baseOffset)||c.baseOffset<0||c.baseOffset%BLOCK!==0||c.baseOffset+c.bytes>m.base.bytes)fail();
+  }
+ }else fail();
+ return m;
+}
 const {pipeline}=require('node:stream/promises'),{Readable,Transform}=require('node:stream');
 async function hashFile(file){const digest=crypto.createHash('sha256');for await(const bytes of fs.createReadStream(file,{highWaterMark:1024*1024}))digest.update(bytes);return digest.digest('hex');}
 async function readChunk(file,offset,size){const data=Buffer.alloc(size);let read=0;while(read<size){const result=await file.read(data,read,size-read,offset+read);if(!result.bytesRead)throw Error('压缩快照读取不完整');read+=result.bytesRead;}return data;}
+async function blockIndex(file){const input=await fs.promises.open(file,'r'),bytes=(await input.stat()).size,blocks=new Map(),digest=crypto.createHash('sha256');try{for(let offset=0;offset<bytes;offset+=BLOCK){const raw=await readChunk(input,offset,Math.min(BLOCK,bytes-offset));digest.update(raw);blocks.set(hash(raw),{offset,bytes:raw.length});}}finally{await input.close();}return {blocks,bytes,sha256:digest.digest('hex')};}
 async function parallel(items,limit,fn){let next=0,error;await Promise.all(Array.from({length:Math.min(limit,items.length)},async()=>{while(!error&&next<items.length){const i=next++;try{await fn(items[i],i);}catch(e){error||=e;}}}));if(error)throw error;}
 const LOCAL_OPTIONS=new Set(['openNoteContexts','documentId','documentSecret','instanceId','lastSyncedPush','lastSyncedPull','lastDailyBackupDate','lastWeeklyBackupDate','lastMonthlyBackupDate','rightPaneWidth','leftPaneWidth','rightPaneVisible','leftPaneVisible','rightPaneSelectedTab']);
 function indexDatabase(db){
@@ -66,13 +86,25 @@ class SyncEngine{
   return response.status===204?null:response.json();
  }
  async remote(){const repo=await this.request('GET','');if(!repo.private)throw Error('数据库含个人笔记和账户信息，只允许同步到私有仓库。');const branch=repo.default_branch||'main',ref=await this.request('GET','/git/ref/heads/'+encodeURIComponent(branch),undefined,true);return {branch,head:ref?.object.sha||null};}
- async manifest(remote){if(!remote.head)return null;const commit=await this.request('GET','/git/commits/'+remote.head),tree=await this.request('GET','/git/trees/'+commit.tree.sha+'?recursive=1');if(tree.truncated)throw Error('远端文件过多，无法可靠确认快照');const item=tree.tree.find(e=>e.path==='trilium-sync/v1/latest.json');if(!item)return null;const blob=await this.request('GET','/git/blobs/'+item.sha);const manifest=JSON.parse(Buffer.from(blob.content.replace(/\s/g,''),'base64').toString());if(manifest.version!==1||!Number.isSafeInteger(manifest.bytes)||manifest.bytes<512||manifest.bytes>MAX||!Number.isSafeInteger(manifest.compressedBytes)||manifest.compressedBytes<1||manifest.compressedBytes>512*1024*1024||!Array.isArray(manifest.chunks)||!manifest.chunks.length||manifest.chunks.length>128||manifest.chunks.some(c=>!/^[a-f0-9]{40}$/.test(c.blob)||!/^[a-f0-9]{64}$/.test(c.sha256))||!/^[a-f0-9]{64}$/.test(manifest.sha256))throw Error('远端快照清单无效');return manifest;}
- validateRemote(file){
-  const db=this.database(file),local=this.database(this.config().dbPath);
+ async manifest(remote){
+  if(!remote.head)return null;
+  const commit=await this.request('GET','/git/commits/'+remote.head),parts=['trilium-sync','v1','latest.json'];let sha=commit.tree.sha,item;
+  for(let i=0;i<parts.length;i++){
+   const tree=await this.request('GET','/git/trees/'+sha);if(tree.truncated)throw Error('远端目录过大，无法可靠确认同步清单');
+   // Also accept flat trees from the local protocol test transport.
+   item=tree.tree.find(e=>e.path===parts.join('/'))||tree.tree.find(e=>e.path===parts[i]);if(!item)return null;
+   if(item.path===parts.join('/')||i===parts.length-1)break;
+   if(item.type!=='tree')throw Error('远端同步目录无效');sha=item.sha;
+  }
+  const blob=await this.request('GET','/git/blobs/'+item.sha);
+  return validateManifest(JSON.parse(Buffer.from(blob.content.replace(/\s/g,''),'base64').toString()));
+ }
+ validateRemote(file,checkVersion=true){
+  const db=this.database(file),local=checkVersion?this.database(this.config().dbPath):null;
   try{
    if(db.pragma('quick_check',{simple:true})!=='ok')throw Error('远端数据库完整性检查失败');
-   if(db.prepare("SELECT value FROM options WHERE name='dbVersion'").get()?.value!==local.prepare("SELECT value FROM options WHERE name='dbVersion'").get()?.value)throw Error('两端 Trilium 数据库版本不同，请先使用相同版本');
-  }finally{db.close();local.close();}
+   if(checkVersion&&db.prepare("SELECT value FROM options WHERE name='dbVersion'").get()?.value!==local.prepare("SELECT value FROM options WHERE name='dbVersion'").get()?.value)throw Error('两端 Trilium 数据库版本不同，请先使用相同版本');
+  }finally{db.close();local?.close();}
  }
  cachedRemote(manifest){
   const file=path.join(this.planDir,'remote.db');let cached;try{cached=this.read('remote-index.json',null);}catch{return null;}
@@ -90,7 +122,8 @@ class SyncEngine{
   const data={version:1,sha256:manifest.sha256,size:stat.size,mtime:stat.mtimeMs,notes:[...index.notes].map(([id,n])=>[id,{title:n.title,type:n.type,signature:n.signature}]),settingsHash:index.settingsHash,signature:index.signature};
   this.write('remote-index.json',{...data,checksum:hash(json(data))});
  }
- async download(manifest){
+ async download(manifest){return manifest.version===2?this.downloadIncremental(manifest):this.downloadLegacy(manifest);}
+ async downloadLegacy(manifest,target=path.join(this.planDir,'remote.db'),checkVersion=true){
   const objects=path.join(this.dir,'objects');fs.mkdirSync(objects,{recursive:true});let done=0;
   await parallel(manifest.chunks,3,async item=>{
    if(!/^[a-f0-9]{40}$/.test(item.blob)||!/^[a-f0-9]{64}$/.test(item.sha256))throw Error('远端分块清单无效');
@@ -105,15 +138,82 @@ class SyncEngine{
   });
   const files=manifest.chunks.map(item=>path.join(objects,item.sha256));
   if(files.reduce((n,f)=>n+fs.statSync(f).size,0)!==manifest.compressedBytes)throw Error('远端快照大小不匹配');
-  const target=path.join(this.planDir,'remote.db'),tmp=target+'.downloading',digest=crypto.createHash('sha256');let size=0;
+  const tmp=target+'.downloading',digest=crypto.createHash('sha256');let size=0;
   const limit=new Transform({transform(bytes,encoding,callback){size+=bytes.length;if(size>manifest.bytes)return callback(Error('远端数据库大小超出清单'));digest.update(bytes);callback(null,bytes);}});
   async function* compressed(){for(const file of files)for await(const bytes of fs.createReadStream(file))yield bytes;}
   this.progress('正在解压并校验数据库');
   try{
    await pipeline(Readable.from(compressed()),zlib.createGunzip(),limit,fs.createWriteStream(tmp,{mode:0o600}));
    if(size!==manifest.bytes||digest.digest('hex')!==manifest.sha256)throw Error('远端数据库校验失败');
-   this.validateRemote(tmp);for(const suffix of ['-wal','-shm'])await fs.promises.unlink(target+suffix).catch(()=>{});await fs.promises.rename(tmp,target);
+   this.validateRemote(tmp,checkVersion);for(const suffix of ['-wal','-shm'])await fs.promises.unlink(target+suffix).catch(()=>{});await fs.promises.rename(tmp,target);
   }catch(error){await fs.promises.unlink(tmp).catch(()=>{});throw error;}
+ }
+ async legacyBase(manifest){
+  const dir=path.join(this.dir,'bases');fs.mkdirSync(dir,{recursive:true});const file=path.join(dir,manifest.sha256+'.db');
+  if(fs.existsSync(file)&&fs.statSync(file).size===manifest.bytes&&await hashFile(file)===manifest.sha256)return file;
+  const current=path.join(this.planDir,'remote.db');
+  if(fs.existsSync(current)&&fs.statSync(current).size===manifest.bytes&&await hashFile(current)===manifest.sha256){
+   const tmp=file+'.copying';await fs.promises.copyFile(current,tmp);if(await hashFile(tmp)!==manifest.sha256)throw Error('旧版基线复制校验失败');await fs.promises.rename(tmp,file);
+  }else await this.downloadLegacy(manifest,file,false);
+  return file;
+ }
+ async downloadIncremental(manifest){
+  const target=path.join(this.planDir,'remote.db');
+  const previous=fs.existsSync(target)?await blockIndex(target):{blocks:new Map()};
+  const baseFile=manifest.chunks.some(c=>!c.blob&&!previous.blocks.has(c.sha256))?await this.legacyBase(manifest.base):null;
+  const objects=path.join(this.dir,'objects-v2');fs.mkdirSync(objects,{recursive:true});
+  const unique=[...new Map(manifest.chunks.filter(c=>c.blob&&!previous.blocks.has(c.sha256)).map(c=>[c.sha256,c])).values()];let done=0;
+  await parallel(unique,3,async c=>{
+   const file=path.join(objects,c.sha256+'.raw');
+   if(!fs.existsSync(file)||fs.statSync(file).size!==c.bytes||await hashFile(file)!==c.sha256){
+    const blob=await this.request('GET','/git/blobs/'+c.blob),text=Buffer.from(blob.content.replace(/\s/g,''),'base64').toString('ascii');
+    if(text.length>2*(BLOCK+65536)||! /^[A-Za-z0-9+/]+={0,2}$/.test(text))throw Error('远端增量块编码无效');
+    const compressed=Buffer.from(text,'base64');if(compressed.length!==c.compressedBytes)throw Error('远端增量块大小不匹配');
+    const raw=await util.promisify(zlib.gunzip)(compressed,{maxOutputLength:c.bytes});
+    if(raw.length!==c.bytes||hash(raw)!==c.sha256)throw Error('远端增量块校验失败');
+    const tmp=file+'.tmp-'+crypto.randomUUID();await fs.promises.writeFile(tmp,raw,{mode:0o600});await fs.promises.rename(tmp,file);this.downloadedChunks=(this.downloadedChunks||0)+1;
+   }
+   this.progress('正在下载变化的数据块',++done,unique.length);
+  });
+  const tmp=target+'.downloading',digest=crypto.createHash('sha256');let size=0;
+  const base=baseFile?await fs.promises.open(baseFile,'r'):null;
+  let old=fs.existsSync(target)?await fs.promises.open(target,'r'):null;
+  async function* blocks(){for(const c of manifest.chunks){const known=previous.blocks.get(c.sha256);const data=known&&known.bytes===c.bytes?await readChunk(old,known.offset,c.bytes):c.blob?await fs.promises.readFile(path.join(objects,c.sha256+'.raw')):await readChunk(base,c.baseOffset,c.bytes);if(data.length!==c.bytes||hash(data)!==c.sha256)throw Error('增量数据块校验失败');yield data;}}
+  const verify=new Transform({transform(data,encoding,callback){size+=data.length;digest.update(data);callback(null,data);}});
+  this.progress('正在组装并校验增量版本');
+  try{
+   await pipeline(Readable.from(blocks()),verify,fs.createWriteStream(tmp,{mode:0o600}));
+   if(size!==manifest.bytes||digest.digest('hex')!==manifest.sha256)throw Error('增量数据库完整校验失败');
+   this.validateRemote(tmp);await old?.close();old=null;for(const suffix of ['-wal','-shm'])await fs.promises.unlink(target+suffix).catch(()=>{});await fs.promises.rename(tmp,target);
+  }catch(error){await fs.promises.unlink(tmp).catch(()=>{});throw error;}
+  finally{await base?.close();await old?.close();}
+ }
+ async prepareIncremental(previous){
+  this.progress('正在计算增量数据块');
+  const stage=path.join(this.planDir,'delta');fs.mkdirSync(stage,{recursive:true});
+  for(const entry of fs.readdirSync(stage,{withFileTypes:true}))if(entry.isFile()&&/^[a-f0-9]{64}\.gz64$/.test(entry.name))fs.unlinkSync(path.join(stage,entry.name));
+  let base=previous?.version===1?previous:previous?.base||null,known=new Map();
+  if(previous?.version===1){
+   const old=await blockIndex(path.join(this.planDir,'remote.db'));
+   if(old.sha256!==previous.sha256){fs.rmSync(path.join(this.dir,'remote-index.json'),{force:true});throw Error('远端暂存数据已变化，请重新检查差异');}
+   known=new Map([...old.blocks].map(([sha,p])=>[sha,{sha256:sha,bytes:p.bytes,baseOffset:p.offset}]));
+  }else if(previous)known=new Map(previous.chunks.map(c=>[c.sha256,c]));
+  const input=await fs.promises.open(path.join(this.planDir,'local.db'),'r'),bytes=(await input.stat()).size,digest=crypto.createHash('sha256'),chunks=[],objects=new Map();let uploadBytes=0,compressedBytes=0,reused=0,last=0;
+  try{for(let offset=0;offset<bytes;offset+=BLOCK){
+   const raw=await readChunk(input,offset,Math.min(BLOCK,bytes-offset));digest.update(raw);const sha256=hash(raw),old=known.get(sha256);
+   if(old&&old.bytes===raw.length){chunks.push({...old});reused++;}
+   else if(objects.has(sha256))chunks.push({...objects.get(sha256).chunk});
+   else{
+    const compressed=await util.promisify(zlib.gzip)(raw),text=compressed.toString('base64'),blob=gitBlobHash(text),chunk={sha256,bytes:raw.length,blob,compressedBytes:compressed.length};
+    compressedBytes+=compressed.length;if(compressedBytes>512*1024*1024)throw Error('本次新增压缩数据超过 512 MiB 上限');
+    await fs.promises.writeFile(path.join(stage,sha256+'.gz64'),text,{mode:0o600});objects.set(sha256,{chunk,textBytes:text.length});chunks.push(chunk);uploadBytes+=text.length;
+   }
+   if(Date.now()-last>250){last=Date.now();this.progress('正在准备变化的数据块',chunks.length,Math.ceil(bytes/BLOCK));}
+  }}finally{await input.close();}
+  if(chunks.every(c=>c.blob))base=null;
+  const manifest={version:2,blockSize:BLOCK,bytes,sha256:digest.digest('hex'),fingerprint:null,chunks,...(base?{base}:{})};
+  validateManifest(manifest);
+  return {nextManifest:manifest,newObjects:[...objects.values()].map(o=>o.chunk),transfer:{format:'incremental-v2',totalBlocks:chunks.length,reusedBlocks:reused,uploadObjects:objects.size,uploadBytes,manifestBytes:Buffer.byteLength(json(manifest)),databaseBytes:bytes,migrating:previous?.version===1}};
  }
  async snapshot(){
   if(fs.statSync(this.config().dbPath).size>MAX)throw Error('数据库超过当前快照上限（2 GiB）。');
@@ -136,35 +236,50 @@ class SyncEngine{
   const local=this.index(path.join(this.planDir,'local.db'));
   if(!other){other=manifest?this.index(cached):{notes:new Map(),settings:[]};if(manifest)this.cacheRemote(manifest,other);}
   const diff=changes(local,other);
-  const plan={id:crypto.randomUUID(),createdAt:Date.now(),configHash:hash(json(this.config())),localSignature:local.signature,localCount:local.notes.size,remoteSignature:other.signature||null,remote,manifest,changes:diff,metrics:{elapsedMs:Date.now()-started,remoteIndexReused:indexReused,downloadedChunks:this.downloadedChunks}};
+  const delta=diff.length?await this.prepareIncremental(manifest):{transfer:{format:'incremental-v2',uploadObjects:0,uploadBytes:0,manifestBytes:0,databaseBytes:fs.statSync(path.join(this.planDir,'local.db')).size}};
+  const plan={id:crypto.randomUUID(),createdAt:Date.now(),configHash:hash(json(this.config())),localSignature:local.signature,localCount:local.notes.size,remoteSignature:other.signature||null,remote,manifest,changes:diff,...delta,metrics:{elapsedMs:Date.now()-started,remoteIndexReused:indexReused,downloadedChunks:this.downloadedChunks}};
   fs.writeFileSync(path.join(this.planDir,'plan.json'),json(plan),{mode:0o600});
   return this.publicPlan(plan);
  }
- publicPlan(plan){return {id:plan.id,createdAt:plan.createdAt,changes:plan.changes,hasRemote:!!plan.manifest,repository:this.config().repository,localCount:plan.localCount??this.index(path.join(this.planDir,'local.db')).notes.size,remoteTime:plan.manifest?.createdAt||null,metrics:plan.metrics};}
+ publicPlan(plan){return {id:plan.id,createdAt:plan.createdAt,changes:plan.changes,hasRemote:!!plan.manifest,repository:this.config().repository,localCount:plan.localCount??this.index(path.join(this.planDir,'local.db')).notes.size,remoteTime:plan.manifest?.createdAt||null,metrics:plan.metrics,transfer:plan.transfer};}
  plan(id){let p;try{p=JSON.parse(fs.readFileSync(path.join(this.planDir,'plan.json'),'utf8'));}catch{throw Error('请先检查差异');}if(p.id!==id||Date.now()-p.createdAt>30*60*1000||p.configHash!==hash(json(this.config())))throw Error('差异预览已过期，请重新检查');return p;}
  detail(id,noteId){const p=this.plan(id);if(!p.changes.some(e=>e.id===noteId))throw Error('条目不在差异清单中');const read=file=>{if(!fs.existsSync(file))return null;const db=this.database(file);try{if(noteId==='@settings')return db.prepare('SELECT name FROM options ORDER BY name').all().map(r=>r.name).join('\n')+'\n（设置值不显示）';const n=db.prepare('SELECT n.title,n.type,n.mime,n.isProtected,b.content FROM notes n LEFT JOIN blobs b ON n.blobId=b.blobId WHERE n.noteId=? AND n.isDeleted=0').get(noteId);if(!n)return null;const meta=db.prepare('SELECT type,name,value,isInheritable FROM attributes WHERE noteId=? AND isDeleted=0 ORDER BY type,name').all(noteId);const text=n.isProtected?'（已加密，内容不预览）':n.type==='file'?'（二进制附件，保留原文件）':Buffer.isBuffer(n.content)?n.content.toString('utf8'):n.content||'';return json({title:n.title,type:n.type,mime:n.mime,attributes:meta})+'\n\n'+text.slice(0,50000)+(text.length>50000?'\n…预览截断，实际同步使用完整数据库':'');}finally{db.close();}};return {local:read(path.join(this.planDir,'local.db')),remote:read(path.join(this.planDir,'remote.db'))};}
  async confirm(id,direction){const p=this.plan(id);if(this.index(this.config().dbPath).signature!==p.localSignature)throw Error('预览后本地又有修改，请重新检查差异');this.auth=await this.token();const remote=await this.remote();if(remote.head!==p.remote.head)throw Error('远端已有新提交，请重新检查差异');if(direction==='upload')return this.upload(p);if(direction==='restore')return this.restore(p);throw Error('请选择上传或恢复');}
  async upload(p){
+  if(!p.changes.length)return {ok:true,action:'noop',message:'没有内容变化，无需上传。',uploadedObjects:0,uploadedBytes:0};
+  if(!p.nextManifest||!Array.isArray(p.newObjects))throw Error('同步格式已更新，请重新检查差异后确认');
+  const manifest=validateManifest({...p.nextManifest,createdAt:new Date().toISOString(),fingerprint:p.localSignature});
   let {head,branch}=p.remote;
-  const local=path.join(this.planDir,'local.db'),compressedFile=local+'.gz',bytes=fs.statSync(local).size;
-  if(bytes>MAX)throw Error('数据库超过当前快照上限（2 GiB）。');
-  this.progress('正在压缩数据库');const digest=crypto.createHash('sha256');let compressedBytes=0;
-  const input=new Transform({transform(chunk,encoding,callback){digest.update(chunk);callback(null,chunk);}});
-  const limit=new Transform({transform(chunk,encoding,callback){compressedBytes+=chunk.length;if(compressedBytes>512*1024*1024)return callback(Error('压缩快照超过当前上限（512 MiB）。'));callback(null,chunk);}});
-  await pipeline(fs.createReadStream(local),input,zlib.createGzip(),limit,fs.createWriteStream(compressedFile,{mode:0o600}));
-  const sha256=digest.digest('hex'),chunks=[],tree=[],known=new Map((p.manifest?.chunks||[]).map(c=>[c.sha256,c.blob]));let done=0,reused=0;
-  if(!head){await this.request('PUT','/contents/README.md',{message:'Initialize private Trilium snapshot storage',content:Buffer.from('# Private Trilium snapshots\n\nManaged by the Myosotis GitHub database sync plugin. Restore through its verified difference preview.\n').toString('base64'),branch});head=(await this.remote()).head;}
-  const file=await fs.promises.open(compressedFile,'r'),offsets=Array.from({length:Math.ceil(compressedBytes/CHUNK)},(_,i)=>i*CHUNK);
-  try{await parallel(offsets,3,async(offset,i)=>{
-   const data=await readChunk(file,offset,Math.min(CHUNK,compressedBytes-offset)),chunkHash=hash(data);let blob=known.get(chunkHash);
-   if(blob)reused++;else blob=(await this.request('POST','/git/blobs',{encoding:'base64',content:data.toString('base64')})).sha;
-   chunks[i]={blob,sha256:chunkHash};tree[i]={path:'trilium-sync/v1/objects/'+chunkHash,mode:'100644',type:'blob',sha:blob};this.progress('正在上传或复用快照分块',++done,offsets.length);
-  });}finally{await file.close();}
-  this.progress('正在提交版本记录',chunks.length,chunks.length);
-  const manifest={version:1,createdAt:new Date().toISOString(),bytes,compressedBytes,sha256,fingerprint:p.localSignature,chunks};
-  const blob=await this.request('POST','/git/blobs',{encoding:'utf-8',content:json(manifest)});tree.push({path:'trilium-sync/v1/latest.json',mode:'100644',type:'blob',sha:blob.sha});
-  const commit=await this.request('GET','/git/commits/'+head),newTree=await this.request('POST','/git/trees',{base_tree:commit.tree.sha,tree}),newCommit=await this.request('POST','/git/commits',{message:'Trilium snapshot: '+p.changes.length+' changed entries',tree:newTree.sha,parents:[head]});
-  await this.request('PATCH','/git/refs/heads/'+encodeURIComponent(branch),{sha:newCommit.sha,force:false});const result={ok:true,action:'upload',commit:newCommit.sha,time:new Date().toISOString(),bytes,reusedChunks:reused,uploadedChunks:chunks.length-reused};this.write('last-result.json',result);fs.unlinkSync(path.join(this.planDir,'plan.json'));await fs.promises.unlink(compressedFile).catch(()=>{});return result;
+  if(!head){await this.request('PUT','/contents/README.md',{message:'Initialize private Trilium incremental storage',content:Buffer.from('# Private Trilium backups\n\nManaged by the Myosotis incremental sync plugin. Compare and confirm changes before upload or restore.\n').toString('base64'),branch});head=(await this.remote()).head;}
+  const parent=await this.request('GET','/git/commits/'+head);let treeSha=parent.tree.sha,batch=[],batchBytes=0,uploaded=0;
+  const flush=async()=>{
+   if(!batch.length)return;
+   this.progress('正在提交变化的数据块',uploaded,p.newObjects.length);
+   const next=await this.request('POST','/git/trees',{base_tree:treeSha,tree:batch.map(e=>({path:e.path,mode:'100644',type:'blob',content:e.content}))});
+   for(const entry of batch){const saved=next.tree?.find(e=>e.path===entry.path);if(saved&&saved.sha!==entry.sha)throw Error('GitHub 增量对象校验失败');}
+   treeSha=next.sha;uploaded+=batch.length;batch=[];batchBytes=0;
+   this.progress('正在提交变化的数据块',uploaded,p.newObjects.length);
+  };
+  for(const c of p.newObjects){
+   if(!/^[a-f0-9]{64}$/.test(c.sha256)||!/^[a-f0-9]{40}$/.test(c.blob))throw Error('增量预览对象无效，请重新检查');
+   const content=await fs.promises.readFile(path.join(this.planDir,'delta',c.sha256+'.gz64'),'ascii');
+   if(content.length>2*(BLOCK+65536)||gitBlobHash(content)!==c.blob)throw Error('暂存增量块已变化，请重新检查差异');
+   if(batchBytes+content.length>TREE_BATCH)await flush();
+   batch.push({path:'trilium-sync/v2/objects/'+c.sha256,sha:c.blob,content});batchBytes+=content.length;
+  }
+  await flush();
+  const manifestText=json(manifest),manifestTree=await this.request('POST','/git/trees',{base_tree:treeSha,tree:[{path:'trilium-sync/v1/latest.json',mode:'100644',type:'blob',content:manifestText}]});
+  const commit=await this.request('POST','/git/commits',{message:'Trilium incremental: '+p.changes.length+' changed entries; '+uploaded+' new blocks',tree:manifestTree.sha,parents:[head]});
+  await this.request('PATCH','/git/refs/heads/'+encodeURIComponent(branch),{sha:commit.sha,force:false});
+  const result={ok:true,action:'upload',format:'incremental-v2',commit:commit.sha,time:new Date().toISOString(),bytes:manifest.bytes,databaseBytes:manifest.bytes,uploadedObjects:uploaded,uploadedBytes:p.transfer.uploadBytes,manifestBytes:Buffer.byteLength(manifestText),reusedBlocks:p.transfer.reusedBlocks,totalBlocks:manifest.chunks.length};
+  this.write('last-result.json',result);fs.unlinkSync(path.join(this.planDir,'plan.json'));
+  // Warming a local cache must not turn a successful remote commit into an error.
+  try{
+   const target=path.join(this.planDir,'remote.db'),tmp=target+'.uploaded';await fs.promises.copyFile(path.join(this.planDir,'local.db'),tmp);
+   for(const suffix of ['-wal','-shm'])await fs.promises.unlink(target+suffix).catch(()=>{});
+   await fs.promises.rename(tmp,target);this.cacheRemote(manifest,this.index(target));
+  }catch{result.cacheWarm=false;}
+  return result;
  }
  restore(p){
   if(!p.manifest)throw Error('远端还没有数据库快照');if(path.resolve(this.config().dbPath).toLowerCase()!==path.resolve(this.activeDbPath).toLowerCase())throw Error('请在目标数据库对应的 Trilium 实例中执行恢复');
