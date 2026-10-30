@@ -6,6 +6,7 @@ ROOT=Path(__file__).resolve().parents[1]
 COMPONENTS=[
  ('GhSyncSvc001','GitHub 同步服务','application/javascript;env=backend','customizations/backend/github-sync-service.js',None),
  ('GhSyncEngine1','GitHub 快照与差异引擎','application/javascript;env=backend','customizations/github-sync/engine.cjs',None),
+ ('GhSyncWorker1','GitHub 独立工作线程','application/javascript;env=backend','customizations/github-sync/worker.cjs',None),
  ('GhSyncRestore1','GitHub 关闭后恢复助手','text/x-python','customizations/github-sync/restore-worker.py',None),
  ('GhSyncUI0001','GitHub 同步界面','text/jsx','customizations/frontend/github-sync.jsx',None),
  ('GhSyncCSS001','GitHub 同步样式','text/css','customizations/frontend/github-sync.css','appCss'),

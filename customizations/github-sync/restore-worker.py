@@ -6,18 +6,30 @@ from contextlib import closing
 LOCAL_OPTIONS=set('openNoteContexts documentId documentSecret instanceId lastSyncedPush lastSyncedPull lastDailyBackupDate lastWeeklyBackupDate lastMonthlyBackupDate rightPaneWidth leftPaneWidth rightPaneVisible leftPaneVisible rightPaneSelectedTab'.split())
 def encoded(value):return json.dumps(value,ensure_ascii=False,separators=(',',':')).encode('utf-8')
 def digest(value):return hashlib.sha256(value.encode('utf-8') if isinstance(value,str) else value or b'').hexdigest()
+
+def digest_stream(stream):
+ value=hashlib.sha256()
+ for chunk in iter(lambda:stream.read(1024*1024),b''):value.update(chunk)
+ return value.hexdigest()
+
+def digest_file(file):
+ with open(file,'rb') as stream:return digest_stream(stream)
 def fingerprint(file):
  with closing(sqlite3.connect(pathlib.Path(file).resolve().as_uri()+'?mode=ro',uri=True)) as db:
-  db.row_factory=sqlite3.Row;db.execute('BEGIN');notes=[];attrs={};branches={};attachments={}
-  for a in db.execute('SELECT a.ownerId,a.title,a.mime,a.position,a.role,a.isProtected,b.content FROM attachments a LEFT JOIN blobs b ON b.blobId=a.blobId WHERE a.isDeleted=0 ORDER BY a.attachmentId'):
-   attachments.setdefault(a['ownerId'],[]).append([a['title'],a['mime'],a['position'],a['role'],a['isProtected'],digest(a['content'])])
+  db.row_factory=sqlite3.Row;db.execute('BEGIN');notes=[];attrs={};branches={};attachments={};blob_hashes={}
+  def blob_hash(id):
+   if id not in blob_hashes:
+    row=db.execute('SELECT content FROM blobs WHERE blobId=?',(id,)).fetchone();blob_hashes[id]=digest(row[0] if row else None)
+   return blob_hashes[id]
+  for a in db.execute('SELECT a.ownerId,a.title,a.mime,a.position,a.role,a.isProtected,a.blobId FROM attachments a JOIN notes n ON n.noteId=a.ownerId AND n.isDeleted=0 WHERE a.isDeleted=0 ORDER BY a.attachmentId'):
+   attachments.setdefault(a['ownerId'],[]).append([a['title'],a['mime'],a['position'],a['role'],a['isProtected'],blob_hash(a['blobId'])])
   for a in db.execute('SELECT noteId,type,name,value,isInheritable,position FROM attributes WHERE isDeleted=0 ORDER BY noteId,type,name,value,position'):
    attrs.setdefault(a['noteId'],[]).append([a['type'],a['name'],a['value'],a['isInheritable'],a['position']])
   for b in db.execute('SELECT noteId,parentNoteId,prefix,notePosition FROM branches WHERE isDeleted=0 ORDER BY noteId,parentNoteId,prefix,notePosition'):
    branches.setdefault(b['noteId'],[]).append([b['parentNoteId'],b['prefix'],b['notePosition']])
-  for n in db.execute('SELECT n.noteId,n.title,n.type,n.mime,n.isProtected,b.content FROM notes n LEFT JOIN blobs b ON b.blobId=n.blobId WHERE n.isDeleted=0 ORDER BY n.noteId'):
+  for n in db.execute('SELECT noteId,title,type,mime,isProtected,blobId FROM notes WHERE isDeleted=0 ORDER BY noteId'):
    meta={'title':n['title'],'type':n['type'],'mime':n['mime'],'isProtected':n['isProtected'],'attributes':attrs.get(n['noteId'],[]),'branches':branches.get(n['noteId'],[]),'attachments':attachments.get(n['noteId'],[])}
-   notes.append([n['noteId'],digest(encoded([meta,digest(n['content'])]))])
+   notes.append([n['noteId'],digest(encoded([meta,blob_hash(n['blobId'])]))])
   settings=[dict(o) for o in db.execute('SELECT name,value,isSynced FROM options ORDER BY name') if o['name'] not in LOCAL_OPTIONS and not re.match(r'last|sync|backup|window|zoom|electron|recent',o['name'],re.I)]
   return digest(encoded([notes,settings]))
 def alive(pid):
@@ -51,14 +63,14 @@ def restore(job_file):
    if not alive(job['pid']):break
    time.sleep(1)
   if alive(job['pid']):raise RuntimeError('Trilium 仍未关闭，恢复已取消，请重新检查差异。')
-  if digest(source.read_bytes())!=job['sha256']:raise RuntimeError('暂存快照已变化，已取消恢复。')
-  before=digest(target.read_bytes())
+  if digest_file(source)!=job['sha256']:raise RuntimeError('暂存快照已变化，已取消恢复。')
+  before=digest_file(target)
   if fingerprint(target)!=job['localSignature']:raise RuntimeError('确认后本地内容又有变化，已取消恢复以保留新修改。')
   with exclusive(target) as locked:
-   if digest(locked.read())!=before:raise RuntimeError('恢复前数据库再次变化，已取消恢复。')
+   if digest_stream(locked)!=before:raise RuntimeError('恢复前数据库再次变化，已取消恢复。')
    backup=root/'backups'/dt.datetime.now(dt.timezone.utc).strftime('%Y%m%dT%H%M%S-%f');backup.mkdir(parents=True)
    temporary=target.with_name(target.name+'.myosotis-restore.tmp');shutil.copyfile(source,temporary)
-   if digest(temporary.read_bytes())!=job['sha256']:raise RuntimeError('恢复文件复制校验失败。')
+   if digest_file(temporary)!=job['sha256']:raise RuntimeError('恢复文件复制校验失败。')
    for suffix in ('','-wal','-shm'):
     original=pathlib.Path(str(target)+suffix)
     if original.exists():destination=backup/('document.db'+suffix);os.replace(original,destination);moved.append((original,destination))

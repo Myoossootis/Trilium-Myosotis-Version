@@ -39,7 +39,7 @@ def assemble(runtime,seed,target):
  if forbidden:raise ValueError('Unexpected runtime state: '+str(forbidden[0]))
  files=[f for f in target.rglob('*') if f.is_file() and '.git' not in f.relative_to(target).parts and f.name!='PACKAGE-MANIFEST.json']
  manifest={f.relative_to(target).as_posix():hashlib.sha256(f.read_bytes()).hexdigest() for f in files}
- (target/'PACKAGE-MANIFEST.json').write_text(json.dumps({'version':'0.105.0-myosotis.20261030','files':manifest},indent=2),encoding='utf8')
+ (target/'PACKAGE-MANIFEST.json').write_text(json.dumps({'version':'0.105.0-myosotis.20261030.1','files':manifest},indent=2),encoding='utf8')
  return len(files)
 
 def archive(target,output):
